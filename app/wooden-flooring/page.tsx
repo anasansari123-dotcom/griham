@@ -2,9 +2,9 @@ import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
 
 const items = [
-  { title: "Natural Oak", image: "https://images.unsplash.com/photo-1616047006789-b7af6f6d2b4f?auto=format&fit=crop&w=900&q=80" },
+  { title: "Natural Oak", image: "/images/wooden-flooring/natural-oak.png" },
   { title: "Walnut Matte", image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80" },
-  { title: "Teak Rustic", image: "https://images.unsplash.com/photo-1582582429416-55f84f4a9a06?auto=format&fit=crop&w=900&q=80" },
+  { title: "Teak Rustic", image: "/images/wooden-flooring/teak-rustic.png" },
 ];
 
 export default function WoodenFlooringPage() {

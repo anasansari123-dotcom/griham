@@ -16,7 +16,7 @@ export default function Card({ title, image, subtitle }: Props) {
       transition={{ duration: 0.25 }}
       className="group overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/90 shadow-sm hover:shadow-xl"
     >
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-44 overflow-hidden sm:h-56">
         <Image
           src={image}
           alt={title}

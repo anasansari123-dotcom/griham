@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
-import { homeCategories } from "@/lib/siteData";
+import { homeCollectionCategories, homeShopCategories } from "@/lib/siteData";
 
 export default function Home() {
-  const collectionItems = homeCategories;
+  const collectionItems = homeCollectionCategories;
 
   return (
     <div className="space-y-14 pb-20">
@@ -95,7 +95,7 @@ export default function Home() {
       <SectionWrapper>
         <h2 className="mb-6 text-3xl font-semibold">Shop by category</h2>
         <div className="grid gap-6 md:grid-cols-3">
-          {homeCategories.map((item) => (
+          {homeShopCategories.map((item) => (
             <Link key={item.name} href={item.href}>
               <Card title={item.name} image={item.image} subtitle="View collection" />
             </Link>
