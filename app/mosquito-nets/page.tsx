@@ -1,22 +1,42 @@
-import Card from "@/components/Card";
-import SectionWrapper from "@/components/SectionWrapper";
+import CategoryPageTemplate from "@/components/CategoryPageTemplate";
 
 const items = [
-  { title: "Sliding Mesh Shield", image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80" },
-  { title: "Invisible Window Net", image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=80" },
-  { title: "Premium Door Net", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" },
+  { title: "Accent Decor Set", subtitle: "Vases, frames, and soft accents", image: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=900&q=80" },
+  { title: "Statement Decor Corner", subtitle: "Layered premium styling", image: "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?auto=format&fit=crop&w=900&q=80" },
+  { title: "Functional Decor Pairing", subtitle: "Style with utility balance", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" },
 ];
 
 export default function MosquitoNetsPage() {
   return (
-    <SectionWrapper className="mx-auto max-w-7xl px-6 py-14">
-      <h1 className="mb-6 text-4xl font-semibold">Mosquito Nets</h1>
-      <p className="-mt-4 mb-8 max-w-2xl text-sm text-[#1F3D3B]/75 sm:text-base">
-        Sleek, breathable net solutions for windows and doors—designed for airflow, easy maintenance, and reliable protection for everyday living.
-      </p>
-      <div className="grid gap-6 md:grid-cols-3">
-        {items.map((item) => <Card key={item.title} title={item.title} image={item.image} />)}
-      </div>
-    </SectionWrapper>
+    <CategoryPageTemplate
+      title="Home Decor"
+      subtitle="Curated decor pieces and styling combinations that complete your home with warmth, character, and a cohesive premium look."
+      badges={["Curated styling", "Modern + classic themes", "Space-smart decor", "Custom recommendation"]}
+      highlights={[
+        "Adds personality and finishing touch to every room.",
+        "Helps tie furniture, walls, and fabrics into one design language.",
+        "Layered styling options from minimal to luxury aesthetics.",
+      ]}
+      idealFor={[
+        "Living room corners and console styling.",
+        "Bedroom side-table and dresser decor plans.",
+        "Dining, entry foyer, and statement shelf styling.",
+      ]}
+      items={items}
+      faqs={[
+        {
+          question: "Can you suggest decor based on existing furniture?",
+          answer: "Yes, our decor picks are matched to your current furniture, wall finishes, and color palette.",
+        },
+        {
+          question: "Do you provide complete room styling?",
+          answer: "Yes, we can curate decor combinations for individual rooms or full-home themes.",
+        },
+        {
+          question: "Will decor recommendations fit my budget?",
+          answer: "Yes, we provide tiered recommendations across practical, premium, and luxury ranges.",
+        },
+      ]}
+    />
   );
 }

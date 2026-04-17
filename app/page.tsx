@@ -4,6 +4,72 @@ import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
 import { homeCollectionCategories, homeShopCategories } from "@/lib/siteData";
 
+const trustPoints = [
+  { value: "500+", label: "Premium Projects" },
+  { value: "24/7", label: "Design Support" },
+  { value: "10Y", label: "Craft Promise" },
+];
+
+const uspItems = [
+  { title: "Premium Quality", desc: "We use high-grade materials that stay beautiful for years." },
+  { title: "Made to Measure", desc: "Every product can be tailored to your room size and style." },
+  { title: "Expert Installation", desc: "Skilled teams ensure clean fitting and finishing." },
+  { title: "Transparent Pricing", desc: "Clear package options and no hidden surprises." },
+];
+
+const processSteps = [
+  {
+    title: "Share Your Requirements",
+    desc: "Tell us your room size, budget, and preferred look so we can shortlist relevant options.",
+  },
+  {
+    title: "Get Curated Recommendations",
+    desc: "Receive category-wise suggestions across curtains, wallpapers, panels, sofas, beds, decor, mattresses, and flooring.",
+  },
+  {
+    title: "Approve and Install",
+    desc: "Finalize materials, timeline, and pricing, then our team handles delivery and installation.",
+  },
+];
+
+const roomPlans = [
+  {
+    room: "Living Room",
+    details: "Sofa + curtains + wall finishes for a balanced premium look with practical comfort.",
+  },
+  {
+    room: "Bedroom",
+    details: "Beds, mattresses, blackout curtains, and soft textures for restful and elegant spaces.",
+  },
+  {
+    room: "Study / Home Office",
+    details: "Focused wallpaper tones, acoustic-friendly panels, and flooring choices that reduce fatigue.",
+  },
+  {
+    room: "Whole Home",
+    details: "A single design language across all rooms with coordinated materials and finish palettes.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Can I choose only one category, like curtains?",
+    a: "Yes. You can start with a single category or combine multiple categories as a complete home package.",
+  },
+  {
+    q: "Do you provide custom sizing?",
+    a: "Yes. Most products are available in made-to-measure options based on your room measurements.",
+  },
+  {
+    q: "How long does installation take?",
+    a: "Timelines depend on scope, but small upgrades are usually faster while full-home packages are scheduled phase-wise.",
+  },
+  {
+    q: "Do you help with style matching?",
+    a: "Absolutely. Our team curates options around your taste, existing furniture, and budget target.",
+  },
+];
+
 export default function Home() {
   const collectionItems = homeCollectionCategories;
 
@@ -29,10 +95,10 @@ export default function Home() {
               Premium eco interiors
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
-              Transform your home into a nature-inspired luxury sanctuary.
+              Premium home interiors, curated category by category.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
-              From curated curtains to made-to-measure sofas, GRIHAM blends earthy aesthetics, modern elegance, and premium craftsmanship.
+              Explore curtains, wallpapers, wall panels, sofa, beds, home decor, mattress, and wooden flooring with one coordinated design partner.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/sofa" className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
@@ -42,12 +108,19 @@ export default function Home() {
                 Book Free Consultation
               </Link>
             </div>
+            <div className="mt-6 flex max-w-4xl flex-wrap gap-2">
+              {collectionItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="rounded-full border border-white/35 bg-white/10 px-4 py-1.5 text-sm text-white/95 backdrop-blur-sm transition hover:bg-white hover:text-[#1F3D3B]"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
             <div className="mt-8 grid max-w-2xl grid-cols-3 gap-3">
-              {[
-                { value: "500+", label: "Premium Projects" },
-                { value: "24/7", label: "Design Support" },
-                { value: "10Y", label: "Craft Promise" },
-              ].map((item) => (
+              {trustPoints.map((item) => (
                 <div key={item.label} className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
                   <p className="text-xl font-semibold text-[#F4A300]">{item.value}</p>
                   <p className="text-xs uppercase tracking-wider text-white/80">{item.label}</p>
@@ -59,89 +132,142 @@ export default function Home() {
       </SectionWrapper>
 
       <div className="mx-auto max-w-7xl space-y-20 px-6">
-      <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Our Collection</p>
-        <h2 className="mt-2 text-center text-4xl font-semibold">Everything You Need for a Beautiful Home</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
-          {collectionItems.map((item) => (
-            <Link key={item.name} href={item.href} className="group rounded-xl border border-[#1F3D3B]/10 bg-white p-2 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-              <div className="relative h-28 overflow-hidden rounded-lg">
-                <Image src={item.image} alt={item.name} fill className="object-cover transition group-hover:scale-105" />
-              </div>
-              <h3 className="mt-3 text-sm font-semibold text-[#1F3D3B]">{item.name}</h3>
-              <p className="text-xs text-[#1F3D3B]/65">Explore</p>
-            </Link>
-          ))}
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper className="grid gap-4 rounded-2xl border border-[#1F3D3B]/10 bg-white/70 p-6 md:grid-cols-4">
-        {[
-          { title: "Premium Quality", desc: "We use the finest materials for long lasting durability." },
-          { title: "Custom Designs", desc: "Tailor-made solutions that match your style perfectly." },
-          { title: "Expert Craftsmanship", desc: "Skilled professionals ensuring flawless finishing." },
-          { title: "Affordable Luxury", desc: "Premium style and quality at the best prices." },
-        ].map((usp) => (
-          <div key={usp.title} className="flex items-start gap-3 rounded-xl bg-[#FAF9F6] p-4">
-            <div className="mt-1 h-9 w-9 rounded-full bg-[#1F3D3B] text-center text-lg leading-9 text-[#F4A300]">✦</div>
-            <div>
-              <h3 className="font-semibold">{usp.title}</h3>
-              <p className="mt-1 text-xs text-[#1F3D3B]/70">{usp.desc}</p>
-            </div>
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Our Collection</p>
+          <h2 className="mt-2 text-center text-4xl font-semibold">Everything You Need for a Beautiful Home</h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+            {collectionItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                aria-label={`View ${item.name} collection`}
+                className="group rounded-xl border border-[#1F3D3B]/10 bg-white p-2 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="relative h-28 overflow-hidden rounded-lg">
+                  <Image src={item.image} alt={item.alt} fill className="object-cover transition group-hover:scale-105" />
+                </div>
+                <h3 className="mt-3 text-sm font-semibold text-[#1F3D3B]">{item.name}</h3>
+                <p className="text-xs text-[#1F3D3B]/65">View Collection</p>
+              </Link>
+            ))}
           </div>
-        ))}
-      </SectionWrapper>
+        </SectionWrapper>
 
-      <SectionWrapper>
-        <h2 className="mb-6 text-3xl font-semibold">Shop by category</h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          {homeShopCategories.map((item) => (
-            <Link key={item.name} href={item.href}>
-              <Card title={item.name} image={item.image} subtitle="View collection" />
+        <SectionWrapper className="grid gap-4 rounded-2xl border border-[#1F3D3B]/10 bg-white/70 p-6 md:grid-cols-4">
+          {uspItems.map((usp) => (
+            <div key={usp.title} className="flex items-start gap-3 rounded-xl bg-[#FAF9F6] p-4">
+              <div className="mt-1 h-9 w-9 rounded-full bg-[#1F3D3B] text-center text-lg leading-9 text-[#F4A300]">✦</div>
+              <div>
+                <h3 className="font-semibold">{usp.title}</h3>
+                <p className="mt-1 text-xs text-[#1F3D3B]/70">{usp.desc}</p>
+              </div>
+            </div>
+          ))}
+        </SectionWrapper>
+
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-[#1F3D3B] p-8 text-white">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">How it works</p>
+          <h2 className="mt-2 text-3xl font-semibold">Simple consultation to installation workflow</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {processSteps.map((step, index) => (
+              <div key={step.title} className="rounded-2xl border border-white/15 bg-white/5 p-5">
+                <p className="text-xs uppercase tracking-[0.22em] text-[#F4A300]">Step {index + 1}</p>
+                <h3 className="mt-2 text-lg font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm text-white/80">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </SectionWrapper>
+
+        <SectionWrapper>
+          <h2 className="mb-2 text-3xl font-semibold">Shop by category</h2>
+          <p className="mb-6 text-[#1F3D3B]/70">
+            Compare visual styles, textures, and room fit before booking consultation.
+          </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            {homeShopCategories.map((item) => (
+              <Link key={item.name} href={item.href}>
+                <Card title={item.name} image={item.image} alt={item.alt} subtitle="View Collection" />
+              </Link>
+            ))}
+          </div>
+        </SectionWrapper>
+
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Room planning</p>
+              <h2 className="mt-2 text-3xl font-semibold">Build a complete look, room by room</h2>
+            </div>
+            <Link href="/book-consultation" className="rounded-full border border-[#1F3D3B]/20 px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#1F3D3B] hover:text-white">
+              Get a tailored recommendation
             </Link>
-          ))}
-        </div>
-      </SectionWrapper>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {roomPlans.map((plan) => (
+              <div key={plan.room} className="rounded-2xl bg-[#FAF9F6] p-5">
+                <h3 className="text-lg font-semibold text-[#1F3D3B]">{plan.room}</h3>
+                <p className="mt-2 text-sm text-[#1F3D3B]/75">{plan.details}</p>
+              </div>
+            ))}
+          </div>
+        </SectionWrapper>
 
-      <SectionWrapper>
-        <div className="mb-6">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Best reviews</p>
-          <h2 className="mt-2 text-3xl font-semibold">Trusted by premium homeowners</h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              quote: "Outstanding quality and finish. The curtains and sofa elevated our entire living room.",
-              name: "Priya S.",
-              rating: "5.0",
-            },
-            {
-              quote: "Very smooth consultation and installation. Designs were elegant, minimal, and exactly our style.",
-              name: "Arjun R.",
-              rating: "5.0",
-            },
-            {
-              quote: "GRIHAM delivered a luxury look with practical comfort. Highly recommended for premium interiors.",
-              name: "Neha K.",
-              rating: "4.9",
-            },
-          ].map((review) => (
-            <blockquote key={review.name} className="rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
-              <p className="text-[#F4A300]">{"★".repeat(5)} <span className="text-[#1F3D3B]/70">({review.rating})</span></p>
-              <p className="mt-3 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
-              <footer className="mt-4 text-sm font-semibold text-[#1F3D3B]">- {review.name}</footer>
-            </blockquote>
-          ))}
-        </div>
-      </SectionWrapper>
+        <SectionWrapper>
+          <div className="mb-6">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Best reviews</p>
+            <h2 className="mt-2 text-3xl font-semibold">Trusted by premium homeowners</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                quote: "Outstanding quality and finish. The curtains and sofa elevated our entire living room.",
+                name: "Priya S.",
+                rating: "5.0",
+              },
+              {
+                quote: "Very smooth consultation and installation. Designs were elegant, minimal, and exactly our style.",
+                name: "Arjun R.",
+                rating: "5.0",
+              },
+              {
+                quote: "GRIHAM delivered a luxury look with practical comfort. Highly recommended for premium interiors.",
+                name: "Neha K.",
+                rating: "4.9",
+              },
+            ].map((review) => (
+              <blockquote key={review.name} className="rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
+                <p className="text-[#F4A300]">{"★".repeat(5)} <span className="text-[#1F3D3B]/70">({review.rating})</span></p>
+                <p className="mt-3 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
+                <footer className="mt-4 text-sm font-semibold text-[#1F3D3B]">- {review.name}</footer>
+              </blockquote>
+            ))}
+          </div>
+        </SectionWrapper>
 
-      <SectionWrapper className="rounded-3xl bg-[#1F3D3B] p-10 text-center text-white">
-        <h2 className="text-3xl font-semibold">Ready to style your space with GRIHAM?</h2>
-        <p className="mt-3 text-white/75">Get personalized recommendations from our decor consultants.</p>
-        <Link href="/book-consultation" className="glow-button mt-6 inline-block rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
-          Start Your Design Journey
-        </Link>
-      </SectionWrapper>
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white p-8">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Quick answers</p>
+          <h2 className="mt-2 text-3xl font-semibold">Frequently asked questions</h2>
+          <div className="mt-6 space-y-3">
+            {faqs.map((faq) => (
+              <details key={faq.q} className="group rounded-xl border border-[#1F3D3B]/10 bg-[#FAF9F6] p-4">
+                <summary className="cursor-pointer list-none pr-6 text-sm font-semibold text-[#1F3D3B]">
+                  {faq.q}
+                  <span className="float-right text-[#F4A300] transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-2 text-sm text-[#1F3D3B]/75">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </SectionWrapper>
+
+        <SectionWrapper className="rounded-3xl bg-[#1F3D3B] p-10 text-center text-white">
+          <h2 className="text-3xl font-semibold">Ready to style your space with GRIHAM?</h2>
+          <p className="mt-3 text-white/75">Get personalized recommendations from our decor consultants.</p>
+          <Link href="/book-consultation" className="glow-button mt-6 inline-block rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
+            Start Your Design Journey
+          </Link>
+        </SectionWrapper>
       </div>
     </div>
   );

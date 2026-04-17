@@ -1,28 +1,54 @@
-import Image from "next/image";
-import SectionWrapper from "@/components/SectionWrapper";
+import CategoryPageTemplate from "@/components/CategoryPageTemplate";
 
 const items = [
-  "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80",
+  {
+    title: "Textured Luxe",
+    subtitle: "Depth-rich premium texture",
+    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Minimal Geometric",
+    subtitle: "Modern clean patterns",
+    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Classic Motif",
+    subtitle: "Elegant timeless designs",
+    image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80",
+  },
 ];
 
 export default function WallpapersPage() {
   return (
-    <SectionWrapper className="mx-auto max-w-7xl px-6 py-14">
-      <h1 className="mb-7 text-4xl font-semibold">Designer Wallpapers</h1>
-      <p className="-mt-4 mb-8 max-w-2xl text-sm text-[#1F3D3B]/75 sm:text-base">
-        Elevate your walls with premium textures, patterns, and finishes—perfect for feature walls, bedrooms, living rooms, and boutique spaces.
-      </p>
-      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-        {items.map((image, idx) => (
-          <div key={image} className="group relative mb-5 overflow-hidden rounded-2xl">
-            <Image src={image} alt={`Wallpaper ${idx + 1}`} width={700} height={1000} className="h-auto w-full transition duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-[#1F3D3B]/0 transition group-hover:bg-[#1F3D3B]/40" />
-          </div>
-        ))}
-      </div>
-    </SectionWrapper>
+    <CategoryPageTemplate
+      title="Wallpapers"
+      subtitle="Elevate your walls with premium textures, patterns, and designer finishes for feature walls, bedrooms, living rooms, and workspaces."
+      badges={["Moisture-resistant options", "Premium texture", "Designer patterns", "Professional installation"]}
+      highlights={[
+        "Instantly upgrades plain walls into statement surfaces.",
+        "Available in subtle, bold, and luxury themed design collections.",
+        "Low-maintenance finishes with durable color retention.",
+      ]}
+      idealFor={[
+        "Feature walls in living rooms and bedrooms.",
+        "Home office and studio backdrops.",
+        "Boutique interiors, cafes, and reception zones.",
+      ]}
+      items={items}
+      faqs={[
+        {
+          question: "Can wallpapers be used in rental homes?",
+          answer: "Yes, we can recommend options that are easier to replace while preserving the wall finish.",
+        },
+        {
+          question: "Do you help choose patterns based on room size?",
+          answer: "Yes, our team suggests scale and color combinations that match your room dimensions and lighting.",
+        },
+        {
+          question: "Are these easy to maintain?",
+          answer: "Most premium wallpapers are wipe-friendly and built for everyday maintenance.",
+        },
+      ]}
+    />
   );
 }

@@ -8,6 +8,7 @@ export type HomeCategoryItem = {
   name: string;
   href: string;
   image: string;
+  alt: string;
 };
 
 export const navGroups = [
@@ -18,8 +19,8 @@ export const navGroups = [
       { href: "/wallpapers", label: "Wallpapers" },
       { href: "/wall-panels", label: "Wall Panels" },
       { href: "/sofa", label: "Sofa" },
-      { href: "/cots", label: "Cots" },
-      { href: "/mosquito-nets", label: "Mosquito Nets" },
+      { href: "/cots", label: "Beds" },
+      { href: "/mosquito-nets", label: "Home Decor" },
       { href: "/mattress", label: "Mattress" },
       { href: "/wooden-flooring", label: "Wooden Flooring" },
     ],
@@ -28,26 +29,106 @@ export const navGroups = [
 
 // Small square tiles in the "Our Collection" grid
 export const homeCollectionCategories: HomeCategoryItem[] = [
-  { name: "Curtains", href: "/curtains", image: "/image_1.avif" },
-  { name: "Wallpapers", href: "/wallpapers", image: "/image_2.avif" },
-  { name: "Wall Panels", href: "/wall-panels", image: "/image_3.avif" },
-  { name: "Sofa", href: "/sofa", image: "/image_4.avif" },
-  { name: "Cots", href: "/cots", image: "/image_5.avif" },
-  { name: "Mosquito Nets", href: "/mosquito-nets", image: "/image_6.avif" },
-  { name: "Mattress", href: "/mattress", image: "/image_7.avif" },
-  { name: "Wooden Flooring", href: "/wooden-flooring", image: "/images/wooden-flooring/wooden-flooring-collection.jpg" },
+  {
+    name: "Curtains",
+    href: "/curtains",
+    image: "/image_1.avif",
+    alt: "Elegant beige window curtains in a bright living room",
+  },
+  {
+    name: "Wallpapers",
+    href: "/wallpapers",
+    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1000&q=80",
+    alt: "Decorative patterned wallpaper on a modern interior wall",
+  },
+  {
+    name: "Wall Panels",
+    href: "/wall-panels",
+    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1000&q=80",
+    alt: "Textured wall panel design in a contemporary home",
+  },
+  {
+    name: "Sofa",
+    href: "/sofa",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80",
+    alt: "Premium modern sofa in a living room setting",
+  },
+  {
+    name: "Beds",
+    href: "/cots",
+    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80",
+    alt: "Minimal wooden bed frame with upholstered headboard",
+  },
+  {
+    name: "Home Decor",
+    href: "/mosquito-nets",
+    image: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1000&q=80",
+    alt: "Flower vase and home decor accents on a table",
+  },
+  {
+    name: "Mattress",
+    href: "/mattress",
+    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1000&q=80",
+    alt: "Comfortable premium mattress on a styled bed setup",
+  },
+  {
+    name: "Wooden Flooring",
+    href: "/wooden-flooring",
+    image: "/images/wooden-flooring/wooden-flooring-collection.jpg",
+    alt: "Warm-tone wooden flooring in a modern interior",
+  },
 ];
 
 // Larger cards in "Shop by category" (can use different imagery)
 export const homeShopCategories: HomeCategoryItem[] = [
-  { name: "Curtains", href: "/curtains", image: "/image_1.avif" },
-  { name: "Wallpapers", href: "/wallpapers", image: "/image_2.avif" },
-  { name: "Wall Panels", href: "/wall-panels", image: "/image_3.avif" },
-  { name: "Sofa", href: "/sofa", image: "/image_4.avif" },
-  { name: "Cots", href: "/cots", image: "/image_5.avif" },
-  { name: "Mosquito Nets", href: "/mosquito-nets", image: "/image_6.avif" },
-  { name: "Mattress", href: "/mattress", image: "/image_7.avif" },
-  { name: "Wooden Flooring", href: "/wooden-flooring", image: "/images/wooden-flooring/wooden-flooring-collection.jpg" },
+  {
+    name: "Curtains",
+    href: "/curtains",
+    image: "/image_1.avif",
+    alt: "Elegant beige window curtains in a bright living room",
+  },
+  {
+    name: "Wallpapers",
+    href: "/wallpapers",
+    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=80",
+    alt: "Decorative patterned wallpaper on a modern interior wall",
+  },
+  {
+    name: "Wall Panels",
+    href: "/wall-panels",
+    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=80",
+    alt: "Textured wall panel design in a contemporary home",
+  },
+  {
+    name: "Sofa",
+    href: "/sofa",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+    alt: "Premium modern sofa in a living room setting",
+  },
+  {
+    name: "Beds",
+    href: "/cots",
+    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+    alt: "Minimal wooden bed frame with upholstered headboard",
+  },
+  {
+    name: "Home Decor",
+    href: "/mosquito-nets",
+    image: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80",
+    alt: "Flower vase and home decor accents on a table",
+  },
+  {
+    name: "Mattress",
+    href: "/mattress",
+    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80",
+    alt: "Comfortable premium mattress on a styled bed setup",
+  },
+  {
+    name: "Wooden Flooring",
+    href: "/wooden-flooring",
+    image: "/images/wooden-flooring/wooden-flooring-collection.jpg",
+    alt: "Warm-tone wooden flooring in a modern interior",
+  },
 ];
 
 // Backward-compatible alias used by older imports on the home page.
