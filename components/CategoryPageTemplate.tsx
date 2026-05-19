@@ -10,6 +10,7 @@ type ShowcaseItem = {
   title: string;
   image: string;
   subtitle?: string;
+  tag?: string;
 };
 
 type FeatureItem = {
@@ -36,6 +37,8 @@ type Props = {
   processSteps?: { title: string; desc: string }[];
   enableSearch?: boolean;
   searchPlaceholder?: string;
+  filters?: string[];
+  allItems?: ShowcaseItem[];
   reviews?: { quote: string; name: string; rating: string; meta?: string }[];
   faqs: { question: string; answer: string }[];
 };
@@ -54,16 +57,29 @@ export default function CategoryPageTemplate({
   processSteps = [],
   enableSearch = true,
   searchPlaceholder,
+  filters,
+  allItems,
   reviews = [],
   faqs,
 }: Props) {
   const [query, setQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState(filters?.[0] ?? "All");
   const normalizedQuery = query.trim().toLowerCase();
+  const normalizedActiveFilter = activeFilter.trim().toLowerCase();
 
   const filteredItems = useMemo(() => {
-    if (!enableSearch || !normalizedQuery) return items;
-    return items.filter((it) => `${it.title} ${it.subtitle ?? ""}`.toLowerCase().includes(normalizedQuery));
-  }, [enableSearch, items, normalizedQuery]);
+    const isAllFilter = filters?.length && normalizedActiveFilter === "all";
+    let result = isAllFilter && allItems?.length ? allItems : items;
+    if (filters?.length && !isAllFilter) {
+      result = items.filter((it) => it.tag?.trim().toLowerCase() === normalizedActiveFilter);
+    }
+    if (enableSearch && normalizedQuery) {
+      result = result.filter((it) =>
+        `${it.title} ${it.subtitle ?? ""} ${it.tag ?? ""}`.toLowerCase().includes(normalizedQuery),
+      );
+    }
+    return result;
+  }, [allItems, enableSearch, filters, items, normalizedActiveFilter, normalizedQuery]);
 
   return (
     <div className="mx-auto max-w-7xl space-y-10 px-6 py-10 md:space-y-14 md:py-14">
@@ -88,12 +104,39 @@ export default function CategoryPageTemplate({
         </div>
       </SectionWrapper>
 
+      <div className={filters?.length ? "grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]" : ""}>
+      {filters?.length ? (
+        <aside className="h-fit rounded-2xl border border-[#1F3D3B]/10 bg-white/80 p-4 md:p-5">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-sm uppercase tracking-widest text-[#1F3D3B]/70">Filters</h2>
+            <span className="text-xs text-[#1F3D3B]/50 md:hidden">Tap</span>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2 md:block md:space-y-2">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                className={`rounded-full border px-3 py-2 text-xs transition sm:px-4 sm:text-sm md:w-full md:rounded-xl md:text-left ${
+                  activeFilter === filter
+                    ? "border-[#F4A300] bg-[#F4A300]/10 text-[#1F3D3B]"
+                    : "border-[#1F3D3B]/10 hover:border-[#F4A300]"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </aside>
+      ) : null}
       <SectionWrapper>
         <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="text-3xl font-semibold">Popular Options</h2>
-            <p className="mt-2 max-w-2xl text-sm text-[#1F3D3B]/70">
-              Browse premium options and book a consultation for exact measurements, finishes, and pricing guidance.
+            <h2 className="text-2xl font-semibold sm:mb-6 sm:text-4xl">{filters?.length ? `Popular ${title} Styles` : "Popular Options"}</h2>
+            <p className="-mt-2 max-w-2xl text-sm text-[#1F3D3B]/75 sm:-mt-3 sm:text-base">
+              {filters?.length
+                ? "Filter by style to quickly find the right look for your living room, lounge, or complete home upgrade."
+                : "Browse premium options and book a consultation for exact measurements, finishes, and pricing guidance."}
             </p>
           </div>
           {enableSearch ? (
@@ -111,15 +154,28 @@ export default function CategoryPageTemplate({
             </div>
           ) : null}
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {filteredItems.map((item) => (
-            <Card key={item.title} title={item.title} image={item.image} subtitle={item.subtitle ?? "Premium Finish"} showConsultationButton />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {filteredItems.map((item, idx) => (
+            <Card
+              key={`${item.title}-${item.image}-${idx}`}
+              title={item.title}
+              image={item.image}
+              subtitle={item.tag ?? item.subtitle ?? "Premium Finish"}
+              showConsultationButton
+            />
           ))}
         </div>
-        {enableSearch && normalizedQuery && filteredItems.length === 0 ? (
-          <p className="mt-5 text-sm text-[#1F3D3B]/70">No results found for “{query}”.</p>
+        {filteredItems.length === 0 ? (
+          <p className="mt-5 text-sm text-[#1F3D3B]/70">
+            {enableSearch && normalizedQuery
+              ? `No results found for “${query}”.`
+              : filters?.length
+                ? `No ${title.toLowerCase()} found for this category yet.`
+                : null}
+          </p>
         ) : null}
       </SectionWrapper>
+      </div>
 
       {features.length ? (
         <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
