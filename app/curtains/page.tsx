@@ -2,6 +2,8 @@
 
 import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
+import TestimonialCard from "@/components/TestimonialCard";
+import { curtainsReviews } from "@/lib/testimonials";
 import { curtainsData } from "@/lib/siteData";
 import { useMemo, useState } from "react";
 import Image from "next/image";
@@ -70,7 +72,7 @@ export default function CurtainsPage() {
           ))}
         </div>
       </aside>
-      <SectionWrapper>
+      <div className="min-w-0">
         <h2 className="mb-4 text-2xl font-semibold sm:mb-6 sm:text-4xl">Popular Curtain Styles</h2>
         <p className="-mt-2 mb-6 max-w-2xl text-sm text-[#1F3D3B]/75 sm:-mt-3 sm:text-base">
           Filter by style to quickly find the right look for your living room, bedroom, or complete home upgrade.
@@ -83,7 +85,7 @@ export default function CurtainsPage() {
         {filteredCurtains.length === 0 ? (
           <p className="mt-5 text-sm text-[#1F3D3B]/70">No curtains found for this category yet.</p>
         ) : null}
-      </SectionWrapper>
+      </div>
       </div>
 
       <SectionWrapper className="grid gap-6 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 md:grid-cols-2">
@@ -146,56 +148,39 @@ export default function CurtainsPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper animate={false}>
         <div className="mb-6">
           <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Inspiration</p>
           <h2 className="mt-2 text-3xl font-semibold">Style gallery</h2>
         </div>
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-          {galleryImages.map((img) => (
-            <div key={img.src} className="group relative mb-5 overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/80 shadow-sm">
-              <Image src={img.src} alt={img.alt} width={900} height={1200} className="h-auto w-full transition duration-500 group-hover:scale-[1.03]" />
-              <div className="absolute inset-0 bg-[#1F3D3B]/0 transition group-hover:bg-[#1F3D3B]/10" />
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryImages.map((img, idx) => (
+            <div
+              key={`${img.src}-${idx}`}
+              className="group overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/80 shadow-sm"
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={900}
+                height={1200}
+                unoptimized={img.src.startsWith("/")}
+                loading="eager"
+                className="h-auto w-full transition duration-500 group-hover:scale-[1.03]"
+              />
             </div>
           ))}
         </div>
       </SectionWrapper>
 
-      <SectionWrapper>
+      <SectionWrapper animate={false}>
         <div className="mb-6">
           <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Reviews</p>
           <h2 className="mt-2 text-3xl font-semibold">What customers say</h2>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              quote: "The curtain fabric and fall look premium. Installation was quick and neat.",
-              name: "Priya S.",
-              rating: "5.0",
-              meta: "Curtains",
-            },
-            {
-              quote: "They suggested the right sheer + blackout layering for our bedroom. Perfect balance of light and privacy.",
-              name: "Arjun R.",
-              rating: "4.9",
-              meta: "Bedroom",
-            },
-            {
-              quote: "Great coordination with our wall colors and sofa. The room looks complete now.",
-              name: "Neha K.",
-              rating: "5.0",
-              meta: "Living room",
-            },
-          ].map((review) => (
-            <blockquote key={`${review.name}-${review.rating}-${review.meta}`} className="rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
-              <p className="text-[#F4A300]">
-                {"★".repeat(5)} <span className="text-[#1F3D3B]/70">({review.rating})</span>
-              </p>
-              <p className="mt-3 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
-              <footer className="mt-4 text-sm font-semibold text-[#1F3D3B]">
-                - {review.name} <span className="font-normal text-[#1F3D3B]/60">· {review.meta}</span>
-              </footer>
-            </blockquote>
+        <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
+          {curtainsReviews.map((review) => (
+            <TestimonialCard key={`${review.name}-${review.rating}-${review.meta}`} review={review} />
           ))}
         </div>
       </SectionWrapper>

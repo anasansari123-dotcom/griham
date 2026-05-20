@@ -13,6 +13,11 @@ export default function Navbar() {
   const textColor = scrolled ? "text-[#1F3D3B]" : "text-white";
   const navLinks = navGroups[0]?.links ?? [];
 
+  const isActiveLink = (href: string) => {
+    if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/");
+    return pathname === href;
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -79,7 +84,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`inline-flex h-10 items-center whitespace-nowrap rounded-full px-3 text-sm font-medium leading-none transition ${
-                  pathname === link.href
+                  isActiveLink(link.href)
                     ? "bg-[#F4A300]/20 text-[#F4A300]"
                     : `${textColor} hover:bg-white/10 hover:text-[#F4A300]`
                 }`}
@@ -109,7 +114,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
-                    pathname === link.href ? "bg-[#F4A300]/15 text-[#1F3D3B]" : "text-[#1F3D3B] hover:bg-[#1F3D3B]/5"
+                    isActiveLink(link.href) ? "bg-[#F4A300]/15 text-[#1F3D3B]" : "text-[#1F3D3B] hover:bg-[#1F3D3B]/5"
                   }`}
                 >
                   {link.label}

@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { wallpapersReviews } from "@/lib/testimonials";
 
 const items = [
   {
@@ -91,11 +92,7 @@ export default function WallpapersPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "The wallpaper recommendation was spot-on. It completely transformed our living room feature wall.", name: "Priya S.", rating: "5.0", meta: "Wallpapers" },
-        { quote: "Great finish and clean installation. The pattern choice looks premium and balanced with our furniture.", name: "Arjun R.", rating: "5.0", meta: "Feature wall" },
-        { quote: "Quick and professional. They helped us pick a design that suits the room size and lighting.", name: "Neha K.", rating: "4.9", meta: "Bedroom" },
-      ]}
+      reviews={wallpapersReviews}
       faqs={[
         {
           question: "Can wallpapers be used in rental homes?",

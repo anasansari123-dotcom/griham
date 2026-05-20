@@ -3,7 +3,9 @@
 import Link from "next/link";
 import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
-import Image from "next/image";
+import StyleGallery from "@/components/StyleGallery";
+import TestimonialCard from "@/components/TestimonialCard";
+import { withReviewAvatars, type ReviewItem } from "@/lib/testimonials";
 import { useMemo, useState } from "react";
 
 type ShowcaseItem = {
@@ -39,7 +41,9 @@ type Props = {
   searchPlaceholder?: string;
   filters?: string[];
   allItems?: ShowcaseItem[];
-  reviews?: { quote: string; name: string; rating: string; meta?: string }[];
+  enableProductPreview?: boolean;
+  productImageFit?: "cover" | "contain";
+  reviews?: ReviewItem[];
   faqs: { question: string; answer: string }[];
 };
 
@@ -59,6 +63,8 @@ export default function CategoryPageTemplate({
   searchPlaceholder,
   filters,
   allItems,
+  enableProductPreview = false,
+  productImageFit = "cover",
   reviews = [],
   faqs,
 }: Props) {
@@ -66,6 +72,8 @@ export default function CategoryPageTemplate({
   const [activeFilter, setActiveFilter] = useState(filters?.[0] ?? "All");
   const normalizedQuery = query.trim().toLowerCase();
   const normalizedActiveFilter = activeFilter.trim().toLowerCase();
+
+  const reviewItems = useMemo(() => withReviewAvatars(reviews), [reviews]);
 
   const filteredItems = useMemo(() => {
     const isAllFilter = filters?.length && normalizedActiveFilter === "all";
@@ -129,7 +137,7 @@ export default function CategoryPageTemplate({
           </div>
         </aside>
       ) : null}
-      <SectionWrapper>
+      <div className="min-w-0">
         <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="text-2xl font-semibold sm:mb-6 sm:text-4xl">{filters?.length ? `Popular ${title} Styles` : "Popular Options"}</h2>
@@ -154,14 +162,17 @@ export default function CategoryPageTemplate({
             </div>
           ) : null}
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div key={activeFilter} className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {filteredItems.map((item, idx) => (
             <Card
-              key={`${item.title}-${item.image}-${idx}`}
+              key={`${activeFilter}-${item.image}-${idx}`}
               title={item.title}
               image={item.image}
               subtitle={item.tag ?? item.subtitle ?? "Premium Finish"}
               showConsultationButton
+              enableImagePreview={enableProductPreview}
+              imageFit={productImageFit}
+              priorityImage={idx < 6}
             />
           ))}
         </div>
@@ -174,7 +185,7 @@ export default function CategoryPageTemplate({
                 : null}
           </p>
         ) : null}
-      </SectionWrapper>
+      </div>
       </div>
 
       {features.length ? (
@@ -260,47 +271,17 @@ export default function CategoryPageTemplate({
         </SectionWrapper>
       ) : null}
 
-      {galleryImages.length ? (
-        <SectionWrapper>
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Inspiration</p>
-            <h2 className="mt-2 text-3xl font-semibold">Style gallery</h2>
-          </div>
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-            {galleryImages.map((img) => (
-              <div key={img.src} className="group relative mb-5 overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/80 shadow-sm">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={900}
-                  height={1200}
-                  className="h-auto w-full transition duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-[#1F3D3B]/0 transition group-hover:bg-[#1F3D3B]/10" />
-              </div>
-            ))}
-          </div>
-        </SectionWrapper>
-      ) : null}
+      <StyleGallery images={galleryImages} />
 
-      {reviews.length ? (
-        <SectionWrapper>
+      {reviewItems.length ? (
+        <SectionWrapper animate={false}>
           <div className="mb-6">
             <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Reviews</p>
             <h2 className="mt-2 text-3xl font-semibold">What customers say</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {reviews.map((review) => (
-              <blockquote key={`${review.name}-${review.rating}-${review.quote.slice(0, 12)}`} className="rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
-                <p className="text-[#F4A300]">
-                  {"★".repeat(5)} <span className="text-[#1F3D3B]/70">({review.rating})</span>
-                </p>
-                <p className="mt-3 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
-                <footer className="mt-4 text-sm font-semibold text-[#1F3D3B]">
-                  - {review.name}
-                  {review.meta ? <span className="font-normal text-[#1F3D3B]/60"> · {review.meta}</span> : null}
-                </footer>
-              </blockquote>
+          <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
+            {reviewItems.map((review) => (
+              <TestimonialCard key={`${review.name}-${review.rating}-${review.quote.slice(0, 12)}`} review={review} />
             ))}
           </div>
         </SectionWrapper>

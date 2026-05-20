@@ -10,6 +10,13 @@ const steps = [
   "Schedule installation with our experts",
 ];
 
+const storeAddress =
+  "534 Shop 2 1st Cross A E C S B Block, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037";
+
+const mapQuery = encodeURIComponent(storeAddress);
+const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}&hl=en&z=16&output=embed`;
+const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+
 export default function BookConsultationPage() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -132,13 +139,14 @@ export default function BookConsultationPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper className="grid gap-8 md:grid-cols-2">
+      <SectionWrapper animate={false} className="grid gap-8 md:grid-cols-2">
         <div className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-7 shadow-md">
-          <h3 className="text-2xl font-semibold text-[#1F3D3B]">Visit Our Studio</h3>
-          <div className="mt-4 space-y-2 text-[#1F3D3B]/80">
-            <p>AECS Layout, Brookefield, Bengaluru</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Visit us</p>
+          <h3 className="mt-2 text-2xl font-semibold text-[#1F3D3B]">GRIHAM Studio Address</h3>
+          <address className="mt-4 space-y-3 text-sm not-italic leading-relaxed text-[#1F3D3B]/80">
+            <p>{storeAddress}</p>
             <p>
-              <a href="tel:+917022970608" className="hover:text-[#F4A300]">
+              <a href="tel:+917022970608" className="font-semibold text-[#1F3D3B] hover:text-[#F4A300]">
                 +91 7022970608
               </a>
             </p>
@@ -147,13 +155,21 @@ export default function BookConsultationPage() {
                 www.grihamdecor.in
               </a>
             </p>
-          </div>
+          </address>
+          <a
+            href={mapDirectionsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f]"
+          >
+            Get Directions
+          </a>
         </div>
-        <div className="overflow-hidden rounded-3xl border border-[#1F3D3B]/10 shadow-md">
+        <div className="overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/90 shadow-md">
           <iframe
-            title="GRIHAM Location Map"
-            src="https://maps.google.com/maps?q=AECS%20Layout%20Brookefield%20Bengaluru&t=&z=14&ie=UTF8&iwloc=&output=embed"
-            className="h-[320px] w-full"
+            title="GRIHAM studio location on Google Maps"
+            src={mapEmbedUrl}
+            className="h-64 w-full sm:h-80 md:h-full md:min-h-[320px]"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen

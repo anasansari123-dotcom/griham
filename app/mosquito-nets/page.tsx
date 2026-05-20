@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { homeDecorReviews } from "@/lib/testimonials";
 
 const items = [
   { title: "Accent Decor Set", subtitle: "Vases, frames, and soft accents", image: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=900&q=80" },
@@ -67,11 +68,7 @@ export default function MosquitoNetsPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "The decor suggestions made our living room feel complete. Everything looks curated and premium.", name: "Shreya M.", rating: "5.0", meta: "Home decor" },
-        { quote: "Great eye for styling. They matched pieces to our sofa and wall finish beautifully.", name: "Kiran P.", rating: "4.9", meta: "Room styling" },
-        { quote: "Simple, elegant and not cluttered. Perfect recommendations for a compact home.", name: "Naveen S.", rating: "5.0", meta: "Compact apartment" },
-      ]}
+      reviews={homeDecorReviews}
       faqs={[
         {
           question: "Can you suggest decor based on existing furniture?",

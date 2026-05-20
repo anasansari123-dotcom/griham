@@ -23,8 +23,21 @@ export const navGroups = [
       { href: "/mosquito-nets", label: "Home Decor" },
       { href: "/mattress", label: "Mattress" },
       { href: "/wooden-flooring", label: "Wooden Flooring" },
+      { href: "/blog", label: "Blog" },
     ],
   },
+];
+
+export const footerLinks = [
+  { href: "/curtains", label: "Curtains" },
+  { href: "/wallpapers", label: "Wallpapers" },
+  { href: "/wall-panels", label: "Wall Panels" },
+  { href: "/sofa", label: "Sofa" },
+  { href: "/cots", label: "Beds" },
+  { href: "/mosquito-nets", label: "Home Decor" },
+  { href: "/mattress", label: "Mattress" },
+  { href: "/wooden-flooring", label: "Wooden Flooring" },
+  { href: "/blog", label: "Blog" },
 ];
 
 // Small square tiles in the "Our Collection" grid

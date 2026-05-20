@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { woodenFlooringReviews } from "@/lib/testimonials";
 
 const items = [
   { title: "Natural Oak", subtitle: "Warm timeless grains", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" },
@@ -67,11 +68,7 @@ export default function WoodenFlooringPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "The flooring tone recommendation was perfect. It made our home feel warmer and more premium.", name: "Nithin K.", rating: "5.0", meta: "Wooden flooring" },
-        { quote: "Neat installation and great guidance on maintenance. The finish looks elegant.", name: "Lakshmi R.", rating: "4.9", meta: "Installation" },
-        { quote: "Quality is top-class. It matches our wall panels and furniture beautifully.", name: "Suresh P.", rating: "5.0", meta: "Living room" },
-      ]}
+      reviews={woodenFlooringReviews}
       faqs={[
         {
           question: "Is wooden flooring suitable for Indian weather?",

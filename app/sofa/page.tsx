@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { sofaReviews } from "@/lib/testimonials";
 
 type SofaItem = {
   title: string;
@@ -33,8 +34,20 @@ function shuffleWithSeed<T>(items: T[], seed: string): T[] {
   return shuffled;
 }
 
-function stripDesignNumber(title: string): string {
-  return title.replace(/\s+\d+$/, "");
+function buildModels(
+  images: string[],
+  captions: string[],
+  tag: string,
+  subtitle: string,
+  basePath: string,
+  encodeFileName = false,
+): SofaItem[] {
+  return images.map((file, index) => ({
+    title: captions[index] ?? captions[captions.length - 1],
+    subtitle,
+    tag,
+    image: `${basePath}/${encodeFileName ? encodeURIComponent(file) : file}`,
+  }));
 }
 
 function buildAllPreview(itemsByCategory: SofaItem[][]): SofaItem[] {
@@ -46,14 +59,8 @@ function buildAllPreview(itemsByCategory: SofaItem[][]): SofaItem[] {
   const preview = new Array(pairs.length * 2) as SofaItem[];
 
   categoryOrder.forEach((categoryIndex, position) => {
-    preview[position] = {
-      ...pairs[categoryIndex][0],
-      title: stripDesignNumber(pairs[categoryIndex][0].title),
-    };
-    preview[position + pairs.length] = {
-      ...pairs[categoryIndex][1],
-      title: stripDesignNumber(pairs[categoryIndex][1].title),
-    };
+    preview[position] = pairs[categoryIndex][0];
+    preview[position + pairs.length] = pairs[categoryIndex][1];
   });
 
   return preview;
@@ -85,12 +92,27 @@ const chesterfieldImages = [
   "chesterfield-design-11.jpg",
 ];
 
-const chesterfieldModels = chesterfieldImages.map((file, index) => ({
-  title: `Chesterfield Design ${index + 1}`,
-  subtitle: "Premium tufted Chesterfield",
-  tag: "Chesterfield",
-  image: `/chesterdfield/${file}`,
-}));
+const chesterfieldCaptions = [
+  "3 Seater Chesterfield",
+  "Tufted Chesterfield Sofa",
+  "Classic Leather Chesterfield",
+  "Premium Velvet Chesterfield",
+  "2 Seater Chesterfield",
+  "Deep Button Chesterfield",
+  "Modern Chesterfield Sofa",
+  "Royal Chesterfield Lounge",
+  "Brown Leather Chesterfield",
+  "Teal Chesterfield Set",
+  "Chesterfield with Ottoman",
+];
+
+const chesterfieldModels = buildModels(
+  chesterfieldImages,
+  chesterfieldCaptions,
+  "Chesterfield",
+  "Premium tufted Chesterfield",
+  "/chesterdfield",
+);
 
 const lShapeImages = [
   "0f9be19916a8fad53303d34d487af64d.jpg",
@@ -106,12 +128,21 @@ const lShapeImages = [
   "l-shape-design-11.jpg",
 ];
 
-const lShapeModels = lShapeImages.map((file, index) => ({
-  title: `L Shape Design ${index + 1}`,
-  subtitle: "Spacious corner seating",
-  tag: "L shape",
-  image: `/L shape/${encodeURIComponent(file)}`,
-}));
+const lShapeCaptions = [
+  "Corner L Shape Sofa",
+  "Modular L Shape Sectional",
+  "Compact L Shape Sofa",
+  "Family L Shape Sofa",
+  "Grey L Shape Lounge",
+  "Modern L Shape Sofa",
+  "Custom L Shape Sofa",
+  "Contemporary L Shape",
+  "Spacious L Shape Design",
+  "Living Room L Shape",
+  "Premium L Shape Sofa",
+];
+
+const lShapeModels = buildModels(lShapeImages, lShapeCaptions, "L shape", "Spacious corner seating", "/L shape", true);
 
 const luxuryCurvedImages = [
   "09dbe8dd0d3bfe1b8dc2fd0b15514c1d.jpg",
@@ -127,18 +158,34 @@ const luxuryCurvedImages = [
   "9e4192e2bf1a28497cb08f26076ab5c0.jpg",
 ];
 
-const luxuryCurvedModels = luxuryCurvedImages.map((file, index) => ({
-  title: `Luxury Curved Design ${index + 1}`,
-  subtitle: "Sculpted premium silhouette",
-  tag: "Luxury Curved",
-  image: `/Luxury curved/${encodeURIComponent(file)}`,
-}));
+const luxuryCurvedCaptions = [
+  "Curved Luxury Sofa",
+  "Designer Curved Sectional",
+  "Premium Curved Lounge",
+  "Modern Curved Sofa",
+  "Elegant Curved Settee",
+  "Sculpted Curved Sofa",
+  "Arc Curved Living Sofa",
+  "Velvet Curved Sofa",
+  "Statement Curved Sofa",
+  "Contemporary Curved Lounge",
+  "Luxury Curved Sectional",
+];
+
+const luxuryCurvedModels = buildModels(
+  luxuryCurvedImages,
+  luxuryCurvedCaptions,
+  "Luxury Curved",
+  "Sculpted premium silhouette",
+  "/Luxury curved",
+  true,
+);
 
 const reclinerImages = [
   "03d837e84d3a5ebda71f6d50d2c85a21.jpg",
   "067ec1142c181124bb258eaee23fd867.jpg",
   "0831864957b31577a0e3cd5a74500616.jpg",
-  "1cb46e9fd09a7145bef47973cdbc08e6.jpg",
+  "recliner-2-seater.jpg",
   "1cc165ef95282b163980b82f1fbb8832.jpg",
   "30917db095131a2827ea21def2a29a1b.jpg",
   "3cd6aaff886cdbe4447b327af6fb4b17.jpg",
@@ -148,12 +195,21 @@ const reclinerImages = [
   "a8839ec9a4560e774a54a9a49a183aee.jpg",
 ];
 
-const reclinerModels = reclinerImages.map((file, index) => ({
-  title: `Recliner Design ${index + 1}`,
-  subtitle: "Relaxing recline comfort",
-  tag: "Recliner",
-  image: `/Recliner/${file}`,
-}));
+const reclinerCaptions = [
+  "Single Seater Recliner",
+  "Power Recliner Sofa",
+  "Manual Recliner Chair",
+  "2 Seater Recliner",
+  "Comfort Recliner Sofa",
+  "Wall Hugger Recliner",
+  "Leather Recliner Sofa",
+  "Fabric Recliner Lounge",
+  "Home Theatre Recliner",
+  "Compact Recliner Sofa",
+  "Premium Recliner Chair",
+];
+
+const reclinerModels = buildModels(reclinerImages, reclinerCaptions, "Recliner", "Relaxing recline comfort", "/Recliner");
 
 const sofaCumBedImages = [
   "00852016b42fbed64102ff1363edd04c.jpg",
@@ -169,12 +225,28 @@ const sofaCumBedImages = [
   "sofa-cum-bed-design-11.jpg",
 ];
 
-const sofaCumBedModels = sofaCumBedImages.map((file, index) => ({
-  title: `Sofa Cum Bed Design ${index + 1}`,
-  subtitle: "Sofa-to-bed flexibility",
-  tag: "Sofa cum bed",
-  image: `/sofa cum bed/${encodeURIComponent(file)}`,
-}));
+const sofaCumBedCaptions = [
+  "Sofa Cum Bed",
+  "Convertible Sofa Bed",
+  "3 Seater Sofa Bed",
+  "Pull Out Sofa Bed",
+  "Compact Sofa Cum Bed",
+  "Guest Room Sofa Bed",
+  "Fabric Sofa Cum Bed",
+  "Modern Sofa Bed",
+  "Space Saving Sofa Bed",
+  "Premium Sofa Cum Bed",
+  "Versatile Sofa Bed",
+];
+
+const sofaCumBedModels = buildModels(
+  sofaCumBedImages,
+  sofaCumBedCaptions,
+  "Sofa cum bed",
+  "Sofa-to-bed flexibility",
+  "/sofa cum bed",
+  true,
+);
 
 const sofaSetsImages = [
   "1cc1afb21f2dcfc510b67e7386ed1a90.jpg",
@@ -190,12 +262,28 @@ const sofaSetsImages = [
   "e2186e0ca9da22d1fa948c4a8d7aae20.jpg",
 ];
 
-const sofaSetsModels = sofaSetsImages.map((file, index) => ({
-  title: `Sofa Set Design ${index + 1}`,
-  subtitle: "Coordinated living room set",
-  tag: "Sofa sets",
-  image: `/sofa sets/${encodeURIComponent(file)}`,
-}));
+const sofaSetsCaptions = [
+  "3 Piece Sofa Set",
+  "Living Room Sofa Set",
+  "Sofa with Accent Chairs",
+  "Premium Sofa Set",
+  "Modern Sofa Set",
+  "Fabric Sofa Set",
+  "Leather Sofa Set",
+  "Compact Sofa Set",
+  "Family Sofa Set",
+  "Designer Sofa Set",
+  "Complete Sofa Set",
+];
+
+const sofaSetsModels = buildModels(
+  sofaSetsImages,
+  sofaSetsCaptions,
+  "Sofa sets",
+  "Coordinated living room set",
+  "/sofa sets",
+  true,
+);
 
 const sofaWithLoungerImages = [
   "097fe482014f62a575453cc639ca76b2.jpg",
@@ -211,12 +299,28 @@ const sofaWithLoungerImages = [
   "a1b33e2911b80f74bfe8e9bfb861bc65.jpg",
 ];
 
-const sofaWithLoungerModels = sofaWithLoungerImages.map((file, index) => ({
-  title: `Sofa with Lounger Design ${index + 1}`,
-  subtitle: "Extended chaise comfort",
-  tag: "Sofa with Lounger",
-  image: `/sofa with longer/${encodeURIComponent(file)}`,
-}));
+const sofaWithLoungerCaptions = [
+  "Sofa with Lounger",
+  "Chaise Lounger Sofa",
+  "Corner Lounger Sofa",
+  "Extended Lounger Sofa",
+  "L Shape with Lounger",
+  "Modern Lounger Sofa",
+  "Premium Chaise Sofa",
+  "Family Lounger Sectional",
+  "Compact Lounger Sofa",
+  "Designer Lounger Sofa",
+  "Luxury Lounger Sofa",
+];
+
+const sofaWithLoungerModels = buildModels(
+  sofaWithLoungerImages,
+  sofaWithLoungerCaptions,
+  "Sofa with Lounger",
+  "Extended chaise comfort",
+  "/sofa with longer",
+  true,
+);
 
 const uShapeImages = [
   "u-shape-design-1.jpg",
@@ -232,12 +336,21 @@ const uShapeImages = [
   "f27ac9722cc4bf6a93f8ea469982d2c5.jpg",
 ];
 
-const uShapeModels = uShapeImages.map((file, index) => ({
-  title: `U Shape Design ${index + 1}`,
-  subtitle: "Spacious U-layout comfort",
-  tag: "U shape",
-  image: `/u shape/${encodeURIComponent(file)}`,
-}));
+const uShapeCaptions = [
+  "U Shape Sectional Sofa",
+  "Large U Shape Sofa",
+  "Modern U Shape Sofa",
+  "Family U Shape Sofa",
+  "Premium U Shape Sectional",
+  "Compact U Shape Sofa",
+  "Velvet U Shape Sofa",
+  "Living Room U Shape",
+  "Designer U Shape Sofa",
+  "Spacious U Shape Lounge",
+  "Luxury U Shape Sofa",
+];
+
+const uShapeModels = buildModels(uShapeImages, uShapeCaptions, "U shape", "Spacious U-layout comfort", "/u shape", true);
 
 const models = [
   ...chesterfieldModels,
@@ -301,6 +414,8 @@ export default function SofaPage() {
       items={models}
       allItems={allPreviewModels}
       filters={filters}
+      enableProductPreview
+      productImageFit="contain"
       searchPlaceholder="Search by sofa type or style..."
       contentSections={[
         {
@@ -321,11 +436,7 @@ export default function SofaPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "Super comfortable and the fabric recommendation was perfect for daily use. Looks premium.", name: "Ananya G.", rating: "5.0", meta: "Custom sofa" },
-        { quote: "Great build quality and clean finish. The size fits our layout exactly as planned.", name: "Vikram R.", rating: "4.9", meta: "L-shape" },
-        { quote: "Professional experience end-to-end. The sofa complements our wall panels and curtains.", name: "Meera S.", rating: "5.0", meta: "Living room" },
-      ]}
+      reviews={sofaReviews}
       faqs={[
         {
           question: "Can I customize sofa size and fabric?",

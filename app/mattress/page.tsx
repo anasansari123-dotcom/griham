@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { mattressReviews } from "@/lib/testimonials";
 
 const items = [
   { title: "Orthopedic Comfort", subtitle: "Firm posture support", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" },
@@ -67,11 +68,7 @@ export default function MattressPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "We finally sleep better. The firmness recommendation was accurate and support feels great.", name: "Aakash R.", rating: "5.0", meta: "Mattress" },
-        { quote: "Comfortable and premium. They guided us based on posture and preference, not just selling.", name: "Pooja S.", rating: "4.9", meta: "Sleep consultation" },
-        { quote: "Excellent balance of comfort and support. The bedroom feels more premium overall.", name: "Harish M.", rating: "5.0", meta: "Hybrid" },
-      ]}
+      reviews={mattressReviews}
       faqs={[
         {
           question: "How do I choose firmness level?",

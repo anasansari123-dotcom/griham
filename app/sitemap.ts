@@ -14,6 +14,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mattress",
     "/wooden-flooring",
     "/book-consultation",
+    "/blog",
+    ...[
+      "how-to-choose-curtains-for-living-room",
+      "l-shape-vs-u-shape-sofa-guide",
+      "wallpaper-vs-wall-panels",
+      "wooden-flooring-care-tips",
+      "mattress-buying-guide-better-sleep",
+      "home-decor-trends-2026",
+    ].map((slug) => `/blog/${slug}`),
   ];
 
   return routes.map((route) => ({

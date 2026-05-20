@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { bedsReviews } from "@/lib/testimonials";
 
 const items = [
   { title: "Heritage Teak Bed", subtitle: "Solid wood classic", image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80" },
@@ -67,11 +68,7 @@ export default function CotsPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "The storage bed is sturdy and the finish looks premium. Installation was quick and clean.", name: "Sanjay N.", rating: "5.0", meta: "Storage bed" },
-        { quote: "They helped us choose the right size for our room. The headboard styling looks classy.", name: "Divya R.", rating: "4.9", meta: "Master bedroom" },
-        { quote: "Great quality and comfort-focused design. Fits perfectly with our mattress and decor.", name: "Rahul K.", rating: "5.0", meta: "Beds" },
-      ]}
+      reviews={bedsReviews}
       faqs={[
         {
           question: "Can beds be customized to mattress size?",

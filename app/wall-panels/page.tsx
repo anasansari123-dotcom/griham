@@ -1,4 +1,5 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { wallPanelsReviews } from "@/lib/testimonials";
 
 const panels = [
   {
@@ -91,11 +92,7 @@ export default function WallPanelsPage() {
         },
       ]}
       galleryImages={galleryImages}
-      reviews={[
-        { quote: "Our TV wall looks premium now. Clean finish and the panel texture added real depth to the room.", name: "Rohit M.", rating: "5.0", meta: "TV unit wall" },
-        { quote: "The team suggested the right fluted design and it matched our sofa and curtains perfectly.", name: "Sneha P.", rating: "4.9", meta: "Living room" },
-        { quote: "Fast installation, very neat work. It hides the wiring and looks super elegant.", name: "Karthik S.", rating: "5.0", meta: "Accent wall" },
-      ]}
+      reviews={wallPanelsReviews}
       faqs={[
         {
           question: "Do wall panels require major wall changes?",

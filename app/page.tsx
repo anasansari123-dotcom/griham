@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
+import TestimonialCard from "@/components/TestimonialCard";
+import { homeReviews } from "@/lib/testimonials";
 import { homeCollectionCategories, homeShopCategories } from "@/lib/siteData";
 
 const trustPoints = [
@@ -213,34 +215,14 @@ export default function Home() {
           </div>
         </SectionWrapper>
 
-        <SectionWrapper>
+        <SectionWrapper animate={false}>
           <div className="mb-6">
             <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Best reviews</p>
             <h2 className="mt-2 text-3xl font-semibold">Trusted by premium homeowners</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                quote: "Outstanding quality and finish. The curtains and sofa elevated our entire living room.",
-                name: "Priya S.",
-                rating: "5.0",
-              },
-              {
-                quote: "Very smooth consultation and installation. Designs were elegant, minimal, and exactly our style.",
-                name: "Arjun R.",
-                rating: "5.0",
-              },
-              {
-                quote: "GRIHAM delivered a luxury look with practical comfort. Highly recommended for premium interiors.",
-                name: "Neha K.",
-                rating: "4.9",
-              },
-            ].map((review) => (
-              <blockquote key={review.name} className="rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
-                <p className="text-[#F4A300]">{"★".repeat(5)} <span className="text-[#1F3D3B]/70">({review.rating})</span></p>
-                <p className="mt-3 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
-                <footer className="mt-4 text-sm font-semibold text-[#1F3D3B]">- {review.name}</footer>
-              </blockquote>
+          <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
+            {homeReviews.map((review) => (
+              <TestimonialCard key={review.name} review={review} />
             ))}
           </div>
         </SectionWrapper>

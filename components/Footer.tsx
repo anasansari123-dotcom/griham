@@ -1,16 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
-const links = [
-  { href: "/curtains", label: "Curtains" },
-  { href: "/wallpapers", label: "Wallpapers" },
-  { href: "/wall-panels", label: "Wall Panels" },
-  { href: "/sofa", label: "Sofa" },
-  { href: "/cots", label: "Beds" },
-  { href: "/mosquito-nets", label: "Home Decor" },
-  { href: "/mattress", label: "Mattress" },
-  { href: "/wooden-flooring", label: "Wooden Flooring" },
-];
+import { footerLinks } from "@/lib/siteData";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -47,7 +37,7 @@ export default function Footer() {
             <div className="hidden md:block">
               <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#1F3D3B]/65">Collections</h4>
               <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                {links.map((item) => (
+                {footerLinks.map((item) => (
                   <Link key={item.href} href={item.href} className="text-[#1F3D3B] transition hover:text-[#F4A300]">
                     {item.label}
                   </Link>
@@ -72,7 +62,13 @@ export default function Footer() {
 
           <div className="mt-4 flex flex-col gap-2 border-t border-[#1F3D3B]/10 pt-4 text-xs text-[#1F3D3B]/60 md:col-span-3 md:flex-row md:items-center md:justify-between">
             <p>© {year} GRIHAM. All rights reserved.</p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+              <Link href="/blog" className="hover:text-[#1F3D3B]">
+                Blog
+              </Link>
+              <Link href="/book-consultation" className="hover:text-[#1F3D3B]">
+                Consultation
+              </Link>
               <Link href="/" className="hover:text-[#1F3D3B]">
                 Privacy
               </Link>
