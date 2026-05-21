@@ -11,20 +11,53 @@ export type HomeCategoryItem = {
   alt: string;
 };
 
+export const storeAddress =
+  "534 Shop 2 1st Cross A E C S B Block, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037";
+
+export const contactPhone = "+91 7022970608";
+export const contactPhoneHref = "tel:+917022970608";
+export const contactEmail = "contact@grihamdecor.in";
+export const contactEmailHref = `mailto:${contactEmail}`;
+export const contactWebsite = "https://www.grihamdecor.in";
+export const contactWhatsApp = "https://wa.me/917022970608";
+export const businessHours = "Mon – Sat: 10:00 AM – 7:00 PM";
+
+const mapQuery = encodeURIComponent(storeAddress);
+export const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}&hl=en&z=16&output=embed`;
+export const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+
+export type SocialLink = {
+  name: string;
+  href: string;
+  icon: "instagram" | "facebook" | "whatsapp";
+};
+
+export const socialLinks: SocialLink[] = [
+  { name: "Instagram", href: "https://www.instagram.com/grihamdecor", icon: "instagram" },
+  { name: "Facebook", href: "https://www.facebook.com/grihamdecor", icon: "facebook" },
+  { name: "WhatsApp", href: contactWhatsApp, icon: "whatsapp" },
+];
+
+export const collectionNavLinks = [
+  { href: "/curtains", label: "Curtains" },
+  { href: "/wallpapers", label: "Wallpapers" },
+  { href: "/wall-panels", label: "Wall Panels" },
+  { href: "/sofa", label: "Sofa" },
+  { href: "/cots", label: "Beds" },
+  { href: "/mosquito-nets", label: "Home Decor" },
+  { href: "/mattress", label: "Mattress" },
+  { href: "/wooden-flooring", label: "Wooden Flooring" },
+];
+
+export const mainNavLinks = [
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+
 export const navGroups = [
   {
     title: "Shop",
-    links: [
-      { href: "/curtains", label: "Curtains" },
-      { href: "/wallpapers", label: "Wallpapers" },
-      { href: "/wall-panels", label: "Wall Panels" },
-      { href: "/sofa", label: "Sofa" },
-      { href: "/cots", label: "Beds" },
-      { href: "/mosquito-nets", label: "Home Decor" },
-      { href: "/mattress", label: "Mattress" },
-      { href: "/wooden-flooring", label: "Wooden Flooring" },
-      { href: "/blog", label: "Blog" },
-    ],
+    links: [...collectionNavLinks, ...mainNavLinks],
   },
 ];
 

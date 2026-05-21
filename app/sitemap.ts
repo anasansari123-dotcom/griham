@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mattress",
     "/wooden-flooring",
     "/book-consultation",
+    "/contact",
     "/blog",
     ...[
       "how-to-choose-curtains-for-living-room",

@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <div className="space-y-14 pb-20">
-      <SectionWrapper className="relative -mt-24 min-h-screen w-full overflow-hidden border-y border-[#1F3D3B]/10 shadow-2xl">
+      <SectionWrapper className="relative -mt-[4.75rem] min-h-screen w-full overflow-hidden border-y border-[#1F3D3B]/10 shadow-2xl md:-mt-28">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay

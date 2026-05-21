@@ -1,6 +1,14 @@
 "use client";
 
 import SectionWrapper from "@/components/SectionWrapper";
+import {
+  contactPhone,
+  contactPhoneHref,
+  contactWebsite,
+  mapDirectionsUrl,
+  mapEmbedUrl,
+  storeAddress,
+} from "@/lib/siteData";
 import { FormEvent, useMemo, useState } from "react";
 
 const steps = [
@@ -9,13 +17,6 @@ const steps = [
   "Approve budget and timeline",
   "Schedule installation with our experts",
 ];
-
-const storeAddress =
-  "534 Shop 2 1st Cross A E C S B Block, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037";
-
-const mapQuery = encodeURIComponent(storeAddress);
-const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}&hl=en&z=16&output=embed`;
-const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
 export default function BookConsultationPage() {
   const [formData, setFormData] = useState({
@@ -146,12 +147,12 @@ export default function BookConsultationPage() {
           <address className="mt-4 space-y-3 text-sm not-italic leading-relaxed text-[#1F3D3B]/80">
             <p>{storeAddress}</p>
             <p>
-              <a href="tel:+917022970608" className="font-semibold text-[#1F3D3B] hover:text-[#F4A300]">
-                +91 7022970608
+              <a href={contactPhoneHref} className="font-semibold text-[#1F3D3B] hover:text-[#F4A300]">
+                {contactPhone}
               </a>
             </p>
             <p>
-              <a href="https://www.grihamdecor.in" target="_blank" rel="noreferrer" className="hover:text-[#F4A300]">
+              <a href={contactWebsite} target="_blank" rel="noreferrer" className="hover:text-[#F4A300]">
                 www.grihamdecor.in
               </a>
             </p>

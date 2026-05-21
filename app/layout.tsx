@@ -100,7 +100,7 @@ export default function RootLayout({
         <AnimatedBackground />
         <Navbar />
         <PageTransition>
-          <main className="pt-24">{children}</main>
+          <main className="pt-[4.75rem] md:pt-28">{children}</main>
         </PageTransition>
         <Footer />
         <WhatsAppButton />

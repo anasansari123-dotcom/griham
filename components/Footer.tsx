@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { footerLinks } from "@/lib/siteData";
+import SocialLinks from "@/components/SocialLinks";
+import { contactPhone, contactPhoneHref, footerLinks } from "@/lib/siteData";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -23,6 +24,12 @@ export default function Footer() {
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#1F3D3B]/70">
                 Premium home decor with nature-led design language for timeless interiors and refined everyday living.
               </p>
+              <p className="mt-3 text-sm text-[#1F3D3B]/75">
+                <a href={contactPhoneHref} className="font-semibold hover:text-[#F4A300]">
+                  {contactPhone}
+                </a>
+              </p>
+              <SocialLinks size="sm" className="mt-4" />
             <Link
               href="/book-consultation"
               className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f] md:hidden"
@@ -65,6 +72,9 @@ export default function Footer() {
             <div className="flex flex-wrap items-center gap-4">
               <Link href="/blog" className="hover:text-[#1F3D3B]">
                 Blog
+              </Link>
+              <Link href="/contact" className="hover:text-[#1F3D3B]">
+                Contact
               </Link>
               <Link href="/book-consultation" className="hover:text-[#1F3D3B]">
                 Consultation
