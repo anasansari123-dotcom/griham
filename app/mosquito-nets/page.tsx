@@ -42,11 +42,6 @@ export default function MosquitoNetsPage() {
         "Helps tie furniture, walls, and fabrics into one design language.",
         "Layered styling options from minimal to luxury aesthetics.",
       ]}
-      idealFor={[
-        "Living room corners and console styling.",
-        "Bedroom side-table and dresser decor plans.",
-        "Dining, entry foyer, and statement shelf styling.",
-      ]}
       items={items}
       searchPlaceholder="Search by decor type or room..."
       contentSections={[

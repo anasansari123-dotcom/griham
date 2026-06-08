@@ -42,11 +42,6 @@ export default function MattressPage() {
         "Available in soft, medium, and firm comfort profiles.",
         "Built using high-resilience and breathable material layers.",
       ]}
-      idealFor={[
-        "Users with back pain and posture support needs.",
-        "Couples seeking motion-balanced sleep surfaces.",
-        "Premium bedrooms requiring long-term comfort.",
-      ]}
       items={items}
       searchPlaceholder="Search by firmness or type..."
       contentSections={[

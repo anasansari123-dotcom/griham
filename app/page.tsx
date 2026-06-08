@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
 import TestimonialCard from "@/components/TestimonialCard";
 import { homeReviews } from "@/lib/testimonials";
-import { homeCollectionCategories, homeShopCategories } from "@/lib/siteData";
+import { homeCollectionCategories } from "@/lib/siteData";
 
 const trustPoints = [
   { value: "500+", label: "Premium Projects" },
@@ -25,8 +24,12 @@ const processSteps = [
     desc: "Tell us your room size, budget, and preferred look so we can shortlist relevant options.",
   },
   {
-    title: "Get Curated Recommendations",
-    desc: "Receive category-wise suggestions across curtains, wallpapers, panels, sofas, beds, decor, mattresses, and flooring.",
+    title: "Consultation & Planning",
+    desc: "Our team discusses layouts, material combinations, space management, and design concepts tailored to your needs.",
+  },
+  {
+    title: "Get Home Visit Management",
+    desc: "Schedule expert home visits for measurements, consultations, and personalized recommendations for your interiors.",
   },
   {
     title: "Approve and Install",
@@ -34,22 +37,26 @@ const processSteps = [
   },
 ];
 
-const roomPlans = [
+const differentiators = [
   {
-    room: "Living Room",
-    details: "Sofa + curtains + wall finishes for a balanced premium look with practical comfort.",
+    title: "Direct Sourcing",
+    desc: "We source fabrics directly from manufacturers, bypassing wholesalers and middlemen. This allows us to offer better prices and pass the savings on to our customers.",
   },
   {
-    room: "Bedroom",
-    details: "Beds, mattresses, blackout curtains, and soft textures for restful and elegant spaces.",
+    title: "Design Consultation",
+    desc: "We provide personalized design consultation based on your space, lighting, style preferences, and functional needs to help you choose the perfect combination of products.",
   },
   {
-    room: "Study / Home Office",
-    details: "Focused wallpaper tones, acoustic-friendly panels, and flooring choices that reduce fatigue.",
+    title: "In-House Manufacturing",
+    desc: "All products are crafted through our in-house manufacturing process, ensuring better quality control, precise finishing, and timely delivery without third-party dependency.",
   },
   {
-    room: "Whole Home",
-    details: "A single design language across all rooms with coordinated materials and finish palettes.",
+    title: "Automated Processes",
+    desc: "Our reliable automated systems streamline production, eliminating manual errors and delivering consistent, high-quality results.",
+  },
+  {
+    title: "Premium Products & Raw Materials",
+    desc: "We use premium-quality products and raw materials from trusted brands like D’Decor and other leading suppliers, backed by 5+ years warranty support.",
   },
 ];
 
@@ -94,16 +101,16 @@ export default function Home() {
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 py-28 md:py-32">
           <div>
             <p className="inline-block rounded-full border border-[#F4A300]/50 bg-[#F4A300]/15 px-4 py-1 text-xs uppercase tracking-[0.28em] text-[#F4A300]">
-              Premium eco interiors
+              Premium Furnishing
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
-              Premium home interiors, curated category by category.
+              Premium Home Furnishings.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
               Explore curtains, wallpapers, wall panels, sofa, beds, home decor, mattress, and wooden flooring with one coordinated design partner.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/sofa" className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
+              <Link href="#our-collection" className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
                 Explore Collections
               </Link>
               <Link href="/book-consultation" className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white hover:text-[#1F3D3B]">
@@ -134,7 +141,7 @@ export default function Home() {
       </SectionWrapper>
 
       <div className="mx-auto max-w-7xl space-y-20 px-6">
-        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm">
+        <SectionWrapper id="our-collection" className="scroll-mt-28 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Our Collection</p>
           <h2 className="mt-2 text-center text-4xl font-semibold">Everything You Need for a Beautiful Home</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
@@ -170,46 +177,54 @@ export default function Home() {
         <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-[#1F3D3B] p-8 text-white">
           <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">How it works</p>
           <h2 className="mt-2 text-3xl font-semibold">Simple consultation to installation workflow</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((step, index) => (
               <div key={step.title} className="rounded-2xl border border-white/15 bg-white/5 p-5">
                 <p className="text-xs uppercase tracking-[0.22em] text-[#F4A300]">Step {index + 1}</p>
-                <h3 className="mt-2 text-lg font-semibold">{step.title}</h3>
+                <h3
+                  className={`mt-2 font-semibold leading-tight ${
+                    step.title === "Get Home Visit Management"
+                      ? "text-[0.8125rem] leading-snug sm:text-sm lg:text-[0.8125rem] lg:whitespace-nowrap xl:text-base"
+                      : "text-lg"
+                  }`}
+                >
+                  {step.title}
+                </h3>
                 <p className="mt-2 text-sm text-white/80">{step.desc}</p>
               </div>
             ))}
           </div>
         </SectionWrapper>
 
-        <SectionWrapper>
-          <h2 className="mb-2 text-3xl font-semibold">Shop by category</h2>
-          <p className="mb-6 text-[#1F3D3B]/70">
-            Compare visual styles, textures, and room fit before booking consultation.
-          </p>
-          <div className="grid gap-6 md:grid-cols-3">
-            {homeShopCategories.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <Card title={item.name} image={item.image} alt={item.alt} subtitle="View Collection" />
-              </Link>
-            ))}
-          </div>
-        </SectionWrapper>
-
-        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Room planning</p>
-              <h2 className="mt-2 text-3xl font-semibold">Build a complete look, room by room</h2>
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Why GRIHAM</p>
+              <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">How We Stand Different Than Others</h2>
+              <p className="mt-3 text-sm leading-relaxed text-[#1F3D3B]/70 md:text-base">
+                Better sourcing, in-house craftsmanship, and premium materials — built into every GRIHAM project.
+              </p>
             </div>
-            <Link href="/book-consultation" className="rounded-full border border-[#1F3D3B]/20 px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#1F3D3B] hover:text-white">
-              Get a tailored recommendation
+            <Link
+              href="/book-consultation"
+              className="shrink-0 rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f]"
+            >
+              Book Free Consultation
             </Link>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {roomPlans.map((plan) => (
-              <div key={plan.room} className="rounded-2xl bg-[#FAF9F6] p-5">
-                <h3 className="text-lg font-semibold text-[#1F3D3B]">{plan.room}</h3>
-                <p className="mt-2 text-sm text-[#1F3D3B]/75">{plan.details}</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {differentiators.map((item, index) => (
+              <div
+                key={item.title}
+                className="group flex h-full flex-col rounded-2xl border border-[#1F3D3B]/10 bg-[#FAF9F6] p-5 transition hover:-translate-y-0.5 hover:border-[#F4A300]/30 hover:shadow-md"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1F3D3B] text-sm font-bold text-[#F4A300] transition group-hover:bg-[#F4A300] group-hover:text-[#1F3D3B]">
+                    {index + 1}
+                  </span>
+                  <h3 className="text-lg font-semibold leading-snug text-[#1F3D3B]">{item.title}</h3>
+                </div>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#1F3D3B]/75">{item.desc}</p>
               </div>
             ))}
           </div>

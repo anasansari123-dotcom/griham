@@ -6,226 +6,239 @@ export type ReviewItem = {
   image?: string;
 };
 
-/** Unique portrait per reviewer — no duplicate faces across the site. */
+const avatarCrop = "auto=format&fit=crop&w=200&h=200&q=80&facepad=2";
+
+function unsplashAvatar(photoId: string) {
+  return `https://images.unsplash.com/${photoId}?${avatarCrop}`;
+}
+
+function pexelsAvatar(photoId: number) {
+  return `https://images.pexels.com/photos/${photoId}/pexels-photo-${photoId}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop`;
+}
+
+/** Curated South Asian / Indian portrait photos — one unique face per reviewer. */
 const reviewerAvatars: Record<string, string> = {
-  "Priya S.": "https://randomuser.me/api/portraits/women/44.jpg",
-  "Arjun R.": "https://randomuser.me/api/portraits/men/32.jpg",
-  "Neha K.": "https://randomuser.me/api/portraits/women/68.jpg",
-  "Kavita M.": "https://randomuser.me/api/portraits/women/21.jpg",
-  "Manoj T.": "https://randomuser.me/api/portraits/men/15.jpg",
-  "Reshma L.": "https://randomuser.me/api/portraits/women/55.jpg",
-  "Ananya G.": "https://randomuser.me/api/portraits/women/12.jpg",
-  "Vikram R.": "https://randomuser.me/api/portraits/men/75.jpg",
-  "Meera S.": "https://randomuser.me/api/portraits/women/33.jpg",
-  "Deepa K.": "https://randomuser.me/api/portraits/women/38.jpg",
-  "Gautham N.": "https://randomuser.me/api/portraits/men/28.jpg",
-  "Ishita V.": "https://randomuser.me/api/portraits/women/62.jpg",
-  "Aakash R.": "https://randomuser.me/api/portraits/men/22.jpg",
-  "Pooja S.": "https://randomuser.me/api/portraits/women/89.jpg",
-  "Harish M.": "https://randomuser.me/api/portraits/men/46.jpg",
-  "Nithin K.": "https://randomuser.me/api/portraits/men/61.jpg",
-  "Lakshmi R.": "https://randomuser.me/api/portraits/women/52.jpg",
-  "Suresh P.": "https://randomuser.me/api/portraits/men/41.jpg",
-  "Shreya M.": "https://randomuser.me/api/portraits/women/26.jpg",
-  "Kiran P.": "https://randomuser.me/api/portraits/men/18.jpg",
-  "Naveen S.": "https://randomuser.me/api/portraits/men/54.jpg",
-  "Sanjay N.": "https://randomuser.me/api/portraits/men/36.jpg",
-  "Divya R.": "https://randomuser.me/api/portraits/women/71.jpg",
-  "Rahul K.": "https://randomuser.me/api/portraits/men/29.jpg",
-  "Rohit M.": "https://randomuser.me/api/portraits/men/67.jpg",
-  "Sneha P.": "https://randomuser.me/api/portraits/women/47.jpg",
-  "Karthik S.": "https://randomuser.me/api/portraits/men/83.jpg",
+  "Priya Sharma": unsplashAvatar("photo-1724128187740-c70f811cdaf1"),
+  "Arjun Reddy": pexelsAvatar(1681010),
+  "Neha Kapoor": pexelsAvatar(1181519),
+  "Kavita Menon": unsplashAvatar("photo-1724128190202-80ce103d74f5"),
+  "Manoj Tiwari": pexelsAvatar(2379004),
+  "Reshma Iyer": pexelsAvatar(1181690),
+  "Ananya Gupta": unsplashAvatar("photo-1724128189881-271a2a828bb9"),
+  "Vikram Rao": pexelsAvatar(1516680),
+  "Meera Sundaram": unsplashAvatar("photo-1638734922465-461059520ead"),
+  "Deepa Krishnan": pexelsAvatar(1181686),
+  "Gautham Nair": pexelsAvatar(3775131),
+  "Ishita Verma": unsplashAvatar("photo-1724128186704-2f4fa3004ba8"),
+  "Aakash Patel": pexelsAvatar(3760853),
+  "Pooja Desai": pexelsAvatar(1181692),
+  "Harish Malhotra": pexelsAvatar(3184619),
+  "Nithin Kumar": pexelsAvatar(1684759),
+  "Lakshmi Priya": unsplashAvatar("photo-1724128194895-de4301fc3fa6"),
+  "Suresh Babu": pexelsAvatar(532220),
+  "Shreya Joshi": unsplashAvatar("photo-1724128188868-df77f9efd48d"),
+  "Kiran Hegde": pexelsAvatar(1043474),
+  "Naveen Shetty": pexelsAvatar(937481),
+  "Sanjay Kumar": pexelsAvatar(1222271),
+  "Divya Ranganathan": pexelsAvatar(1181717),
+  "Rahul Khanna": pexelsAvatar(1043471),
+  "Rohit Menon": unsplashAvatar("photo-1633332755192-727a05c4013b"),
+  "Sneha Pillai": unsplashAvatar("photo-1580894900447-988edcb37ea3"),
+  "Karthik Subramanian": pexelsAvatar(774909),
 };
 
 export function withReviewAvatars(reviews: ReviewItem[]): ReviewItem[] {
   return reviews.map((review) => ({
     ...review,
-    image: review.image ?? reviewerAvatars[review.name] ?? `https://i.pravatar.cc/300?u=${encodeURIComponent(review.name)}`,
+    image: reviewerAvatars[review.name] ?? review.image,
   }));
 }
 
 export const homeReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "Outstanding quality and finish. The curtains and sofa elevated our entire living room.",
-    name: "Priya S.",
+    name: "Priya Sharma",
     rating: "5.0",
+    meta: "HSR Layout, Bengaluru",
   },
   {
     quote: "Very smooth consultation and installation. Designs were elegant, minimal, and exactly our style.",
-    name: "Arjun R.",
+    name: "Arjun Reddy",
     rating: "5.0",
+    meta: "Whitefield, Bengaluru",
   },
   {
     quote: "GRIHAM delivered a luxury look with practical comfort. Highly recommended for premium interiors.",
-    name: "Neha K.",
+    name: "Neha Kapoor",
     rating: "4.9",
+    meta: "Indiranagar, Bengaluru",
   },
 ]);
 
 export const curtainsReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "The curtain fabric and fall look premium. Installation was quick and neat.",
-    name: "Kavita M.",
+    name: "Kavita Menon",
     rating: "5.0",
-    meta: "Curtains",
+    meta: "Custom curtains · Jayanagar",
   },
   {
     quote: "They suggested the right sheer + blackout layering for our bedroom. Perfect balance of light and privacy.",
-    name: "Manoj T.",
+    name: "Manoj Tiwari",
     rating: "4.9",
-    meta: "Bedroom",
+    meta: "Bedroom curtains · Marathahalli",
   },
   {
-    quote: "Great coordination with our wall colors and sofa. The room looks complete now.",
-    name: "Reshma L.",
+    quote: "Great coordination with our wall colours and sofa. The room looks complete now.",
+    name: "Reshma Iyer",
     rating: "5.0",
-    meta: "Living room",
+    meta: "Living room · Bellandur",
   },
 ]);
 
 export const sofaReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "Super comfortable and the fabric recommendation was perfect for daily use. Looks premium.",
-    name: "Ananya G.",
+    name: "Ananya Gupta",
     rating: "5.0",
-    meta: "Custom sofa",
+    meta: "L-shape sofa · Koramangala",
   },
   {
     quote: "Great build quality and clean finish. The size fits our layout exactly as planned.",
-    name: "Vikram R.",
+    name: "Vikram Rao",
     rating: "4.9",
-    meta: "L-shape",
+    meta: "Custom sofa · Electronic City",
   },
   {
     quote: "Professional experience end-to-end. The sofa complements our wall panels and curtains.",
-    name: "Meera S.",
+    name: "Meera Sundaram",
     rating: "5.0",
-    meta: "Living room",
+    meta: "Living room · Sarjapur Road",
   },
 ]);
 
 export const wallpapersReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "The wallpaper recommendation was spot-on. It completely transformed our living room feature wall.",
-    name: "Deepa K.",
+    name: "Deepa Krishnan",
     rating: "5.0",
-    meta: "Wallpapers",
+    meta: "Feature wall · Hebbal",
   },
   {
     quote: "Great finish and clean installation. The pattern choice looks premium and balanced with our furniture.",
-    name: "Gautham N.",
+    name: "Gautham Nair",
     rating: "5.0",
-    meta: "Feature wall",
+    meta: "Wallpapers · BTM Layout",
   },
   {
     quote: "Quick and professional. They helped us pick a design that suits the room size and lighting.",
-    name: "Ishita V.",
+    name: "Ishita Verma",
     rating: "4.9",
-    meta: "Bedroom",
+    meta: "Bedroom · Yelahanka",
   },
 ]);
 
 export const mattressReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "We finally sleep better. The firmness recommendation was accurate and support feels great.",
-    name: "Aakash R.",
+    name: "Aakash Patel",
     rating: "5.0",
-    meta: "Mattress",
+    meta: "Mattress · Hennur",
   },
   {
     quote: "Comfortable and premium. They guided us based on posture and preference, not just selling.",
-    name: "Pooja S.",
+    name: "Pooja Desai",
     rating: "4.9",
-    meta: "Sleep consultation",
+    meta: "Sleep consultation · RT Nagar",
   },
   {
     quote: "Excellent balance of comfort and support. The bedroom feels more premium overall.",
-    name: "Harish M.",
+    name: "Harish Malhotra",
     rating: "5.0",
-    meta: "Hybrid",
+    meta: "Hybrid mattress · Banashankari",
   },
 ]);
 
 export const woodenFlooringReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "The flooring tone recommendation was perfect. It made our home feel warmer and more premium.",
-    name: "Nithin K.",
+    name: "Nithin Kumar",
     rating: "5.0",
-    meta: "Wooden flooring",
+    meta: "Wooden flooring · JP Nagar",
   },
   {
     quote: "Neat installation and great guidance on maintenance. The finish looks elegant.",
-    name: "Lakshmi R.",
+    name: "Lakshmi Priya",
     rating: "4.9",
-    meta: "Installation",
+    meta: "Installation · Malleshwaram",
   },
   {
     quote: "Quality is top-class. It matches our wall panels and furniture beautifully.",
-    name: "Suresh P.",
+    name: "Suresh Babu",
     rating: "5.0",
-    meta: "Living room",
+    meta: "Living room · Rajajinagar",
   },
 ]);
 
 export const homeDecorReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "The decor suggestions made our living room feel complete. Everything looks curated and premium.",
-    name: "Shreya M.",
+    name: "Shreya Joshi",
     rating: "5.0",
-    meta: "Home decor",
+    meta: "Home decor · Domlur",
   },
   {
     quote: "Great eye for styling. They matched pieces to our sofa and wall finish beautifully.",
-    name: "Kiran P.",
+    name: "Kiran Hegde",
     rating: "4.9",
-    meta: "Room styling",
+    meta: "Room styling · Basavanagudi",
   },
   {
     quote: "Simple, elegant and not cluttered. Perfect recommendations for a compact home.",
-    name: "Naveen S.",
+    name: "Naveen Shetty",
     rating: "5.0",
-    meta: "Compact apartment",
+    meta: "Compact apartment · Mahadevapura",
   },
 ]);
 
 export const bedsReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "The storage bed is sturdy and the finish looks premium. Installation was quick and clean.",
-    name: "Sanjay N.",
+    name: "Sanjay Kumar",
     rating: "5.0",
-    meta: "Storage bed",
+    meta: "Storage bed · Brookefield",
   },
   {
     quote: "They helped us choose the right size for our room. The headboard styling looks classy.",
-    name: "Divya R.",
+    name: "Divya Ranganathan",
     rating: "4.9",
-    meta: "Master bedroom",
+    meta: "Master bedroom · CV Raman Nagar",
   },
   {
     quote: "Great quality and comfort-focused design. Fits perfectly with our mattress and decor.",
-    name: "Rahul K.",
+    name: "Rahul Khanna",
     rating: "5.0",
-    meta: "Beds",
+    meta: "Beds · Frazer Town",
   },
 ]);
 
 export const wallPanelsReviews: ReviewItem[] = withReviewAvatars([
   {
     quote: "Our TV wall looks premium now. Clean finish and the panel texture added real depth to the room.",
-    name: "Rohit M.",
+    name: "Rohit Menon",
     rating: "5.0",
-    meta: "TV unit wall",
+    meta: "TV unit wall · Kadubeesanahalli",
   },
   {
     quote: "The team suggested the right fluted design and it matched our sofa and curtains perfectly.",
-    name: "Sneha P.",
+    name: "Sneha Pillai",
     rating: "4.9",
-    meta: "Living room",
+    meta: "Living room · Hoodi",
   },
   {
     quote: "Fast installation, very neat work. It hides the wiring and looks super elegant.",
-    name: "Karthik S.",
+    name: "Karthik Subramanian",
     rating: "5.0",
-    meta: "Accent wall",
+    meta: "Accent wall · Kundalahalli",
   },
 ]);

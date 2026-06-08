@@ -7,15 +7,21 @@ type Props = {
   children: ReactNode;
   className?: string;
   animate?: boolean;
+  id?: string;
 };
 
-export default function SectionWrapper({ children, className = "", animate = true }: Props) {
+export default function SectionWrapper({ children, className = "", animate = true, id }: Props) {
   if (!animate) {
-    return <section className={className}>{children}</section>;
+    return (
+      <section id={id} className={className}>
+        {children}
+      </section>
+    );
   }
 
   return (
     <motion.section
+      id={id}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}

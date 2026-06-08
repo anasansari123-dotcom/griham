@@ -42,11 +42,6 @@ export default function WoodenFlooringPage() {
         "Improves premium value perception of the overall home.",
         "Available in multiple tones to suit modern and classic themes.",
       ]}
-      idealFor={[
-        "Living rooms and master bedrooms with premium styling.",
-        "Apartment renovations requiring fast aesthetic upgrades.",
-        "Office cabins and lounge spaces with elegant ambiance.",
-      ]}
       items={items}
       searchPlaceholder="Search by tone or finish..."
       contentSections={[

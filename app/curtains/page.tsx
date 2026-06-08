@@ -1,29 +1,68 @@
 "use client";
 
-import Card from "@/components/Card";
+import CurtainAllStylesGrid from "@/components/CurtainAllStylesGrid";
+import CurtainCategoryFilters from "@/components/CurtainCategoryFilters";
+import GalleryImageTile from "@/components/GalleryImageTile";
+import CurtainProcessSteps from "@/components/CurtainProcessSteps";
+import MotorizedCurtainsSection from "@/components/MotorizedCurtainsSection";
 import SectionWrapper from "@/components/SectionWrapper";
 import TestimonialCard from "@/components/TestimonialCard";
+import { curtainFaqs, filterToParam, paramToFilter, styleGalleryImages } from "@/lib/curtainsData";
 import { curtainsReviews } from "@/lib/testimonials";
-import { curtainsData } from "@/lib/siteData";
-import { useMemo, useState } from "react";
-import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect } from "react";
 import Link from "next/link";
 
-const filters = ["All", "Printed", "Essential", "Embroidered", "Solid", "Custom"];
-
-const galleryImages = curtainsData.slice(0, 6).map((item, idx) => ({
-  src: item.image,
-  alt: `${item.name} curtain design ${idx + 1}`,
-}));
+const curtainDifferentiators = [
+  {
+    title: "Direct Sourcing from Manufacturers",
+    desc: "We source curtain fabrics directly from manufacturers, helping us deliver premium quality at better prices.",
+  },
+  {
+    title: "Value for Money",
+    desc: "Our curtains combine quality, durability, and elegant designs to give you the best value for your investment.",
+  },
+  {
+    title: "Complete Design Consultation",
+    desc: "We provide complete curtain design consultation based on your space, interiors, lighting, and styling preferences.",
+  },
+  {
+    title: "In-House Tailoring",
+    desc: "Our skilled in-house tailors ensure perfect stitching, precise fitting, and premium finishing for every curtain.",
+  },
+  {
+    title: "Automated Processes",
+    desc: "Our automated production process minimizes errors and ensures consistent quality and timely delivery.",
+  },
+  {
+    title: "Premium Hardware",
+    desc: "We use premium-quality curtain hardware and accessories for smooth functionality, durability, and a luxury finish.",
+  },
+];
 
 export default function CurtainsPage() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const normalizedActiveFilter = activeFilter.trim().toLowerCase();
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-14 text-sm text-[#1F3D3B]/70">Loading curtains...</div>}>
+      <CurtainsPageContent />
+    </Suspense>
+  );
+}
 
-  const filteredCurtains = useMemo(() => {
-    if (normalizedActiveFilter === "all") return curtainsData;
-    return curtainsData.filter((item) => item.tag?.trim().toLowerCase() === normalizedActiveFilter);
-  }, [normalizedActiveFilter]);
+function CurtainsPageContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const filterParam = searchParams.get("filter");
+
+  useEffect(() => {
+    if (!filterParam) return;
+    const filter = paramToFilter(filterParam);
+    if (!filter) return;
+    if (filter === "All") {
+      router.replace("/curtains");
+      return;
+    }
+    router.replace(`/curtains/category/${filterToParam(filter)}`);
+  }, [filterParam, router]);
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 px-4 py-10 sm:px-6 md:py-14">
@@ -31,7 +70,8 @@ export default function CurtainsPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Curtains</p>
         <h1 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-5xl">Curtains Collection</h1>
         <p className="mt-4 max-w-3xl text-sm text-[#1F3D3B]/75 md:text-base">
-          Premium curtains crafted for privacy, light control, and visual elegance. Explore printed, essential, embroidered, solid, and custom styles.
+          Premium curtains crafted for privacy, light control, and visual elegance. Explore printed, Indian & traditional,
+          luxury woven, kids room, and solid styles.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {["Light control", "Thermal comfort", "Custom stitching", "Designer fabrics"].map((badge) => (
@@ -51,101 +91,55 @@ export default function CurtainsPage() {
       </SectionWrapper>
 
       <div className="grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]">
-      <aside className="h-fit rounded-2xl border border-[#1F3D3B]/10 bg-white/80 p-4 md:p-5">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-sm uppercase tracking-widest text-[#1F3D3B]/70">Filters</h2>
-          <span className="text-xs text-[#1F3D3B]/50 md:hidden">Tap</span>
+        <CurtainCategoryFilters activeFilter="All" />
+        <div className="min-w-0">
+          <CurtainAllStylesGrid />
         </div>
-        <div className="mt-4 flex flex-wrap gap-2 md:block md:space-y-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`rounded-full border px-3 py-2 text-xs transition sm:px-4 sm:text-sm md:w-full md:rounded-xl md:text-left ${
-                activeFilter === filter
-                  ? "border-[#F4A300] bg-[#F4A300]/10 text-[#1F3D3B]"
-                  : "border-[#1F3D3B]/10 hover:border-[#F4A300]"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-      </aside>
-      <div className="min-w-0">
-        <h2 className="mb-4 text-2xl font-semibold sm:mb-6 sm:text-4xl">Popular Curtain Styles</h2>
-        <p className="-mt-2 mb-6 max-w-2xl text-sm text-[#1F3D3B]/75 sm:-mt-3 sm:text-base">
-          Filter by style to quickly find the right look for your living room, bedroom, or complete home upgrade.
-        </p>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {filteredCurtains.map((item, idx) => (
-            <Card key={`${item.name}-${item.image}-${idx}`} title={item.name} image={item.image} subtitle={item.tag} showConsultationButton />
-          ))}
-        </div>
-        {filteredCurtains.length === 0 ? (
-          <p className="mt-5 text-sm text-[#1F3D3B]/70">No curtains found for this category yet.</p>
-        ) : null}
       </div>
-      </div>
-
-      <SectionWrapper className="grid gap-6 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 md:grid-cols-2">
-        <div>
-          <h3 className="text-2xl font-semibold">Why choose our curtains?</h3>
-          <div className="mt-4 space-y-2">
-            {[
-              "Premium fabrics with rich fall and long-lasting finish.",
-              "Custom measurements for full-length, window, or layered draping.",
-              "Options for blackout, sheer, and combination styling.",
-            ].map((line) => (
-              <p key={line} className="rounded-xl bg-[#FAF9F6] px-4 py-3 text-sm text-[#1F3D3B]/80">
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 className="text-2xl font-semibold">Best suited for</h3>
-          <div className="mt-4 space-y-2">
-            {[
-              "Living rooms that need statement drapes.",
-              "Bedrooms needing privacy and light control.",
-              "Workspaces requiring low-glare soft daylight.",
-            ].map((line) => (
-              <p key={line} className="rounded-xl bg-[#FAF9F6] px-4 py-3 text-sm text-[#1F3D3B]/80">
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
 
       <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
-        <h2 className="text-3xl font-semibold">Details</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {[
-            {
-              title: "Fabric & fall",
-              body: "We recommend fabrics based on the room’s light, desired privacy, and how structured or flowy you want the drape to look.",
-            },
-            {
-              title: "Sheer & blackout layering",
-              body: "Layered curtains combine soft daylight with nighttime privacy. We help you pick the right combination for bedroom and living areas.",
-            },
-            {
-              title: "Measurement guidance",
-              body: "Proper curtain drop and fullness make the biggest difference. We guide measurements for windows, doors, and full-height styling.",
-            },
-            {
-              title: "Hardware & finishing",
-              body: "Rods, tracks, rings, and pleat styles are selected to match the room theme and ensure smooth daily operation.",
-            },
-          ].map((section) => (
-            <div key={section.title} className="rounded-2xl bg-[#FAF9F6] p-5">
-              <h3 className="text-lg font-semibold text-[#1F3D3B]">{section.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#1F3D3B]/75">{section.body}</p>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Why GRIHAM</p>
+            <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">How We Stand Different Than Others</h2>
+            <p className="mt-3 text-sm leading-relaxed text-[#1F3D3B]/70 md:text-base">
+              From fabric sourcing to installation — every step is built to give you premium curtains at honest value.
+            </p>
+          </div>
+          <Link
+            href="/book-consultation"
+            className="shrink-0 rounded-full border border-[#1F3D3B]/20 px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#1F3D3B] hover:text-white"
+          >
+            Book Free Consultation
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {curtainDifferentiators.map((item, index) => (
+            <div
+              key={item.title}
+              className="group flex h-full flex-col rounded-2xl border border-[#1F3D3B]/10 bg-[#FAF9F6] p-5 transition hover:-translate-y-0.5 hover:border-[#F4A300]/30 hover:shadow-md"
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1F3D3B] text-sm font-bold text-[#F4A300] transition group-hover:bg-[#F4A300] group-hover:text-[#1F3D3B]">
+                  {index + 1}
+                </span>
+                <h3 className="text-lg font-semibold leading-snug text-[#1F3D3B]">{item.title}</h3>
+              </div>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-[#1F3D3B]/75">{item.desc}</p>
             </div>
           ))}
         </div>
+      </SectionWrapper>
+
+      <MotorizedCurtainsSection />
+
+      <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Our process</p>
+        <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B]">From measurement to delivery</h2>
+        <p className="mt-3 max-w-2xl text-sm text-[#1F3D3B]/75 md:text-base">
+          A simple, guided journey so your curtains fit perfectly and look premium in every room.
+        </p>
+        <CurtainProcessSteps />
       </SectionWrapper>
 
       <SectionWrapper animate={false}>
@@ -153,22 +147,9 @@ export default function CurtainsPage() {
           <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Inspiration</p>
           <h2 className="mt-2 text-3xl font-semibold">Style gallery</h2>
         </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {galleryImages.map((img, idx) => (
-            <div
-              key={`${img.src}-${idx}`}
-              className="group overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/80 shadow-sm"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={900}
-                height={1200}
-                unoptimized={img.src.startsWith("/")}
-                loading="eager"
-                className="h-auto w-full transition duration-500 group-hover:scale-[1.03]"
-              />
-            </div>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-5">
+          {styleGalleryImages.map((img, idx) => (
+            <GalleryImageTile key={`${img.src}-${idx}`} src={img.src} alt={img.alt} priority={idx < 3} />
           ))}
         </div>
       </SectionWrapper>
@@ -186,22 +167,13 @@ export default function CurtainsPage() {
       </SectionWrapper>
 
       <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white p-6 md:p-8">
-        <h2 className="text-3xl font-semibold">Frequently Asked Questions</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">FAQ</p>
+        <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B]">Frequently Asked Questions</h2>
+        <p className="mt-3 max-w-2xl text-sm text-[#1F3D3B]/75">
+          Everything you need to know about custom curtains, fabrics, installation, and ordering with GRIHAM.
+        </p>
         <div className="mt-6 space-y-3">
-          {[
-            {
-              q: "Can curtains be customized for odd window sizes?",
-              a: "Yes, we provide made-to-measure stitching for standard and non-standard window dimensions.",
-            },
-            {
-              q: "Do you offer both blackout and sheer options?",
-              a: "Yes, we offer blackout, sheer, and layered combinations depending on light and privacy needs.",
-            },
-            {
-              q: "Will you help match curtains with wall and sofa colors?",
-              a: "Absolutely. We help you coordinate fabrics with the room palette for a balanced premium look.",
-            },
-          ].map((faq) => (
+          {curtainFaqs.map((faq) => (
             <details key={faq.q} className="group rounded-xl border border-[#1F3D3B]/10 bg-[#FAF9F6] p-4">
               <summary className="cursor-pointer list-none pr-6 text-sm font-semibold text-[#1F3D3B]">
                 {faq.q}

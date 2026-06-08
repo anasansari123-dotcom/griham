@@ -42,11 +42,6 @@ export default function CotsPage() {
         "Multiple storage and headboard configurations available.",
         "Premium finish options to match your room theme.",
       ]}
-      idealFor={[
-        "Master bedrooms requiring statement bed designs.",
-        "Compact rooms where under-bed storage matters.",
-        "Guest rooms with durable long-term furniture needs.",
-      ]}
       items={items}
       searchPlaceholder="Search by bed style or feature..."
       contentSections={[

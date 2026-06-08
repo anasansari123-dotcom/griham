@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SocialLinks from "@/components/SocialLinks";
-import { contactPhone, contactPhoneHref, footerLinks } from "@/lib/siteData";
+import { contactPhone, contactPhoneHref, footerLinks, mapDirectionsUrl, storeAddress } from "@/lib/siteData";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -29,16 +29,25 @@ export default function Footer() {
                   {contactPhone}
                 </a>
               </p>
+              <address className="mt-4 max-w-sm text-sm not-italic leading-relaxed text-[#1F3D3B]/75">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1F3D3B]/55">Visit us</p>
+                <p className="mt-2">{storeAddress}</p>
+                <a
+                  href={mapDirectionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 inline-block font-semibold text-[#1F3D3B] transition hover:text-[#F4A300]"
+                >
+                  Get directions
+                </a>
+              </address>
               <SocialLinks size="sm" className="mt-4" />
-            <Link
-              href="/book-consultation"
-              className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f] md:hidden"
-            >
-              Book Free Consultation
-            </Link>
-              <div className="mt-5 hidden items-center rounded-full border border-[#F4A300]/30 bg-[#F4A300]/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#1F3D3B] md:inline-flex">
-                Premium Design Partner
-              </div>
+              <Link
+                href="/book-consultation"
+                className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f] md:hidden"
+              >
+                Book Free Consultation
+              </Link>
             </div>
 
             <div className="hidden md:block">

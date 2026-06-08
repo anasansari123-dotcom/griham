@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import Card from "@/components/Card";
 import SectionWrapper from "@/components/SectionWrapper";
 import StyleGallery from "@/components/StyleGallery";
@@ -20,6 +21,12 @@ type FeatureItem = {
   desc: string;
 };
 
+type SolutionsSection = {
+  eyebrow?: string;
+  title: string;
+  items: FeatureItem[];
+};
+
 type SpecItem = {
   label: string;
   value: string;
@@ -30,7 +37,6 @@ type Props = {
   subtitle: string;
   badges: string[];
   highlights: string[];
-  idealFor: string[];
   items: ShowcaseItem[];
   galleryImages?: { src: string; alt: string }[];
   contentSections?: { title: string; body: string }[];
@@ -45,6 +51,10 @@ type Props = {
   productImageFit?: "cover" | "contain";
   reviews?: ReviewItem[];
   faqs: { question: string; answer: string }[];
+  featuresEyebrow?: string;
+  featuresTitle?: string;
+  solutionsSection?: SolutionsSection;
+  heroImage?: { src: string; alt: string };
 };
 
 export default function CategoryPageTemplate({
@@ -52,7 +62,6 @@ export default function CategoryPageTemplate({
   subtitle,
   badges,
   highlights,
-  idealFor,
   items,
   galleryImages = [],
   contentSections = [],
@@ -67,6 +76,10 @@ export default function CategoryPageTemplate({
   productImageFit = "cover",
   reviews = [],
   faqs,
+  featuresEyebrow = "Features",
+  featuresTitle = "Premium features you'll notice",
+  solutionsSection,
+  heroImage,
 }: Props) {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState(filters?.[0] ?? "All");
@@ -91,24 +104,52 @@ export default function CategoryPageTemplate({
 
   return (
     <div className="mx-auto max-w-7xl space-y-10 px-6 py-10 md:space-y-14 md:py-14">
-      <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">{title}</p>
-        <h1 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-5xl">{title} Collection</h1>
-        <p className="mt-4 max-w-3xl text-sm text-[#1F3D3B]/75 md:text-base">{subtitle}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {badges.map((badge) => (
-            <span key={badge} className="rounded-full border border-[#1F3D3B]/15 bg-[#FAF9F6] px-3 py-1 text-xs text-[#1F3D3B]/80">
-              {badge}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/book-consultation" className="rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#ffb61f]">
-            Book Free Consultation
-          </Link>
-          <Link href="/" className="rounded-full border border-[#1F3D3B]/20 px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#1F3D3B] hover:text-white">
-            Explore All Categories
-          </Link>
+      <SectionWrapper
+        className={`rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8 ${heroImage ? "overflow-hidden" : ""}`}
+      >
+        <div className={heroImage ? "grid items-center gap-8 lg:grid-cols-2" : ""}>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">{title}</p>
+            <h1 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-5xl">{title} Collection</h1>
+            <p className="mt-4 max-w-3xl text-sm text-[#1F3D3B]/75 md:text-base">{subtitle}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {badges.map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full border border-[#1F3D3B]/15 bg-[#FAF9F6] px-3 py-1 text-xs text-[#1F3D3B]/80"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/book-consultation"
+                className="rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#ffb61f]"
+              >
+                Book Free Consultation
+              </Link>
+              <Link
+                href="/"
+                className="rounded-full border border-[#1F3D3B]/20 px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] hover:bg-[#1F3D3B] hover:text-white"
+              >
+                Explore All Categories
+              </Link>
+            </div>
+          </div>
+          {heroImage ? (
+            <div className="relative h-56 overflow-hidden rounded-2xl sm:h-64 lg:h-72">
+              <Image
+                src={heroImage.src}
+                alt={heroImage.alt}
+                fill
+                unoptimized
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+          ) : null}
         </div>
       </SectionWrapper>
 
@@ -190,8 +231,8 @@ export default function CategoryPageTemplate({
 
       {features.length ? (
         <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Features</p>
-          <h2 className="mt-2 text-3xl font-semibold">Premium features you’ll notice</h2>
+          <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">{featuresEyebrow}</p>
+          <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">{featuresTitle}</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {features.map((f) => (
               <div key={f.title} className="rounded-2xl bg-[#FAF9F6] p-5">
@@ -203,8 +244,8 @@ export default function CategoryPageTemplate({
         </SectionWrapper>
       ) : null}
 
-      <SectionWrapper className="grid gap-6 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 md:grid-cols-2">
-        <div>
+      {!solutionsSection && highlights.length > 0 ? (
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6">
           <h3 className="text-2xl font-semibold">Why choose this category?</h3>
           <div className="mt-4 space-y-2">
             {highlights.map((highlight) => (
@@ -213,18 +254,8 @@ export default function CategoryPageTemplate({
               </p>
             ))}
           </div>
-        </div>
-        <div>
-          <h3 className="text-2xl font-semibold">Best suited for</h3>
-          <div className="mt-4 space-y-2">
-            {idealFor.map((item) => (
-              <p key={item} className="rounded-xl bg-[#FAF9F6] px-4 py-3 text-sm text-[#1F3D3B]/80">
-                {item}
-              </p>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
+        </SectionWrapper>
+      ) : null}
 
       {specs.length ? (
         <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-[#1F3D3B] p-6 text-white md:p-8">
@@ -251,6 +282,23 @@ export default function CategoryPageTemplate({
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F4A300]">Step {index + 1}</p>
                 <h3 className="mt-2 text-lg font-semibold text-[#1F3D3B]">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#1F3D3B]/75">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </SectionWrapper>
+      ) : null}
+
+      {solutionsSection ? (
+        <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">
+          {solutionsSection.eyebrow ? (
+            <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">{solutionsSection.eyebrow}</p>
+          ) : null}
+          <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">{solutionsSection.title}</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {solutionsSection.items.map((item) => (
+              <div key={item.title} className="rounded-2xl bg-[#FAF9F6] p-5">
+                <h3 className="text-lg font-semibold text-[#1F3D3B]">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#1F3D3B]/75">{item.desc}</p>
               </div>
             ))}
           </div>

@@ -1,11 +1,22 @@
-import Image from "next/image";
 import type { ReviewItem } from "@/lib/testimonials";
 
 type Props = {
   review: ReviewItem;
 };
 
+function reviewerInitials(name: string) {
+  return name
+    .replace(/\./g, "")
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 export default function TestimonialCard({ review }: Props) {
+  const initials = reviewerInitials(review.name);
+
   return (
     <blockquote className="flex h-full flex-col rounded-2xl border border-[#1F3D3B]/10 bg-white/90 p-6 shadow-sm">
       <p className="text-[#F4A300]">
@@ -13,17 +24,8 @@ export default function TestimonialCard({ review }: Props) {
       </p>
       <p className="mt-3 flex-1 text-[#1F3D3B]/85">&quot;{review.quote}&quot;</p>
       <footer className="mt-5 flex items-center gap-3 border-t border-[#1F3D3B]/10 pt-4">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-[#F4A300]/30">
-          {review.image ? (
-            <Image
-              src={review.image}
-              alt={review.name}
-              fill
-              unoptimized
-              className="object-cover"
-              sizes="48px"
-            />
-          ) : null}
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#1F3D3B] ring-2 ring-[#F4A300]/30">
+          <span className="text-sm font-bold text-[#F4A300]">{initials}</span>
         </div>
         <div>
           <p className="text-sm font-semibold text-[#1F3D3B]">{review.name}</p>

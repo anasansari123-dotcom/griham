@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { curtainCategories } from "@/lib/curtainsData";
+import { sofaCategories } from "@/lib/sofaData";
 
 const BASE_URL = "https://www.grihamdecor.in";
 
@@ -6,9 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/curtains",
+    ...curtainCategories.map((category) => `/curtains/category/${category.param}`),
     "/wallpapers",
     "/wall-panels",
     "/sofa",
+    ...sofaCategories.map((category) => `/sofa/category/${category.param}`),
     "/cots",
     "/mosquito-nets",
     "/mattress",

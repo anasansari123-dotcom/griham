@@ -1,43 +1,6 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { wallPanelGalleryImages, wallPanelItems } from "@/lib/wallPanelsData";
 import { wallPanelsReviews } from "@/lib/testimonials";
-
-const panels = [
-  {
-    title: "Wood Slat Accent",
-    subtitle: "Warm linear texture",
-    image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "3D Sculpted Panel",
-    subtitle: "Depth and visual drama",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Matte Fluted Panel",
-    subtitle: "Contemporary luxury finish",
-    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Soft Fabric Panel",
-    subtitle: "Comfort + subtle acoustics",
-    image: "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Stone Texture Panel",
-    subtitle: "Premium architectural look",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Minimal Groove Panel",
-    subtitle: "Clean modern lines",
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
-  },
-];
-
-const galleryImages = panels.map((item, idx) => ({
-  src: item.image,
-  alt: `${item.title} wall panel inspiration ${idx + 1}`,
-}));
 
 export default function WallPanelsPage() {
   return (
@@ -46,9 +9,18 @@ export default function WallPanelsPage() {
       subtitle="Statement-ready wall panels that add depth, warmth, and character for living rooms, TV units, reception areas, and accent walls."
       badges={["Acoustic-friendly options", "Easy maintenance", "Custom finishes", "Professional fitment"]}
       features={[
-        { title: "Premium depth & texture", desc: "Instantly elevates interiors with layered finishes—wood slats, fluted, 3D textures, and modern looks." },
-        { title: "Wiring-friendly planning", desc: "Ideal for TV walls—helps conceal wires and creates a clean organized focal point." },
-        { title: "Fast, clean installation", desc: "Professional fitment with aligned seams and finishing so the wall looks seamless." },
+        {
+          title: "Premium depth & texture",
+          desc: "Instantly elevates interiors with layered finishes—wood slats, fluted, 3D textures, and modern looks.",
+        },
+        {
+          title: "Wiring-friendly planning",
+          desc: "Ideal for TV walls—helps conceal wires and creates a clean organized focal point.",
+        },
+        {
+          title: "Fast, clean installation",
+          desc: "Professional fitment with aligned seams and finishing so the wall looks seamless.",
+        },
       ]}
       specs={[
         { label: "Best for", value: "TV unit walls, accent walls, reception areas, bedrooms" },
@@ -57,8 +29,14 @@ export default function WallPanelsPage() {
         { label: "Maintenance", value: "Wipe-friendly finishes; care guidance per texture" },
       ]}
       processSteps={[
-        { title: "Wall assessment", desc: "Share measurements + photos. We plan layout, panel type, and wiring points if required." },
-        { title: "Finish selection", desc: "Confirm texture and shade to match sofa, curtains, and flooring for a premium theme." },
+        {
+          title: "Wall assessment",
+          desc: "Share measurements + photos. We plan layout, panel type, and wiring points if required.",
+        },
+        {
+          title: "Finish selection",
+          desc: "Confirm texture and shade to match sofa, curtains, and flooring for a premium theme.",
+        },
         { title: "Fitment & handover", desc: "Clean installation with aligned edges and final checks." },
       ]}
       highlights={[
@@ -66,12 +44,8 @@ export default function WallPanelsPage() {
         "Helps conceal uneven surfaces and wiring zones cleanly.",
         "Available in wood, fluted, and modern textured looks.",
       ]}
-      idealFor={[
-        "TV back walls and focal living room accents.",
-        "Reception zones and office lounges.",
-        "Luxury bedroom headboard backdrops.",
-      ]}
-      items={panels}
+      items={wallPanelItems}
+      galleryImages={wallPanelGalleryImages}
       searchPlaceholder="Search by panel style or finish..."
       contentSections={[
         {
@@ -91,7 +65,6 @@ export default function WallPanelsPage() {
           body: "Most finishes are wipe-friendly with simple upkeep. We share care guidelines for the selected texture.",
         },
       ]}
-      galleryImages={galleryImages}
       reviews={wallPanelsReviews}
       faqs={[
         {

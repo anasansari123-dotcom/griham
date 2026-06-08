@@ -45,10 +45,21 @@ export default function WallpapersPage() {
       title="Wallpapers"
       subtitle="Elevate your walls with premium textures, patterns, and designer finishes for feature walls, bedrooms, living rooms, and workspaces."
       badges={["Moisture-resistant options", "Premium texture", "Designer patterns", "Professional installation"]}
+      featuresEyebrow="Wallpapers"
+      featuresTitle="Imported, Waterproof Wallpapers Built to Last"
       features={[
-        { title: "Design curation", desc: "We shortlist patterns based on room size, lighting, and your preferred premium theme (minimal, luxe, or bold)." },
-        { title: "Finish selection", desc: "Matte, textured, and accent finishes chosen to match furniture and wall condition for a refined look." },
-        { title: "Clean installation", desc: "Neat edges, alignment, and finishing—so the wall looks seamless and professionally crafted." },
+        {
+          title: "Imported Quality",
+          desc: "Our wallpapers are sourced from the finest manufacturers around the world, ensuring unparalleled style and durability.",
+        },
+        {
+          title: "Waterproof Design",
+          desc: "Our wallpapers are specially engineered to withstand moisture, making them perfect for bathrooms, kitchens, and high-traffic areas.",
+        },
+        {
+          title: "2-Year Warranty",
+          desc: "We stand behind the quality of our products with a 2-year warranty, giving you peace of mind with every purchase.",
+        },
       ]}
       specs={[
         { label: "Best for", value: "Feature walls, bedrooms, living rooms, workspaces" },
@@ -61,16 +72,25 @@ export default function WallpapersPage() {
         { title: "Finalize finish", desc: "Confirm pattern + finish + placement (full wall or feature wall) with premium cohesion." },
         { title: "Install & finish", desc: "Professional installation with clean alignment and finishing details." },
       ]}
-      highlights={[
-        "Instantly upgrades plain walls into statement surfaces.",
-        "Available in subtle, bold, and luxury themed design collections.",
-        "Low-maintenance finishes with durable color retention.",
-      ]}
-      idealFor={[
-        "Feature walls in living rooms and bedrooms.",
-        "Home office and studio backdrops.",
-        "Boutique interiors, cafes, and reception zones.",
-      ]}
+      highlights={[]}
+      solutionsSection={{
+        eyebrow: "Custom solutions",
+        title: "Custom Wallpaper Solutions for Your Unique Space",
+        items: [
+          {
+            title: "Personalized Designs",
+            desc: "Work with our team to create a one-of-a-kind wallpaper that perfectly complements your style and space.",
+          },
+          {
+            title: "Made-to-Measure",
+            desc: "We'll accurately measure your walls to ensure a seamless, custom fit for your wallpaper installation.",
+          },
+          {
+            title: "Expert Guidance",
+            desc: "Our design experts will provide tailored advice to help you achieve your desired look and feel.",
+          },
+        ],
+      }}
       items={items}
       searchPlaceholder="Search by texture, theme, or finish..."
       contentSections={[
