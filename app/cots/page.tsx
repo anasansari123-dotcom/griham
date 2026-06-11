@@ -1,19 +1,6 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { bedGalleryImages, bedItems } from "@/lib/bedsData";
 import { bedsReviews } from "@/lib/testimonials";
-
-const items = [
-  { title: "Heritage Teak Bed", subtitle: "Solid wood classic", image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80" },
-  { title: "Storage Platform Bed", subtitle: "Utility-focused design", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" },
-  { title: "Minimal Frame Bed", subtitle: "Modern clean profile", image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80" },
-  { title: "Upholstered Headboard", subtitle: "Soft premium finish", image: "https://images.unsplash.com/photo-1616627561839-074385245ff6?auto=format&fit=crop&w=900&q=80" },
-  { title: "Floating Platform", subtitle: "Modern luxury vibe", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80" },
-  { title: "Compact Storage Bed", subtitle: "Space-smart solution", image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=80" },
-];
-
-const galleryImages = items.map((item, idx) => ({
-  src: item.image,
-  alt: `${item.title} bed inspiration ${idx + 1}`,
-}));
 
 export default function CotsPage() {
   return (
@@ -42,7 +29,7 @@ export default function CotsPage() {
         "Multiple storage and headboard configurations available.",
         "Premium finish options to match your room theme.",
       ]}
-      items={items}
+      items={bedItems}
       searchPlaceholder="Search by bed style or feature..."
       contentSections={[
         {
@@ -62,7 +49,7 @@ export default function CotsPage() {
           body: "High-strength frames and premium finishing ensure long-term stability and clean aesthetics.",
         },
       ]}
-      galleryImages={galleryImages}
+      galleryImages={bedGalleryImages}
       reviews={bedsReviews}
       faqs={[
         {

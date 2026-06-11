@@ -1,19 +1,6 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { woodenFlooringGalleryImages, woodenFlooringItems } from "@/lib/woodenFlooringData";
 import { woodenFlooringReviews } from "@/lib/testimonials";
-
-const items = [
-  { title: "Natural Oak", subtitle: "Warm timeless grains", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" },
-  { title: "Walnut Matte", subtitle: "Contemporary deep tone", image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80" },
-  { title: "Teak Rustic", subtitle: "Classic premium texture", image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80" },
-  { title: "Ash Grey", subtitle: "Modern cool tone", image: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&q=80" },
-  { title: "Honey Maple", subtitle: "Bright warm finish", image: "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=900&q=80" },
-  { title: "Dark Espresso", subtitle: "Luxury deep shade", image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=80" },
-];
-
-const galleryImages = items.map((item, idx) => ({
-  src: item.image,
-  alt: `${item.title} wooden flooring inspiration ${idx + 1}`,
-}));
 
 export default function WoodenFlooringPage() {
   return (
@@ -42,7 +29,7 @@ export default function WoodenFlooringPage() {
         "Improves premium value perception of the overall home.",
         "Available in multiple tones to suit modern and classic themes.",
       ]}
-      items={items}
+      items={woodenFlooringItems}
       searchPlaceholder="Search by tone or finish..."
       contentSections={[
         {
@@ -62,7 +49,7 @@ export default function WoodenFlooringPage() {
           body: "Simple dry mopping and recommended cleaners keep the floor looking premium. We share care guidance based on selected finish.",
         },
       ]}
-      galleryImages={galleryImages}
+      galleryImages={woodenFlooringGalleryImages}
       reviews={woodenFlooringReviews}
       faqs={[
         {

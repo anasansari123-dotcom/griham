@@ -1,43 +1,6 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
+import { wallpaperGalleryImages, wallpaperItems } from "@/lib/wallpapersData";
 import { wallpapersReviews } from "@/lib/testimonials";
-
-const items = [
-  {
-    title: "Textured Luxe",
-    subtitle: "Depth-rich premium texture",
-    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Minimal Geometric",
-    subtitle: "Modern clean patterns",
-    image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Classic Motif",
-    subtitle: "Elegant timeless designs",
-    image: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Soft Neutrals",
-    subtitle: "Warm minimal palettes",
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Luxury Metallic",
-    subtitle: "Premium shine accents",
-    image: "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Nature Inspired",
-    subtitle: "Organic tones and motifs",
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
-  },
-];
-
-const galleryImages = items.map((item, idx) => ({
-  src: item.image,
-  alt: `${item.title} wallpaper inspiration ${idx + 1}`,
-}));
 
 export default function WallpapersPage() {
   return (
@@ -91,7 +54,8 @@ export default function WallpapersPage() {
           },
         ],
       }}
-      items={items}
+      items={wallpaperItems}
+      galleryImages={wallpaperGalleryImages}
       searchPlaceholder="Search by texture, theme, or finish..."
       contentSections={[
         {
@@ -111,7 +75,6 @@ export default function WallpapersPage() {
           body: "Most options are wipe-friendly. We share care guidance based on the selected material and wall placement.",
         },
       ]}
-      galleryImages={galleryImages}
       reviews={wallpapersReviews}
       faqs={[
         {

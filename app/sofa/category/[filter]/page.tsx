@@ -53,14 +53,14 @@ export default function SofaCategoryPage({ params }: Props) {
             <p className="mt-3 text-sm text-[#1F3D3B]/65">
               Design inspiration from our <span className="font-semibold text-[#1F3D3B]">{category.name}</span> collection.
             </p>
-            <div className="relative mt-6 h-56 overflow-hidden rounded-2xl bg-[#FAF9F6] sm:h-72 md:h-[22rem]">
+            <div className="relative mt-6 h-56 overflow-hidden rounded-2xl sm:h-72 md:h-[22rem]">
               <Image
                 src={category.heroImage}
                 alt={category.name}
                 fill
                 unoptimized={category.heroImage.startsWith("/")}
                 priority
-                className="object-contain object-center p-3"
+                className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 1152px"
               />
             </div>
@@ -76,7 +76,6 @@ export default function SofaCategoryPage({ params }: Props) {
                   src={src}
                   alt={`${category.name} inspiration ${idx + 1}`}
                   priority={idx === 0}
-                  imageFit="contain"
                 />
               ))}
             </div>

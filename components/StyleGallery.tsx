@@ -8,14 +8,15 @@ type GalleryImage = {
 
 type Props = {
   images: GalleryImage[];
+  id?: string;
 };
 
 /** Uniform grid inspiration gallery (category pages). */
-export default function StyleGallery({ images }: Props) {
+export default function StyleGallery({ images, id = "style-gallery" }: Props) {
   if (!images.length) return null;
 
   return (
-    <SectionWrapper animate={false}>
+    <SectionWrapper animate={false} id={id} className="scroll-mt-28">
       <div className="mb-6">
         <p className="text-xs uppercase tracking-[0.28em] text-[#F4A300]">Inspiration</p>
         <h2 className="mt-2 text-3xl font-semibold">Style gallery</h2>

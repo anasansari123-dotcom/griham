@@ -211,6 +211,7 @@ export default function CategoryPageTemplate({
               image={item.image}
               subtitle={item.tag ?? item.subtitle ?? "Premium Finish"}
               showConsultationButton
+              showViewMoreButton={galleryImages.length > 0}
               enableImagePreview={enableProductPreview}
               imageFit={productImageFit}
               priorityImage={idx < 6}

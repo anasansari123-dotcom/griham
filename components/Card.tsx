@@ -12,6 +12,8 @@ type Props = {
   alt?: string;
   subtitle?: string;
   showConsultationButton?: boolean;
+  showViewMoreButton?: boolean;
+  viewMoreTargetId?: string;
   enableImagePreview?: boolean;
   imageFit?: "cover" | "contain";
   priorityImage?: boolean;
@@ -23,6 +25,8 @@ export default function Card({
   alt,
   subtitle,
   showConsultationButton = false,
+  showViewMoreButton = false,
+  viewMoreTargetId = "style-gallery",
   enableImagePreview = false,
   imageFit = "cover",
   priorityImage = false,
@@ -31,6 +35,11 @@ export default function Card({
   const [previewOpen, setPreviewOpen] = useState(false);
   const isLocalImage = image.startsWith("/");
   const useMobileLayout = imageFit === "contain";
+
+  const scrollToGallery = () => {
+    const gallery = document.getElementById(viewMoreTargetId);
+    gallery?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -68,19 +77,52 @@ export default function Card({
           />
           {showConsultationButton ? (
             <div className="absolute inset-0 hidden items-end justify-center bg-gradient-to-t from-[#102826]/75 via-[#102826]/20 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex">
-              <button
-                type="button"
-                onClick={() => router.push("/book-consultation")}
-                className="rounded-full bg-[#F4A300] px-4 py-2 text-xs font-semibold text-[#1F3D3B] shadow-sm transition hover:bg-[#ffb61f]"
-              >
-                Book Free Consultation
-              </button>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => router.push("/book-consultation")}
+                  className="rounded-full bg-[#F4A300] px-4 py-2 text-xs font-semibold text-[#1F3D3B] shadow-sm transition hover:bg-[#ffb61f]"
+                >
+                  Book Free Consultation
+                </button>
+                {showViewMoreButton ? (
+                  <button
+                    type="button"
+                    onClick={scrollToGallery}
+                    className="rounded-full border border-white/80 bg-white/95 px-4 py-2 text-xs font-semibold text-[#1F3D3B] shadow-sm transition hover:bg-white"
+                  >
+                    View More
+                  </button>
+                ) : null}
+              </div>
             </div>
           ) : null}
         </div>
         <div className="p-5">
           <h3 className="text-lg font-semibold text-[#1F3D3B]">{title}</h3>
           {subtitle ? <p className="mt-1 text-sm text-[#1F3D3B]/70">{subtitle}</p> : null}
+          {showConsultationButton || showViewMoreButton ? (
+            <div className="mt-3 flex flex-wrap gap-2 md:hidden">
+              {showConsultationButton ? (
+                <button
+                  type="button"
+                  onClick={() => router.push("/book-consultation")}
+                  className="rounded-full bg-[#F4A300] px-4 py-2 text-xs font-semibold text-[#1F3D3B] shadow-sm transition hover:bg-[#ffb61f]"
+                >
+                  Book Free Consultation
+                </button>
+              ) : null}
+              {showViewMoreButton ? (
+                <button
+                  type="button"
+                  onClick={scrollToGallery}
+                  className="rounded-full border border-[#1F3D3B]/15 bg-[#FAF9F6] px-4 py-2 text-xs font-semibold text-[#1F3D3B] shadow-sm transition hover:border-[#F4A300]"
+                >
+                  View More
+                </button>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </motion.article>
       {previewOpen ? <ImageLightbox src={image} alt={alt ?? title} onClose={() => setPreviewOpen(false)} /> : null}

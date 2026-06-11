@@ -1,18 +1,76 @@
 import { contactWhatsApp } from "@/lib/siteData";
 
-const img = (name: string) => `/images/curtains/${name}.png`;
+type CurtainFolder = "solid" | "printed" | "indian-traditional" | "luxury-woven" | "kids-room";
+
+const curtainImg = (folder: CurtainFolder, file: string) => `/images/curtains/${folder}/${file}`;
+
+const solidGallery = [
+  "SC1.jpg",
+  "SC2.jpg",
+  "SC3.jpg",
+  "SC4.jpg",
+  "SC5.jpg",
+  "C1.png",
+  "C2.png",
+  "C3.png",
+  "C10.png",
+  "C11.png",
+  "C12.png",
+  "C13.png",
+  "C18.png",
+].map((file) => curtainImg("solid", file));
+
+const printedGallery = [
+  "PC1.jpg",
+  "PC2.jpg",
+  "PC3.jpg",
+  "PC4.jpg",
+  "PC5.jpg",
+  "C4.png",
+  "C6.png",
+  "C9.png",
+  "C15.png",
+  "C16.png",
+  "C17.png",
+  "C19.png",
+  "C21.png",
+  "C22.png",
+  "C23.png",
+  "C25.png",
+  "C26.png",
+].map((file) => curtainImg("printed", file));
+
+const indianTraditionalGallery = ["IT1.jpg", "IT2.jpg", "IT3.jpg", "IT4.jpg", "IT5.jpg", "IT6.jpg", "IT7.jpg", "IT8.jpg", "IT9.jpg"].map(
+  (file) => curtainImg("indian-traditional", file),
+);
+
+const luxuryWovenGallery = ["EC1.jpg", "EC2.jpg", "EC3.jpg", "EC4.jpg", "EC5.jpg", "EC6.jpg"].map((file) =>
+  curtainImg("luxury-woven", file),
+);
+
+const kidsRoomGallery = ["KR1.jpg", "KR2.jpg", "KR3.jpg", "KR4.jpg", "KR5.jpg", "KR6.jpg", "KR7.jpg", "C27.png"].map((file) =>
+  curtainImg("kids-room", file),
+);
+
+const categoryGalleryByFilter: Record<Exclude<CurtainFilterOption, "All">, string[]> = {
+  Solid: solidGallery,
+  Printed: printedGallery,
+  "Indian & Traditional": indianTraditionalGallery,
+  "Luxury Woven": luxuryWovenGallery,
+  "Kids Room": kidsRoomGallery,
+};
 
 /** Curated installs for the Style gallery on /curtains — one highlight per style + top installs */
 export const styleGalleryImages = [
-  { src: img("C1"), alt: "Full-height curtains in a spacious living room" },
-  { src: img("C4"), alt: "Printed curtains with soft natural light" },
-  { src: img("C9"), alt: "Kids room curtains with playful prints" },
-  { src: img("C13"), alt: "Solid-tone curtains in a minimal living room" },
-  { src: img("C16"), alt: "Indian traditional curtains in a heritage living hall" },
-  { src: img("C19"), alt: "Bold printed curtains on a feature window" },
-  { src: img("C3"), alt: "Sheer and blackout layered curtains in a modern living room" },
-  { src: img("C25"), alt: "Luxury woven texture curtains in a formal lounge" },
-  { src: img("C27"), alt: "Premium full-height curtains on a ceiling track" },
+  { src: curtainImg("solid", "C3.png"), alt: "Solid-tone curtains in a modern living room" },
+  { src: curtainImg("printed", "PC1.jpg"), alt: "Printed curtains with soft natural light" },
+  { src: curtainImg("kids-room", "KR1.jpg"), alt: "Kids room curtains with playful prints" },
+  { src: curtainImg("solid", "C13.png"), alt: "Solid-tone curtains in a minimal living room" },
+  { src: curtainImg("indian-traditional", "IT1.jpg"), alt: "Indian traditional curtains in a heritage living hall" },
+  { src: curtainImg("printed", "C19.png"), alt: "Bold printed curtains on a feature window" },
+  { src: curtainImg("solid", "SC3.jpg"), alt: "Full-height solid curtains in a spacious living room" },
+  { src: curtainImg("luxury-woven", "EC1.jpg"), alt: "Luxury woven texture curtains in a formal lounge" },
+  { src: curtainImg("kids-room", "C27.png"), alt: "Premium kids room curtains on a ceiling track" },
 ];
 
 export type CurtainItem = {
@@ -34,7 +92,7 @@ export const curtainsData: CurtainItem[] = [
   {
     slug: "solid-curtain",
     name: "Solid Curtain",
-    image: "/CVFQx0LoEk5i8YCfY6U8S.avif",
+    image: curtainImg("solid", "SC1.jpg"),
     tag: "Solid",
     description:
       "Clean solid-tone curtains that bring calm, balanced elegance to any room. Perfect when you want a timeless look that pairs easily with patterned furniture and wall finishes.",
@@ -45,12 +103,12 @@ export const curtainsData: CurtainItem[] = [
       "Easy to coordinate with sofas, rugs, and wall panels",
     ],
     idealFor: ["Minimal interiors", "Rent-friendly upgrades", "Rooms needing a calm backdrop"],
-    gallery: [img("C13"), img("C12"), img("C25")],
+    gallery: [curtainImg("solid", "SC1.jpg"), curtainImg("solid", "C3.png"), curtainImg("solid", "C13.png")],
   },
   {
     slug: "printed-curtain-classic",
     name: "Printed Curtain",
-    image: "/J3bXmpQwZzacJI4MP_JCk.avif",
+    image: curtainImg("printed", "PC1.jpg"),
     tag: "Printed",
     description:
       "Designer printed curtains that add personality without overwhelming the room. Ideal for feature windows and spaces where you want pattern with premium finish.",
@@ -61,12 +119,12 @@ export const curtainsData: CurtainItem[] = [
       "Style guidance to match your wall and furniture palette",
     ],
     idealFor: ["Living rooms", "Guest bedrooms", "Dining areas with natural light"],
-    gallery: [img("C4"), img("C19"), img("C21")],
+    gallery: [curtainImg("printed", "PC1.jpg"), curtainImg("printed", "C4.png"), curtainImg("printed", "C19.png")],
   },
   {
     slug: "luxury-woven-design-curtains",
     name: "Luxury Woven Design Curtains",
-    image: "/SIB7LUTBqFxMSbw3bbPJ3.avif",
+    image: curtainImg("luxury-woven", "EC1.jpg"),
     tag: "Luxury Woven",
     description:
       "Luxury woven curtains with textured depth and a refined drape. These designs elevate formal living spaces and master bedrooms with a premium, hotel-inspired feel.",
@@ -77,12 +135,12 @@ export const curtainsData: CurtainItem[] = [
       "Coordinated hardware recommendations included",
     ],
     idealFor: ["Master bedrooms", "Formal living rooms", "Premium renovation projects"],
-    gallery: [img("C27"), img("C25"), img("C12")],
+    gallery: [curtainImg("luxury-woven", "EC1.jpg"), curtainImg("luxury-woven", "EC2.jpg"), curtainImg("luxury-woven", "EC3.jpg")],
   },
   {
     slug: "indian-traditional-curtains-1",
     name: "Indian & Traditional Curtains",
-    image: "/E02KwJXTETaoWsfmQ9sNz.avif",
+    image: curtainImg("indian-traditional", "IT1.jpg"),
     tag: "Indian & Traditional",
     description:
       "Indian and traditional curtain styles inspired by classic motifs, warm tones, and festive elegance. Perfect for homes that celebrate heritage with a modern finish.",
@@ -93,12 +151,16 @@ export const curtainsData: CurtainItem[] = [
       "Ideal for pooja rooms, living halls, and guest areas",
     ],
     idealFor: ["Festive home styling", "Traditional interiors", "Family living spaces"],
-    gallery: [img("C16"), img("C17"), img("C18")],
+    gallery: [
+      curtainImg("indian-traditional", "IT1.jpg"),
+      curtainImg("indian-traditional", "IT2.jpg"),
+      curtainImg("indian-traditional", "IT4.jpg"),
+    ],
   },
   {
     slug: "printed-curtains-modern",
     name: "Printed Curtains",
-    image: "/O_oaJzsDb-9kBIG1eC_PD.avif",
+    image: curtainImg("printed", "PC2.jpg"),
     tag: "Printed",
     description:
       "Bold printed curtains for modern homes that need character and contrast. We help you balance print scale with room size so the look stays premium, not busy.",
@@ -109,12 +171,12 @@ export const curtainsData: CurtainItem[] = [
       "Pairs well with neutral sofas and wooden flooring",
     ],
     idealFor: ["Modern apartments", "Teen bedrooms", "Accent window styling"],
-    gallery: [img("C18"), img("C21"), img("C4")],
+    gallery: [curtainImg("printed", "PC2.jpg"), curtainImg("printed", "C21.png"), curtainImg("printed", "C6.png")],
   },
   {
     slug: "indian-traditional-curtains-2",
     name: "Indian & Traditional Curtains",
-    image: "/Dgy_d1Pifjlgq1-SuGuPA.avif",
+    image: curtainImg("indian-traditional", "IT3.jpg"),
     tag: "Indian & Traditional",
     description:
       "A second traditional collection with richer textures and ceremonial warmth. Designed for homeowners who want classic Indian aesthetics with neat, modern stitching.",
@@ -125,12 +187,16 @@ export const curtainsData: CurtainItem[] = [
       "On-site consultation for colour matching",
     ],
     idealFor: ["Wedding-season home refresh", "Traditional dining rooms", "Large window halls"],
-    gallery: [img("C17"), img("C16"), img("C19")],
+    gallery: [
+      curtainImg("indian-traditional", "IT3.jpg"),
+      curtainImg("indian-traditional", "IT5.jpg"),
+      curtainImg("indian-traditional", "IT6.jpg"),
+    ],
   },
   {
     slug: "printed-curtain-soft",
     name: "Printed Curtain",
-    image: "/8_RvkvWEJCByjiBCgk6La.avif",
+    image: curtainImg("printed", "PC3.jpg"),
     tag: "Printed",
     description:
       "Soft-print curtains with subtle pattern movement—ideal when you want interest without dominating the room. Great for bedrooms and reading corners.",
@@ -141,12 +207,12 @@ export const curtainsData: CurtainItem[] = [
       "Custom track or rod setup guidance",
     ],
     idealFor: ["Bedrooms", "Nurseries", "Home offices"],
-    gallery: [img("C19"), img("C14"), img("C4")],
+    gallery: [curtainImg("printed", "PC3.jpg"), curtainImg("printed", "C26.png"), curtainImg("printed", "C15.png")],
   },
   {
     slug: "indian-traditional-curtains-3",
     name: "Indian & Traditional Curtains",
-    image: "/17PSMkkPUK5Dvo4ypxDKl.avif",
+    image: curtainImg("indian-traditional", "IT7.jpg"),
     tag: "Indian & Traditional",
     description:
       "Heritage-inspired curtains with premium fall for large living spaces. This style works beautifully with wooden furniture, brass accents, and warm lighting.",
@@ -157,12 +223,16 @@ export const curtainsData: CurtainItem[] = [
       "Installation by experienced GRIHAM teams",
     ],
     idealFor: ["Villas", "Large living rooms", "Heritage-style homes"],
-    gallery: [img("C1"), img("C22"), img("C11")],
+    gallery: [
+      curtainImg("indian-traditional", "IT7.jpg"),
+      curtainImg("indian-traditional", "IT8.jpg"),
+      curtainImg("indian-traditional", "IT9.jpg"),
+    ],
   },
   {
     slug: "kids-room-curtains",
     name: "Kids Room Curtains",
-    image: img("C9"),
+    image: curtainImg("kids-room", "KR1.jpg"),
     tag: "Kids Room",
     description:
       "Playful, safe, and easy-care curtains designed for children's rooms. Choose cheerful prints and practical fabrics that handle daily use while keeping the room bright and cozy.",
@@ -173,7 +243,7 @@ export const curtainsData: CurtainItem[] = [
       "Custom sizes for study nooks and bunk beds",
     ],
     idealFor: ["Kids bedrooms", "Playrooms", "Study areas"],
-    gallery: [img("C9"), img("C5"), img("C8")],
+    gallery: [curtainImg("kids-room", "KR1.jpg"), curtainImg("kids-room", "KR2.jpg"), curtainImg("kids-room", "KR3.jpg")],
   },
 ];
 
@@ -364,11 +434,10 @@ function itemsForFilter(filter: CurtainFilterOption) {
 
 function buildCategory(filter: CurtainFilterOption): CurtainCategory {
   const items = itemsForFilter(filter);
-  const installGallery = items.flatMap((item) => [...item.gallery, item.image]);
   const gallery =
     filter === "All"
-      ? [...new Set([...styleGalleryImages.map((i) => i.src), ...installGallery])]
-      : [...new Set(installGallery)];
+      ? [...solidGallery, ...printedGallery, ...indianTraditionalGallery, ...luxuryWovenGallery, ...kidsRoomGallery]
+      : categoryGalleryByFilter[filter];
 
   const copy = categoryCopy[filter];
 
@@ -379,7 +448,7 @@ function buildCategory(filter: CurtainFilterOption): CurtainCategory {
     description: copy.description,
     highlights: copy.highlights,
     idealFor: copy.idealFor,
-    heroImage: gallery[0] ?? items[0]?.gallery[0] ?? items[0]?.image ?? "/images/curtains/C3.png",
+    heroImage: gallery[0] ?? items[0]?.image ?? curtainImg("solid", "C3.png"),
     gallery,
   };
 }
