@@ -180,26 +180,6 @@ export const woodenFlooringReviews: ReviewItem[] = withReviewAvatars([
   },
 ]);
 
-export const homeDecorReviews: ReviewItem[] = withReviewAvatars([
-  {
-    quote: "The decor suggestions made our living room feel complete. Everything looks curated and premium.",
-    name: "Shreya Joshi",
-    rating: "5.0",
-    meta: "Home decor · Domlur",
-  },
-  {
-    quote: "Great eye for styling. They matched pieces to our sofa and wall finish beautifully.",
-    name: "Kiran Hegde",
-    rating: "4.9",
-    meta: "Room styling · Basavanagudi",
-  },
-  {
-    quote: "Simple, elegant and not cluttered. Perfect recommendations for a compact home.",
-    name: "Naveen Shetty",
-    rating: "5.0",
-    meta: "Compact apartment · Mahadevapura",
-  },
-]);
 
 export const bedsReviews: ReviewItem[] = withReviewAvatars([
   {

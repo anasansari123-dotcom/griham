@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | GRIHAM",
   },
   description:
-    "Discover premium home decor collections from GRIHAM: curtains, wallpapers, wall panels, sofas, beds, home decor, mattresses, and wooden flooring.",
+    "Discover premium home furnishing collections from GRIHAM: curtains, wallpapers, wall panels, sofas, beds, mattresses, and wooden flooring.",
   keywords: [
     "premium home decor",
     "curtains",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GRIHAM | Premium Home Decor & Interiors",
     description:
-      "Curated premium interiors with expert guidance for curtains, wallpapers, wall panels, sofas, beds, decor, mattresses, and wooden flooring.",
+      "Curated premium interiors with expert guidance for curtains, wallpapers, wall panels, sofas, beds, mattresses, and wooden flooring.",
     url: "https://www.grihamdecor.in",
     siteName: "GRIHAM",
     locale: "en_IN",
@@ -90,7 +90,6 @@ export default function RootLayout({
                 "Wall Panels",
                 "Sofa",
                 "Beds",
-                "Home Decor",
                 "Mattress",
                 "Wooden Flooring",
               ],

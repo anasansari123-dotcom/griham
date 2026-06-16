@@ -13,12 +13,12 @@ export default function WoodenFlooringPage() {
         { title: "Durable surface options", desc: "Scratch-resistant options for high traffic and practical daily maintenance." },
         { title: "Professional installation", desc: "Surface assessment + installation method planning for a stable and premium result." },
       ]}
-      specs={[
-        { label: "Best for", value: "Living rooms, bedrooms, lounges, office cabins" },
-        { label: "Finish types", value: "Matte / glossy options (as per selection)" },
-        { label: "Durability", value: "Scratch-resistant options available; depends on finish" },
-        { label: "Maintenance", value: "Dry mop + recommended cleaners for long-term look" },
-      ]}
+      // specs={[
+      //   { label: "Best for", value: "Living rooms, bedrooms, lounges, office cabins" },
+      //   { label: "Finish types", value: "Matte / glossy options (as per selection)" },
+      //   { label: "Durability", value: "Scratch-resistant options available; depends on finish" },
+      //   { label: "Maintenance", value: "Dry mop + recommended cleaners for long-term look" },
+      // ]}
       processSteps={[
         { title: "Assess existing floor", desc: "We check floor condition and recommend best installation approach." },
         { title: "Choose tone & finish", desc: "Finalize tone based on lighting and matching with furniture and walls." },
@@ -31,24 +31,24 @@ export default function WoodenFlooringPage() {
       ]}
       items={woodenFlooringItems}
       searchPlaceholder="Search by tone or finish..."
-      contentSections={[
-        {
-          title: "Tone selection",
-          body: "Warm tones (oak/maple) make rooms feel inviting. Dark tones (walnut/espresso) add luxury depth. We help you choose based on lighting and wall colors.",
-        },
-        {
-          title: "Wear & durability",
-          body: "Scratch-resistant options are ideal for high-traffic areas. We recommend finishes based on pets, kids, and daily usage.",
-        },
-        {
-          title: "Installation planning",
-          body: "We assess existing flooring and level conditions, then recommend the right installation approach for a stable finish.",
-        },
-        {
-          title: "Maintenance",
-          body: "Simple dry mopping and recommended cleaners keep the floor looking premium. We share care guidance based on selected finish.",
-        },
-      ]}
+      // contentSections={[
+      //   {
+      //     title: "Tone selection",
+      //     body: "Warm tones (oak/maple) make rooms feel inviting. Dark tones (walnut/espresso) add luxury depth. We help you choose based on lighting and wall colors.",
+      //   },
+      //   {
+      //     title: "Wear & durability",
+      //     body: "Scratch-resistant options are ideal for high-traffic areas. We recommend finishes based on pets, kids, and daily usage.",
+      //   },
+      //   {
+      //     title: "Installation planning",
+      //     body: "We assess existing flooring and level conditions, then recommend the right installation approach for a stable finish.",
+      //   },
+      //   {
+      //     title: "Maintenance",
+      //     body: "Simple dry mopping and recommended cleaners keep the floor looking premium. We share care guidance based on selected finish.",
+      //   },
+      // ]}
       galleryImages={woodenFlooringGalleryImages}
       reviews={woodenFlooringReviews}
       faqs={[

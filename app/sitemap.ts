@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sofa",
     ...sofaCategories.map((category) => `/sofa/category/${category.param}`),
     "/cots",
-    "/mosquito-nets",
     "/mattress",
     "/wooden-flooring",
     "/book-consultation",

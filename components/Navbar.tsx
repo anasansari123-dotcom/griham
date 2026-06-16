@@ -86,12 +86,12 @@ export default function Navbar() {
         </button>
 
         <div className="hidden flex-1 items-center lg:grid lg:grid-cols-[1fr_auto]">
-          <div className="flex flex-wrap items-center justify-center gap-x-2 md:gap-x-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 md:gap-x-5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`inline-flex h-8 items-center whitespace-nowrap rounded-full px-2 text-[11px] font-medium leading-none transition md:px-2.5 md:text-xs ${
+                className={`inline-flex h-8 items-center whitespace-nowrap rounded-full px-2 text-[11px] font-medium leading-none transition md:px-2.5 md:text-sm ${
                   isActiveLink(link.href)
                     ? "bg-[#F4A300]/20 text-[#F4A300]"
                     : `${textColor} hover:bg-white/10 hover:text-[#F4A300]`

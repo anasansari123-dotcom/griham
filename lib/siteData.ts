@@ -33,7 +33,7 @@ export type SocialLink = {
 };
 
 export const socialLinks: SocialLink[] = [
-  { name: "Instagram", href: "https://www.instagram.com/grihamdecor", icon: "instagram" },
+  { name: "Instagram", href: "https://www.instagram.com/griham.decor/", icon: "instagram" },
   { name: "Facebook", href: "https://www.facebook.com/grihamdecor", icon: "facebook" },
   { name: "WhatsApp", href: contactWhatsApp, icon: "whatsapp" },
 ];
@@ -44,7 +44,6 @@ export const collectionNavLinks = [
   { href: "/wall-panels", label: "Wall Panels" },
   { href: "/sofa", label: "Sofa" },
   { href: "/cots", label: "Beds" },
-  { href: "/mosquito-nets", label: "Home Decor" },
   { href: "/mattress", label: "Mattress" },
   { href: "/wooden-flooring", label: "Wooden Flooring" },
 ];
@@ -67,7 +66,6 @@ export const footerLinks = [
   { href: "/wall-panels", label: "Wall Panels" },
   { href: "/sofa", label: "Sofa" },
   { href: "/cots", label: "Beds" },
-  { href: "/mosquito-nets", label: "Home Decor" },
   { href: "/mattress", label: "Mattress" },
   { href: "/wooden-flooring", label: "Wooden Flooring" },
   { href: "/blog", label: "Blog" },
@@ -104,12 +102,6 @@ export const homeCollectionCategories: HomeCategoryItem[] = [
     href: "/cots",
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80",
     alt: "Minimal wooden bed frame with upholstered headboard",
-  },
-  {
-    name: "Home Decor",
-    href: "/mosquito-nets",
-    image: "/images/collection/home-decor.jpg",
-    alt: "Premium home decor styling with curated interior accents",
   },
   {
     name: "Mattress",
@@ -156,12 +148,6 @@ export const homeShopCategories: HomeCategoryItem[] = [
     href: "/cots",
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
     alt: "Minimal wooden bed frame with upholstered headboard",
-  },
-  {
-    name: "Home Decor",
-    href: "/mosquito-nets",
-    image: "/images/collection/home-decor.jpg",
-    alt: "Premium home decor styling with curated interior accents",
   },
   {
     name: "Mattress",

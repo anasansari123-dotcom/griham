@@ -107,7 +107,7 @@ export default function Home() {
               Premium Home Furnishings.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
-              Explore curtains, wallpapers, wall panels, sofa, beds, home decor, mattress, and wooden flooring with one coordinated design partner.
+              Explore curtains, wallpapers, wall panels, sofa, beds, mattress, and wooden flooring with one coordinated design partner.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="#our-collection" className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
@@ -141,10 +141,10 @@ export default function Home() {
       </SectionWrapper>
 
       <div className="mx-auto max-w-7xl space-y-20 px-6">
-        <SectionWrapper id="our-collection" className="scroll-mt-28 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm">
+        <SectionWrapper id="our-collection" className="scroll-mt-28 rounded-3xl border border-[#1F3D3B]/10 bg-white/80 p-6 shadow-sm ">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Our Collection</p>
           <h2 className="mt-2 text-center text-4xl font-semibold">Everything You Need for a Beautiful Home</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 ">
             {collectionItems.map((item) => (
               <Link
                 key={item.name}
