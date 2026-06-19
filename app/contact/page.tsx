@@ -7,8 +7,8 @@ import {
   contactPhone,
   contactPhoneHref,
   contactWebsite,
-  mapDirectionsUrl,
   mapEmbedUrl,
+  mapOpenUrl,
   socialLinks,
   storeAddress,
 } from "@/lib/siteData";
@@ -95,7 +95,9 @@ export default function ContactPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Visit us</p>
           <h2 className="mt-2 text-2xl font-semibold text-[#1F3D3B]">GRIHAM Studio Address</h2>
           <address className="mt-4 space-y-4 text-sm not-italic leading-relaxed text-[#1F3D3B]/80">
-            <p>{storeAddress}</p>
+            <a href={mapOpenUrl} target="_blank" rel="noreferrer" className="block transition hover:text-[#F4A300]">
+              {storeAddress}
+            </a>
             <p>
               <span className="font-semibold text-[#1F3D3B]">Phone: </span>
               <a href={contactPhoneHref} className="hover:text-[#F4A300]">
@@ -110,15 +112,15 @@ export default function ContactPage() {
             </p>
           </address>
           <a
-            href={mapDirectionsUrl}
+            href={mapOpenUrl}
             target="_blank"
             rel="noreferrer"
             className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f]"
           >
-            Get Directions
+            Open Map
           </a>
         </div>
-        <div className="overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/90 shadow-md">
+        <div className="relative overflow-hidden rounded-3xl border border-[#1F3D3B]/10 bg-white/90 shadow-md">
           <iframe
             title="GRIHAM studio location on Google Maps"
             src={mapEmbedUrl}
@@ -127,6 +129,14 @@ export default function ContactPage() {
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
+          <a
+            href={mapOpenUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="absolute bottom-4 right-4 inline-flex rounded-full bg-[#F4A300] px-4 py-2 text-sm font-semibold text-[#1F3D3B] shadow-md transition hover:bg-[#ffb61f]"
+          >
+            Open Map
+          </a>
         </div>
       </SectionWrapper>
 

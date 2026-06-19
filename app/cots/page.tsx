@@ -1,5 +1,13 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
-import { bedGalleryImages, bedItems } from "@/lib/bedsData";
+import ProductAllStylesGrid from "@/components/ProductAllStylesGrid";
+import ProductCategoryFilters from "@/components/ProductCategoryFilters";
+import {
+  bedFilterOptions,
+  bedGalleryImages,
+  bedItems,
+  categoryPageHref,
+  filterHref,
+} from "@/lib/bedsData";
 import { bedsReviews } from "@/lib/testimonials";
 
 export default function CotsPage() {
@@ -13,12 +21,6 @@ export default function CotsPage() {
         { title: "Storage options", desc: "Hydraulic lift or drawer storage options for compact rooms and organized premium bedrooms." },
         { title: "Finish coordination", desc: "Headboard and finish options aligned to curtains, wall finishes, and flooring tones." },
       ]}
-      // specs={[
-      //   { label: "Best for", value: "Master bedrooms, guest rooms, compact rooms requiring storage" },
-      //   { label: "Storage types", value: "Hydraulic lift, drawer storage (as per selection)" },
-      //   { label: "Customization", value: "Size, headboard style, finish, storage configuration" },
-      //   { label: "Durability", value: "High-strength frames with premium finishing (as per model)" },
-      // ]}
       processSteps={[
         { title: "Measure & plan", desc: "Share room size and layout. We suggest optimal bed size and storage type." },
         { title: "Select style", desc: "Finalize headboard/finish that matches the room palette and lighting." },
@@ -29,26 +31,25 @@ export default function CotsPage() {
         "Multiple storage and headboard configurations available.",
         "Premium finish options to match your room theme.",
       ]}
-      items={bedItems}
-      searchPlaceholder="Search by bed style or feature..."
-      // contentSections={[
-      //   {
-      //     title: "Storage configurations",
-      //     body: "Choose hydraulic lift storage or drawer storage depending on daily usage and ease of access.",
-      //   },
-      //   {
-      //     title: "Headboard styling",
-      //     body: "Minimal, wooden, or upholstered headboards can be coordinated with curtains and wall finishes for a premium look.",
-      //   },
-      //   {
-      //     title: "Sizing",
-      //     body: "We help select the right bed size based on room measurements and clearance for side tables and circulation.",
-      //   },
-      //   {
-      //     title: "Durability",
-      //     body: "High-strength frames and premium finishing ensure long-term stability and clean aesthetics.",
-      //   },
-      // ]}
+      items={[]}
+      enableSearch={false}
+      catalogSection={
+        <div className="grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]">
+          <ProductCategoryFilters
+            filters={bedFilterOptions}
+            activeFilter="All"
+            getHref={filterHref}
+            ariaLabel="Bed style filters"
+          />
+          <div className="min-w-0">
+            <ProductAllStylesGrid
+              productTitle="Bed"
+              items={bedItems}
+              getDetailHref={(tag) => categoryPageHref(tag as (typeof bedFilterOptions)[number])}
+            />
+          </div>
+        </div>
+      }
       galleryImages={bedGalleryImages}
       reviews={bedsReviews}
       faqs={[

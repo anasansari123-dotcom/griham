@@ -138,7 +138,7 @@ export const curtainsData: CurtainItem[] = [
     gallery: [curtainImg("luxury-woven", "EC1.jpg"), curtainImg("luxury-woven", "EC2.jpg"), curtainImg("luxury-woven", "EC3.jpg")],
   },
   {
-    slug: "indian-traditional-curtains-1",
+    slug: "indian-traditional-curtains",
     name: "Indian & Traditional Curtains",
     image: curtainImg("indian-traditional", "IT1.jpg"),
     tag: "Indian & Traditional",
@@ -155,78 +155,6 @@ export const curtainsData: CurtainItem[] = [
       curtainImg("indian-traditional", "IT1.jpg"),
       curtainImg("indian-traditional", "IT2.jpg"),
       curtainImg("indian-traditional", "IT4.jpg"),
-    ],
-  },
-  {
-    slug: "printed-curtains-modern",
-    name: "Printed Curtains",
-    image: curtainImg("printed", "PC2.jpg"),
-    tag: "Printed",
-    description:
-      "Bold printed curtains for modern homes that need character and contrast. We help you balance print scale with room size so the look stays premium, not busy.",
-    highlights: [
-      "Scale-balanced prints for small and large rooms",
-      "Optional blackout lining for bedrooms",
-      "Professional measurement and installation support",
-      "Pairs well with neutral sofas and wooden flooring",
-    ],
-    idealFor: ["Modern apartments", "Teen bedrooms", "Accent window styling"],
-    gallery: [curtainImg("printed", "PC2.jpg"), curtainImg("printed", "C21.png"), curtainImg("printed", "C6.png")],
-  },
-  {
-    slug: "indian-traditional-curtains-2",
-    name: "Indian & Traditional Curtains",
-    image: curtainImg("indian-traditional", "IT3.jpg"),
-    tag: "Indian & Traditional",
-    description:
-      "A second traditional collection with richer textures and ceremonial warmth. Designed for homeowners who want classic Indian aesthetics with neat, modern stitching.",
-    highlights: [
-      "Warm colour palettes with elegant drape",
-      "Custom pleats: pencil, french, or ripple fold",
-      "Durable fabrics for daily use",
-      "On-site consultation for colour matching",
-    ],
-    idealFor: ["Wedding-season home refresh", "Traditional dining rooms", "Large window halls"],
-    gallery: [
-      curtainImg("indian-traditional", "IT3.jpg"),
-      curtainImg("indian-traditional", "IT5.jpg"),
-      curtainImg("indian-traditional", "IT6.jpg"),
-    ],
-  },
-  {
-    slug: "printed-curtain-soft",
-    name: "Printed Curtain",
-    image: curtainImg("printed", "PC3.jpg"),
-    tag: "Printed",
-    description:
-      "Soft-print curtains with subtle pattern movement—ideal when you want interest without dominating the room. Great for bedrooms and reading corners.",
-    highlights: [
-      "Soft prints for restful spaces",
-      "Light-filtering and privacy balance",
-      "Easy-care fabric recommendations",
-      "Custom track or rod setup guidance",
-    ],
-    idealFor: ["Bedrooms", "Nurseries", "Home offices"],
-    gallery: [curtainImg("printed", "PC3.jpg"), curtainImg("printed", "C26.png"), curtainImg("printed", "C15.png")],
-  },
-  {
-    slug: "indian-traditional-curtains-3",
-    name: "Indian & Traditional Curtains",
-    image: curtainImg("indian-traditional", "IT7.jpg"),
-    tag: "Indian & Traditional",
-    description:
-      "Heritage-inspired curtains with premium fall for large living spaces. This style works beautifully with wooden furniture, brass accents, and warm lighting.",
-    highlights: [
-      "Statement traditional look for large windows",
-      "Full-length styling with generous fullness",
-      "Coordinated tie-backs and accessories on request",
-      "Installation by experienced GRIHAM teams",
-    ],
-    idealFor: ["Villas", "Large living rooms", "Heritage-style homes"],
-    gallery: [
-      curtainImg("indian-traditional", "IT7.jpg"),
-      curtainImg("indian-traditional", "IT8.jpg"),
-      curtainImg("indian-traditional", "IT9.jpg"),
     ],
   },
   {

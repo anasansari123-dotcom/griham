@@ -7,30 +7,8 @@ export type SofaItem = {
   image: string;
 };
 
-function hashString(value: string): number {
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = (hash * 31 + value.charCodeAt(i)) | 0;
-  }
-  return Math.abs(hash);
-}
-
-function pickTwoFromCategory(items: SofaItem[], seed: string): SofaItem[] {
-  if (items.length <= 2) return [...items];
-  const total = items.length;
-  const first = hashString(seed) % total;
-  let second = hashString(`${seed}-alt`) % total;
-  if (second === first) second = (first + Math.floor(total / 2)) % total;
-  return [items[first], items[second]];
-}
-
-function shuffleWithSeed<T>(items: T[], seed: string): T[] {
-  const shuffled = [...items];
-  for (let i = shuffled.length - 1; i > 0; i -= 1) {
-    const j = hashString(`${seed}-${i}`) % (i + 1);
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
+function buildAllPreview(itemsByCategory: SofaItem[][]): SofaItem[] {
+  return itemsByCategory.map((items) => items[0]);
 }
 
 function buildModels(
@@ -47,22 +25,6 @@ function buildModels(
     tag,
     image: `${basePath}/${encodeFileName ? encodeURIComponent(file) : file}`,
   }));
-}
-
-function buildAllPreview(itemsByCategory: SofaItem[][]): SofaItem[] {
-  const pairs = itemsByCategory.map((items, index) => pickTwoFromCategory(items, `sofa-category-${index}`));
-  const categoryOrder = shuffleWithSeed(
-    pairs.map((_, index) => index),
-    "sofa-all-order",
-  );
-  const preview = new Array(pairs.length * 2) as SofaItem[];
-
-  categoryOrder.forEach((categoryIndex, position) => {
-    preview[position] = pairs[categoryIndex][0];
-    preview[position + pairs.length] = pairs[categoryIndex][1];
-  });
-
-  return preview;
 }
 
 export const sofaFilterOptions = [

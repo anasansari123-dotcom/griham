@@ -12,7 +12,7 @@ export type HomeCategoryItem = {
 };
 
 export const storeAddress =
-  "534 Shop 2 1st Cross A E C S B Block, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037";
+  "Shop 2 1st, AECS Layout, B Block, 534, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037, India";
 
 export const contactPhone = "+91 7022970608";
 export const contactPhoneHref = "tel:+917022970608";
@@ -22,9 +22,17 @@ export const contactWebsite = "https://www.grihamdecor.in";
 export const contactWhatsApp = "https://wa.me/917022970608";
 export const businessHours = "Mon – Sat: 10:00 AM – 7:00 PM";
 
-const mapQuery = encodeURIComponent(storeAddress);
-export const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}&hl=en&z=16&output=embed`;
-export const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+export const storeCoordinates = {
+  lat: 12.9649257,
+  lng: 77.7174075,
+};
+
+export const storeGoogleMapsPlaceUrl = "https://maps.app.goo.gl/cugzKxJKoRDtWFTe6";
+
+const mapQuery = `${storeCoordinates.lat},${storeCoordinates.lng}`;
+export const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}+(Griham+Decor)&hl=en&z=18&output=embed`;
+export const mapOpenUrl = storeGoogleMapsPlaceUrl;
+export const mapDirectionsUrl = mapOpenUrl;
 
 export type SocialLink = {
   name: string;

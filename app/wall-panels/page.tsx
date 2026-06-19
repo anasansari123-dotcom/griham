@@ -1,5 +1,13 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
-import { wallPanelGalleryImages, wallPanelItems } from "@/lib/wallPanelsData";
+import ProductAllStylesGrid from "@/components/ProductAllStylesGrid";
+import ProductCategoryFilters from "@/components/ProductCategoryFilters";
+import {
+  categoryPageHref,
+  filterHref,
+  wallPanelFilterOptions,
+  wallPanelGalleryImages,
+  wallPanelItems,
+} from "@/lib/wallPanelsData";
 import { wallPanelsReviews } from "@/lib/testimonials";
 
 export default function WallPanelsPage() {
@@ -44,9 +52,26 @@ export default function WallPanelsPage() {
         "Helps conceal uneven surfaces and wiring zones cleanly.",
         "Available in wood, fluted, and modern textured looks.",
       ]}
-      items={wallPanelItems}
+      items={[]}
+      enableSearch={false}
+      catalogSection={
+        <div className="grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]">
+          <ProductCategoryFilters
+            filters={wallPanelFilterOptions}
+            activeFilter="All"
+            getHref={filterHref}
+            ariaLabel="Wall panel style filters"
+          />
+          <div className="min-w-0">
+            <ProductAllStylesGrid
+              productTitle="Wall Panel"
+              items={wallPanelItems}
+              getDetailHref={(tag) => categoryPageHref(tag as (typeof wallPanelFilterOptions)[number])}
+            />
+          </div>
+        </div>
+      }
       galleryImages={wallPanelGalleryImages}
-      searchPlaceholder="Search by panel style or finish..."
       contentSections={[
         {
           title: "Material choices",

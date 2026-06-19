@@ -7,7 +7,7 @@ import SectionWrapper from "@/components/SectionWrapper";
 import StyleGallery from "@/components/StyleGallery";
 import TestimonialCard from "@/components/TestimonialCard";
 import { withReviewAvatars, type ReviewItem } from "@/lib/testimonials";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 
 type ShowcaseItem = {
   title: string;
@@ -55,6 +55,7 @@ type Props = {
   featuresTitle?: string;
   solutionsSection?: SolutionsSection;
   heroImage?: { src: string; alt: string };
+  catalogSection?: ReactNode;
 };
 
 export default function CategoryPageTemplate({
@@ -80,6 +81,7 @@ export default function CategoryPageTemplate({
   featuresTitle = "Premium features you'll notice",
   solutionsSection,
   heroImage,
+  catalogSection,
 }: Props) {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState(filters?.[0] ?? "All");
@@ -153,6 +155,7 @@ export default function CategoryPageTemplate({
         </div>
       </SectionWrapper>
 
+      {catalogSection ?? (
       <div className={filters?.length ? "grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]" : ""}>
       {filters?.length ? (
         <aside className="h-fit rounded-2xl border border-[#1F3D3B]/10 bg-white/80 p-4 md:p-5">
@@ -229,6 +232,7 @@ export default function CategoryPageTemplate({
         ) : null}
       </div>
       </div>
+      )}
 
       {features.length ? (
         <SectionWrapper className="rounded-3xl border border-[#1F3D3B]/10 bg-white/90 p-6 md:p-8">

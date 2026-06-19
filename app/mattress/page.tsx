@@ -1,5 +1,13 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
-import { mattressGalleryImages, mattressItems } from "@/lib/mattressData";
+import ProductAllStylesGrid from "@/components/ProductAllStylesGrid";
+import ProductCategoryFilters from "@/components/ProductCategoryFilters";
+import {
+  categoryPageHref,
+  filterHref,
+  mattressFilterOptions,
+  mattressGalleryImages,
+  mattressItems,
+} from "@/lib/mattressData";
 import { mattressReviews } from "@/lib/testimonials";
 
 export default function MattressPage() {
@@ -13,12 +21,6 @@ export default function MattressPage() {
         { title: "Breathable comfort layers", desc: "Material options for airflow and comfortable sleep experience, especially for warm weather." },
         { title: "Balanced motion control", desc: "Options that reduce partner disturbance and improve uninterrupted sleep." },
       ]}
-      // specs={[
-      //   { label: "Best for", value: "Back support, deeper sleep comfort, couples, premium bedrooms" },
-      //   { label: "Firmness", value: "Soft, medium, firm (as per recommendation)" },
-      //   { label: "Types", value: "Orthopedic, latex feel, hybrid (as per selection)" },
-      //   { label: "Care", value: "Rotation and basic care for long-term performance" },
-      // ]}
       processSteps={[
         { title: "Share sleep preference", desc: "Tell us your posture needs and comfort preference (soft/medium/firm)." },
         { title: "Shortlist & finalize", desc: "We recommend type and firmness with size guidance for your bed." },
@@ -29,26 +31,25 @@ export default function MattressPage() {
         "Available in soft, medium, and firm comfort profiles.",
         "Built using high-resilience and breathable material layers.",
       ]}
-      items={mattressItems}
-      searchPlaceholder="Search by firmness or type..."
-      // contentSections={[
-      //   {
-      //     title: "Choosing firmness",
-      //     body: "Back sleepers typically prefer medium-firm support. Side sleepers often like slightly softer comfort. We guide firmness based on posture and comfort preference.",
-      //   },
-      //   {
-      //     title: "Material layers",
-      //     body: "Options include latex feel, hybrid builds, and breathable top layers for comfort. We recommend based on weather, heat retention, and usage.",
-      //   },
-      //   {
-      //     title: "Motion control",
-      //     body: "For couples, we recommend structures that reduce motion transfer so sleep stays uninterrupted.",
-      //   },
-      //   {
-      //     title: "Care & longevity",
-      //     body: "We share rotation and care practices for longer life and consistent support over years.",
-      //   },
-      // ]}
+      items={[]}
+      enableSearch={false}
+      catalogSection={
+        <div className="grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]">
+          <ProductCategoryFilters
+            filters={mattressFilterOptions}
+            activeFilter="All"
+            getHref={filterHref}
+            ariaLabel="Mattress style filters"
+          />
+          <div className="min-w-0">
+            <ProductAllStylesGrid
+              productTitle="Mattress"
+              items={mattressItems}
+              getDetailHref={(tag) => categoryPageHref(tag as (typeof mattressFilterOptions)[number])}
+            />
+          </div>
+        </div>
+      }
       galleryImages={mattressGalleryImages}
       reviews={mattressReviews}
       faqs={[

@@ -1,5 +1,13 @@
 import CategoryPageTemplate from "@/components/CategoryPageTemplate";
-import { wallpaperGalleryImages, wallpaperItems } from "@/lib/wallpapersData";
+import ProductAllStylesGrid from "@/components/ProductAllStylesGrid";
+import ProductCategoryFilters from "@/components/ProductCategoryFilters";
+import {
+  categoryPageHref,
+  filterHref,
+  wallpaperFilterOptions,
+  wallpaperGalleryImages,
+  wallpaperItems,
+} from "@/lib/wallpapersData";
 import { wallpapersReviews } from "@/lib/testimonials";
 
 export default function WallpapersPage() {
@@ -23,12 +31,6 @@ export default function WallpapersPage() {
           title: "2-Year Warranty",
           desc: "We stand behind the quality of our products with a 2-year warranty, giving you peace of mind with every purchase.",
         },
-      ]}
-      specs={[
-        { label: "Best for", value: "Feature walls, bedrooms, living rooms, workspaces" },
-        { label: "Finish types", value: "Matte, textured, subtle accents (as per selection)" },
-        { label: "Surface requirement", value: "Smooth, clean wall surface recommended" },
-        { label: "Maintenance", value: "Wipe-friendly options available; care depends on finish" },
       ]}
       processSteps={[
         { title: "Share wall photos", desc: "Send wall photos + room context. We shortlist designs that suit scale and lighting." },
@@ -54,9 +56,26 @@ export default function WallpapersPage() {
           },
         ],
       }}
-      items={wallpaperItems}
+      items={[]}
+      enableSearch={false}
+      catalogSection={
+        <div className="grid gap-5 sm:gap-6 md:gap-8 md:grid-cols-[240px_1fr]">
+          <ProductCategoryFilters
+            filters={wallpaperFilterOptions}
+            activeFilter="All"
+            getHref={filterHref}
+            ariaLabel="Wallpaper style filters"
+          />
+          <div className="min-w-0">
+            <ProductAllStylesGrid
+              productTitle="Wallpaper"
+              items={wallpaperItems}
+              getDetailHref={(tag) => categoryPageHref(tag as (typeof wallpaperFilterOptions)[number])}
+            />
+          </div>
+        </div>
+      }
       galleryImages={wallpaperGalleryImages}
-      searchPlaceholder="Search by texture, theme, or finish..."
       contentSections={[
         {
           title: "Finish & texture options",

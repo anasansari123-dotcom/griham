@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SocialLinks from "@/components/SocialLinks";
-import { contactPhone, contactPhoneHref, footerLinks, mapDirectionsUrl, storeAddress } from "@/lib/siteData";
+import { contactPhone, contactPhoneHref, footerLinks, mapOpenUrl, storeAddress } from "@/lib/siteData";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -31,14 +31,21 @@ export default function Footer() {
               </p>
               <address className="mt-4 max-w-sm text-sm not-italic leading-relaxed text-[#1F3D3B]/75">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1F3D3B]/55">Visit us</p>
-                <p className="mt-2">{storeAddress}</p>
                 <a
-                  href={mapDirectionsUrl}
+                  href={mapOpenUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 block hover:text-[#F4A300]"
+                >
+                  {storeAddress}
+                </a>
+                <a
+                  href={mapOpenUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block font-semibold text-[#1F3D3B] transition hover:text-[#F4A300]"
                 >
-                  Get directions
+                  Open Map
                 </a>
               </address>
               <SocialLinks size="sm" className="mt-4" />

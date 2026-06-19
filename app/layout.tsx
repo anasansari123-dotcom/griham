@@ -79,10 +79,18 @@ export default function RootLayout({
               telephone: "+91 7022970608",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "AECS Layout, Brookefield",
-                addressLocality: "Bengaluru",
+                streetAddress: "Shop 2 1st, 534, Kundalahalli Main Rd, AECS Layout - C Block",
+                addressLocality: "Brookefield, Bengaluru",
+                addressRegion: "Karnataka",
+                postalCode: "560037",
                 addressCountry: "IN",
               },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: 12.9649257,
+                longitude: 77.7174075,
+              },
+              hasMap: "https://maps.app.goo.gl/cugzKxJKoRDtWFTe6",
               areaServed: "Bengaluru",
               knowsAbout: [
                 "Curtains",
