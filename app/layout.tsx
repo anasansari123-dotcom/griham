@@ -53,6 +53,11 @@ export const metadata: Metadata = {
     description:
       "Premium home decor collections with expert consultation and installation support.",
   },
+  icons: {
+    icon: [{ url: "/logo-griham.jpeg", type: "image/jpeg" }],
+    apple: [{ url: "/logo-griham.jpeg", type: "image/jpeg" }],
+    shortcut: ["/logo-griham.jpeg"],
+  },
 };
 
 export default function RootLayout({

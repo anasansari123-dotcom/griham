@@ -1,14 +1,39 @@
 import { contactWhatsApp } from "@/lib/siteData";
 
 const mattressImg = (file: string) => `/images/mattress/${file}`;
+const pubMattressImg = (file: string) => `/${file}`;
 
 const categoryGalleryByFilter: Record<Exclude<MattressFilterOption, "All">, string[]> = {
-  "Orthopedic Comfort": [mattressImg("orthopedic-comfort.jpg")],
-  "Latex Natural Sleep": [mattressImg("latex-natural-sleep.webp")],
-  "Hybrid Plush Support": [mattressImg("hybrid-plush-support.jpg")],
-  "Cooling Gel Comfort": [mattressImg("cooling-gel-comfort.avif")],
-  "Pocket Spring Support": [mattressImg("pocket-spring-support.webp")],
-  "Medium Comfort Layer": [mattressImg("medium-comfort-layer.webp")],
+  "Orthopedic Comfort": [
+    pubMattressImg("orthopedic1.avif"),
+    pubMattressImg("orthopedic2.webp"),
+    mattressImg("orthopedic-comfort.jpg"),
+  ],
+  "Latex Natural Sleep": [
+    pubMattressImg("latex1.jpeg"),
+    pubMattressImg("latex2.jpg"),
+    mattressImg("latex-natural-sleep.webp"),
+  ],
+  "Hybrid Plush Support": [
+    pubMattressImg("hybrid1.avif"),
+    pubMattressImg("hybrid2.avif"),
+    mattressImg("hybrid-plush-support.jpg"),
+  ],
+  "Cooling Gel Comfort": [
+    pubMattressImg("cooling1.jpg"),
+    pubMattressImg("cooling2.png"),
+    mattressImg("cooling-gel-comfort.avif"),
+  ],
+  "Pocket Spring Support": [
+    pubMattressImg("pocket1.jpg"),
+    pubMattressImg("pocket2.avif"),
+    mattressImg("pocket-spring-support.webp"),
+  ],
+  "Medium Comfort Layer": [
+    pubMattressImg("medium.jpg"),
+    pubMattressImg("medium1.jpg"),
+    mattressImg("medium-comfort-layer.webp"),
+  ],
 };
 
 export const mattressFilterOptions = [
@@ -37,45 +62,47 @@ export const mattressItems = [
   {
     title: "Orthopedic Comfort",
     subtitle: "Firm posture support",
-    image: mattressImg("orthopedic-comfort.jpg"),
+    image: categoryGalleryByFilter["Orthopedic Comfort"][0],
     tag: "Orthopedic Comfort" as const,
   },
   {
     title: "Latex Natural Sleep",
     subtitle: "Breathable responsive feel",
-    image: mattressImg("latex-natural-sleep.webp"),
+    image: categoryGalleryByFilter["Latex Natural Sleep"][0],
     tag: "Latex Natural Sleep" as const,
   },
   {
     title: "Hybrid Plush Support",
     subtitle: "Balanced comfort + support",
-    image: mattressImg("hybrid-plush-support.jpg"),
+    image: categoryGalleryByFilter["Hybrid Plush Support"][0],
     tag: "Hybrid Plush Support" as const,
   },
   {
     title: "Cooling Gel Comfort",
     subtitle: "Cooler sleep surface",
-    image: mattressImg("cooling-gel-comfort.avif"),
+    image: categoryGalleryByFilter["Cooling Gel Comfort"][0],
     tag: "Cooling Gel Comfort" as const,
   },
   {
     title: "Pocket Spring Support",
     subtitle: "Stable motion control",
-    image: mattressImg("pocket-spring-support.webp"),
+    image: categoryGalleryByFilter["Pocket Spring Support"][0],
     tag: "Pocket Spring Support" as const,
   },
   {
     title: "Medium Comfort Layer",
     subtitle: "Everyday balanced feel",
-    image: mattressImg("medium-comfort-layer.webp"),
+    image: categoryGalleryByFilter["Medium Comfort Layer"][0],
     tag: "Medium Comfort Layer" as const,
   },
 ];
 
-export const mattressGalleryImages = mattressItems.map((item, idx) => ({
-  src: item.image,
-  alt: `${item.title} mattress inspiration ${idx + 1}`,
-}));
+export const mattressGalleryImages = mattressItems.flatMap((item) =>
+  categoryGalleryByFilter[item.tag].map((src, idx) => ({
+    src,
+    alt: `${item.title} mattress inspiration ${idx + 1}`,
+  })),
+);
 
 export function filterToParam(filter: string): string {
   if (filter.trim().toLowerCase() === "all") return "all";
