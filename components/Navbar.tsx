@@ -6,7 +6,12 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { navGroups } from "@/lib/siteData";
 
-export default function Navbar() {
+type Props = {
+  logoUrl?: string;
+  companyName?: string;
+};
+
+export default function Navbar({ logoUrl = "/logo-griham.jpeg", companyName = "GRIHAM" }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -48,14 +53,14 @@ export default function Navbar() {
       >
         <Link href="/" className="flex shrink-0 items-center gap-2 md:gap-2.5">
           <Image
-            src="/logo-griham.jpeg"
-            alt="GRIHAM logo"
+            src={logoUrl}
+            alt={`${companyName} logo`}
             width={48}
             height={48}
             className="h-9 w-9 rounded-full object-cover ring-2 ring-white/40 md:h-10 md:w-10"
             priority
           />
-          <span className={`text-lg font-bold tracking-[0.16em] md:text-xl ${textColor}`}>GRIHAM</span>
+          <span className={`text-lg font-bold tracking-[0.16em] md:text-xl ${textColor}`}>{companyName}</span>
         </Link>
 
         <button

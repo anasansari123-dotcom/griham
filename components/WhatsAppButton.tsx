@@ -1,7 +1,15 @@
-export default function WhatsAppButton() {
+type Props = {
+  whatsAppUrl?: string;
+};
+
+export default function WhatsAppButton({ whatsAppUrl = "https://wa.me/917022970608?text=Hi%20GRIHAM%2C%20I%20want%20a%20free%20consultation." }: Props) {
+  const href = whatsAppUrl.includes("text=")
+    ? whatsAppUrl
+    : `${whatsAppUrl}${whatsAppUrl.includes("?") ? "&" : "?"}text=${encodeURIComponent("Hi GRIHAM, I want a free consultation.")}`;
+
   return (
     <a
-      href="https://wa.me/917022970608?text=Hi%20GRIHAM%2C%20I%20want%20a%20free%20consultation."
+      href={href}
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"

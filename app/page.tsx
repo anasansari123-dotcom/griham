@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionWrapper from "@/components/SectionWrapper";
 import TestimonialCard from "@/components/TestimonialCard";
-import { homeReviews } from "@/lib/testimonials";
-import { homeCollectionCategories } from "@/lib/siteData";
+import { getAboutContent, getHeroContent, getHomeServices, getHomeTestimonials, getSiteSettings } from "@/lib/cms/getContent";
+
+export const revalidate = 0;
 
 const trustPoints = [
   { value: "500+", label: "Premium Projects" },
@@ -79,43 +80,73 @@ const faqs = [
   },
 ];
 
-export default function Home() {
-  const collectionItems = homeCollectionCategories;
+export default async function Home() {
+  const [hero, collectionItems, about, reviews, settings] = await Promise.all([
+    getHeroContent(),
+    getHomeServices(),
+    getAboutContent(),
+    getHomeTestimonials(),
+    getSiteSettings(),
+  ]);
 
   return (
     <div className="space-y-14 pb-20">
       <SectionWrapper className="relative -mt-[4.75rem] min-h-screen w-full overflow-hidden border-y border-[#1F3D3B]/10 shadow-2xl md:-mt-28">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-        >
-          <source src="/Create_a_high-quality_202604162307.mp4" type="video/mp4" />
-        </video>
+        {hero.backgroundVideo ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={hero.backgroundImage}
+          >
+            <source src={hero.backgroundVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <Image src={hero.backgroundImage} alt="" fill priority className="object-cover" sizes="100vw" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-[#102826]/85 via-[#1F3D3B]/70 to-[#1F3D3B]/35" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(244,163,0,0.35),transparent_35%)]" />
 
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 py-28 md:py-32">
           <div>
             <p className="inline-block rounded-full border border-[#F4A300]/50 bg-[#F4A300]/15 px-4 py-1 text-xs uppercase tracking-[0.28em] text-[#F4A300]">
-              Premium Furnishing
+              {hero.badge}
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
-              Premium Home Furnishings.
+              {hero.heading}
             </h1>
             <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
-              Explore curtains, wallpapers, wall panels, sofa, beds, mattress, and wooden flooring with one coordinated design partner.
+              {hero.subheading}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="#our-collection" className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
-                Explore Collections
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link href={hero.buttonLink} className="glow-button rounded-full bg-[#F4A300] px-6 py-3 font-semibold text-[#1F3D3B]">
+                {hero.buttonText}
               </Link>
-              <Link href="/book-consultation" className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white hover:text-[#1F3D3B]">
-                Book Free Consultation
+              <Link href={hero.secondaryButtonLink} className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white hover:text-[#1F3D3B]">
+                {hero.secondaryButtonText}
               </Link>
+              <a
+                href={settings.contactPhoneHref}
+                className="group inline-flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md transition hover:border-[#F4A300]/50 hover:bg-white/15"
+              >
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F4A300] text-[#1F3D3B] shadow-lg shadow-[#F4A300]/25">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-[#F4A300]/30" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="relative h-4 w-4" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.956 1.293a11.042 11.042 0 0 1-5.516-5.517l1.293-.956a.75.75 0 0 0 .417-1.173l-1.106-4.423A1.125 1.125 0 0 0 12.628 2.25H11.25A2.25 2.25 0 0 0 9 4.5v2.25" />
+                  </svg>
+                </span>
+                <span>
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                    Contact this number
+                  </span>
+                  <span className="mt-0.5 block text-base font-semibold text-white transition group-hover:text-[#F4A300]">
+                    {settings.contactPhone}
+                  </span>
+                </span>
+              </a>
             </div>
             <div className="mt-6 flex max-w-4xl flex-wrap gap-2">
               {collectionItems.map((item) => (
@@ -200,9 +231,9 @@ export default function Home() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F4A300]">Why GRIHAM</p>
-              <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">How We Stand Different Than Others</h2>
+              <h2 className="mt-2 text-3xl font-semibold text-[#1F3D3B] md:text-4xl">{about.heading}</h2>
               <p className="mt-3 text-sm leading-relaxed text-[#1F3D3B]/70 md:text-base">
-                Better sourcing, in-house craftsmanship, and premium materials — built into every GRIHAM project.
+                {about.description}
               </p>
             </div>
             <Link
@@ -236,7 +267,7 @@ export default function Home() {
             <h2 className="mt-2 text-3xl font-semibold">Trusted by premium homeowners</h2>
           </div>
           <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
-            {homeReviews.map((review) => (
+            {reviews.map((review) => (
               <TestimonialCard key={review.name} review={review} />
             ))}
           </div>

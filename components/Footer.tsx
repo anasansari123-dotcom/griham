@@ -1,10 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import SocialLinks from "@/components/SocialLinks";
-import { contactPhone, contactPhoneHref, footerLinks, mapOpenUrl, storeAddress } from "@/lib/siteData";
+import { footerLinks } from "@/lib/siteData";
+import type { SiteSettingsView } from "@/lib/cms/getContent";
 
-export default function Footer() {
+type Props = {
+  settings: SiteSettingsView;
+};
+
+export default function Footer({ settings }: Props) {
   const year = new Date().getFullYear();
+  const {
+    companyName,
+    contactPhone,
+    contactPhoneHref,
+    storeAddress,
+    mapOpenUrl,
+    socialLinks,
+    logoUrl,
+  } = settings;
 
   return (
     <footer className="w-full border-t border-[#1F3D3B]/10 bg-gradient-to-b from-white to-[#f6f4ee]">
@@ -13,13 +27,13 @@ export default function Footer() {
             <div>
               <div className="flex items-center gap-3">
                 <Image
-                  src="/logo-griham.jpeg"
-                  alt="GRIHAM logo"
+                  src={logoUrl}
+                  alt={`${companyName} logo`}
                   width={56}
                   height={56}
                   className="h-14 w-14 rounded-full object-cover ring-2 ring-[#1F3D3B]/10"
                 />
-                <h3 className="text-xl font-bold tracking-[0.16em] text-[#1F3D3B]">GRIHAM</h3>
+                <h3 className="text-xl font-bold tracking-[0.16em] text-[#1F3D3B]">{companyName}</h3>
               </div>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#1F3D3B]/70">
                 Premium home decor with nature-led design language for timeless interiors and refined everyday living.
@@ -48,7 +62,7 @@ export default function Footer() {
                   Open Map
                 </a>
               </address>
-              <SocialLinks size="sm" className="mt-4" />
+              <SocialLinks links={socialLinks} size="sm" className="mt-4" />
               <Link
                 href="/book-consultation"
                 className="mt-5 inline-flex rounded-full bg-[#F4A300] px-5 py-2.5 text-sm font-semibold text-[#1F3D3B] transition hover:bg-[#ffb61f] md:hidden"
@@ -84,7 +98,7 @@ export default function Footer() {
           </div>
 
           <div className="mt-4 flex flex-col gap-2 border-t border-[#1F3D3B]/10 pt-4 text-xs text-[#1F3D3B]/60 md:col-span-3 md:flex-row md:items-center md:justify-between">
-            <p>© {year} GRIHAM. All rights reserved.</p>
+            <p>© {year} {companyName}. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-4">
               <Link href="/blog" className="hover:text-[#1F3D3B]">
                 Blog

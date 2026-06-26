@@ -14,12 +14,12 @@ export type HomeCategoryItem = {
 export const storeAddress =
   "Shop 2 1st, AECS Layout, B Block, 534, Kundalahalli Main Rd, AECS Layout - C Block, AECS Layout, Brookefield, Bengaluru, Karnataka 560037, India";
 
-export const contactPhone = "+91 7022970608";
-export const contactPhoneHref = "tel:+917022970608";
+export const contactPhone = "+91 8147799485";
+export const contactPhoneHref = "tel:+918147799485";
 export const contactEmail = "contact@grihamdecor.in";
 export const contactEmailHref = `mailto:${contactEmail}`;
 export const contactWebsite = "https://www.grihamdecor.in";
-export const contactWhatsApp = "https://wa.me/917022970608";
+export const contactWhatsApp = "https://wa.me/918147799485";
 export const businessHours = "Mon – Sat: 10:00 AM – 7:00 PM";
 
 export const storeCoordinates = {

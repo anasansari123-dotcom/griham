@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import PageTransition from "@/components/PageTransition";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import SiteShell from "@/components/SiteShell";
+import { getSeoContent, getSiteSettings } from "@/lib/cms/getContent";
 import Script from "next/script";
 
 const geistSans = Inter({
@@ -18,53 +15,46 @@ const geistMono = Roboto_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.grihamdecor.in"),
-  title: {
-    default: "GRIHAM | Premium Home Decor & Interiors",
-    template: "%s | GRIHAM",
-  },
-  description:
-    "Discover premium home furnishing collections from GRIHAM: curtains, wallpapers, wall panels, sofas, beds, mattresses, and wooden flooring.",
-  keywords: [
-    "premium home decor",
-    "curtains",
-    "wallpapers",
-    "wall panels",
-    "sofa",
-    "beds",
-    "mattress",
-    "wooden flooring",
-    "interior consultation",
-    "Bengaluru home decor",
-  ],
-  openGraph: {
-    title: "GRIHAM | Premium Home Decor & Interiors",
-    description:
-      "Curated premium interiors with expert guidance for curtains, wallpapers, wall panels, sofas, beds, mattresses, and wooden flooring.",
-    url: "https://www.grihamdecor.in",
-    siteName: "GRIHAM",
-    locale: "en_IN",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GRIHAM | Premium Home Decor & Interiors",
-    description:
-      "Premium home decor collections with expert consultation and installation support.",
-  },
-  icons: {
-    icon: [{ url: "/logo-griham.jpeg", type: "image/jpeg" }],
-    apple: [{ url: "/logo-griham.jpeg", type: "image/jpeg" }],
-    shortcut: ["/logo-griham.jpeg"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoContent();
+  return {
+    metadataBase: new URL("https://www.grihamdecor.in"),
+    title: {
+      default: seo.title,
+      template: "%s | GRIHAM",
+    },
+    description: seo.description,
+    keywords: seo.keywords,
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: "https://www.grihamdecor.in",
+      siteName: "GRIHAM",
+      locale: "en_IN",
+      type: "website",
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      ...(seo.ogImage ? { images: [seo.ogImage] } : {}),
+    },
+    icons: {
+      icon: [{ url: seo.favicon, type: "image/jpeg" }],
+      apple: [{ url: seo.favicon, type: "image/jpeg" }],
+      shortcut: [seo.favicon],
+    },
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSiteSettings();
+
   return (
     <html
       lang="en"
@@ -79,12 +69,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "HomeAndConstructionBusiness",
-              name: "GRIHAM",
-              url: "https://www.grihamdecor.in",
-              telephone: "+91 7022970608",
+              name: settings.companyName,
+              url: settings.contactWebsite,
+              telephone: settings.contactPhone,
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Shop 2 1st, 534, Kundalahalli Main Rd, AECS Layout - C Block",
+                streetAddress: settings.storeAddress,
                 addressLocality: "Brookefield, Bengaluru",
                 addressRegion: "Karnataka",
                 postalCode: "560037",
@@ -92,10 +82,10 @@ export default function RootLayout({
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: 12.9649257,
-                longitude: 77.7174075,
+                latitude: settings.storeCoordinates.lat,
+                longitude: settings.storeCoordinates.lng,
               },
-              hasMap: "https://maps.app.goo.gl/cugzKxJKoRDtWFTe6",
+              hasMap: settings.mapOpenUrl,
               areaServed: "Bengaluru",
               knowsAbout: [
                 "Curtains",
@@ -109,13 +99,7 @@ export default function RootLayout({
             }),
           }}
         />
-        <AnimatedBackground />
-        <Navbar />
-        <PageTransition>
-          <main className="pt-[4.75rem] md:pt-28">{children}</main>
-        </PageTransition>
-        <Footer />
-        <WhatsAppButton />
+        <SiteShell settings={settings}>{children}</SiteShell>
       </body>
     </html>
   );
