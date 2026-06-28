@@ -9,8 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "tsx scripts/seed.ts",
-    "reset-admin": "tsx scripts/reset-admin.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "reset-admin": "tsx --env-file=.env.local scripts/reset-admin.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
