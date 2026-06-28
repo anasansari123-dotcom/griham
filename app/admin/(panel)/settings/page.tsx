@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { settingsSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof settingsSchema>;
 
@@ -16,27 +17,49 @@ export default function SettingsAdminPage() {
   });
 
   useEffect(() => {
-    fetch("/api/settings")
+    adminFetch("/api/settings")
       .then((r) => r.json())
       .then((json) => {
-        if (json.success && json.data) reset(json.data);
+        if (json.success && json.data) {
+          reset({
+            companyName: json.data.companyName ?? "",
+            phone: json.data.phone ?? "",
+            mobile: json.data.mobile ?? "",
+            whatsApp: json.data.whatsApp ?? "",
+            email: json.data.email ?? "",
+            address: json.data.address ?? "",
+            googleMapsLink: json.data.googleMapsLink ?? "",
+            facebook: json.data.facebook ?? "",
+            instagram: json.data.instagram ?? "",
+            linkedin: json.data.linkedin ?? "",
+            workingHours: json.data.workingHours ?? "",
+            emergencyContact: json.data.emergencyContact ?? "",
+            logoUrl: json.data.logoUrl ?? "",
+            mapLat: Number(json.data.mapLat) || 12.9649257,
+            mapLng: Number(json.data.mapLng) || 77.7174075,
+          });
+        }
       });
   }, [reset]);
 
   async function onSubmit(values: FormValues) {
-    const res = await fetch("/api/settings", {
+    const res = await adminFetch("/api/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "Settings saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "Settings saved" : json.message || "Failed to save settings");
   }
+
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
 
   const fieldClass = "w-full rounded-lg border border-[#1F3D3B]/20 px-3 py-2 outline-none focus:border-[#F4A300]";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-4">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="max-w-3xl space-y-4">
       <h1 className="text-3xl font-semibold">Website Settings</h1>
       {[
         ["companyName", "Company Name"],

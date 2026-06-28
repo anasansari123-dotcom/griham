@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch } from "@/lib/admin/formUtils";
 
 type Props = {
   label: string;
@@ -23,7 +24,7 @@ export default function ImageUploadField({ label, value, onUploaded, uploadType 
       formData.append("file", file);
       if (uploadType === "logo") formData.append("type", "logo");
 
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const res = await adminFetch("/api/upload", { method: "POST", body: formData });
       const json = await res.json();
       if (!json.success) throw new Error(json.message || "Upload failed");
       onUploaded(json.data.url);

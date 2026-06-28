@@ -5,6 +5,8 @@ import SiteShell from "@/components/SiteShell";
 import { getSeoContent, getSiteSettings } from "@/lib/cms/getContent";
 import Script from "next/script";
 
+export const dynamic = "force-dynamic";
+
 const geistSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],

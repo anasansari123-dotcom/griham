@@ -3,26 +3,41 @@
 import { useEffect, useState } from "react";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch } from "@/lib/admin/formUtils";
 
 export default function LogoAdminPage() {
   const { showToast } = useToast();
   const [logoUrl, setLogoUrl] = useState("/logo-griham.jpeg");
+  const [settingsData, setSettingsData] = useState<Record<string, unknown> | null>(null);
 
   useEffect(() => {
-    fetch("/api/settings").then((r) => r.json()).then((json) => {
-      if (json.success && json.data?.logoUrl) setLogoUrl(json.data.logoUrl);
-    });
+    adminFetch("/api/settings")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setSettingsData(json.data);
+          if (json.data.logoUrl) setLogoUrl(json.data.logoUrl);
+        }
+      });
   }, []);
 
   async function saveLogo(url: string) {
-    const res = await fetch("/api/settings", {
+    if (!settingsData) {
+      showToast("error", "Settings not loaded yet. Refresh and try again.");
+      return;
+    }
+
+    const res = await adminFetch("/api/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...(await (await fetch("/api/settings")).json()).data, logoUrl: url }),
+      body: JSON.stringify({ ...settingsData, logoUrl: url }),
     });
     const json = await res.json();
-    setLogoUrl(url);
-    showToast(json.success ? "success" : "error", json.success ? "Logo updated" : json.message);
+    if (json.success) {
+      setLogoUrl(url);
+      setSettingsData(json.data);
+    }
+    showToast(json.success ? "success" : "error", json.success ? "Logo updated" : json.message || "Failed to update logo");
   }
 
   return (

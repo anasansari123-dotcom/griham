@@ -7,6 +7,7 @@ import { aboutSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof aboutSchema>;
 
@@ -17,17 +18,21 @@ export default function AboutAdminPage() {
   });
 
   useEffect(() => {
-    fetch("/api/about").then((r) => r.json()).then((json) => json.success && json.data && reset(json.data));
+    adminFetch("/api/about").then((r) => r.json()).then((json) => json.success && json.data && reset(json.data));
   }, [reset]);
 
   async function onSubmit(values: FormValues) {
-    const res = await fetch("/api/about", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
+    const res = await adminFetch("/api/about", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "About saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "About saved" : json.message || "Failed to save about");
   }
 
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-4">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="max-w-3xl space-y-4">
       <h1 className="text-3xl font-semibold">About Section</h1>
       <div>
         <label className="mb-1 block text-sm font-semibold">Heading</label>

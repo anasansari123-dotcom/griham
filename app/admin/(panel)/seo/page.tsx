@@ -7,6 +7,7 @@ import { seoSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof seoSchema>;
 
@@ -18,7 +19,7 @@ export default function SeoAdminPage() {
   });
 
   useEffect(() => {
-    fetch("/api/seo")
+    adminFetch("/api/seo")
       .then((r) => r.json())
       .then((json) => {
         if (json.success && json.data) {
@@ -30,13 +31,17 @@ export default function SeoAdminPage() {
 
   async function onSubmit(values: FormValues) {
     const payload = { ...values, keywords: keywordsText.split(",").map((k) => k.trim()).filter(Boolean) };
-    const res = await fetch("/api/seo", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const res = await adminFetch("/api/seo", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "SEO saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "SEO saved" : json.message || "Failed to save SEO");
   }
 
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-4">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="max-w-3xl space-y-4">
       <h1 className="text-3xl font-semibold">SEO Settings</h1>
       <div>
         <label className="mb-1 block text-sm font-semibold">Title</label>

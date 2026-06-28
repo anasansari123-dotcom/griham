@@ -7,6 +7,7 @@ import { heroSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof heroSchema>;
 
@@ -17,19 +18,23 @@ export default function HeroAdminPage() {
   });
 
   useEffect(() => {
-    fetch("/api/hero").then((r) => r.json()).then((json) => json.success && json.data && reset(json.data));
+    adminFetch("/api/hero").then((r) => r.json()).then((json) => json.success && json.data && reset(json.data));
   }, [reset]);
 
   async function onSubmit(values: FormValues) {
-    const res = await fetch("/api/hero", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
+    const res = await adminFetch("/api/hero", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "Hero saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "Hero saved" : json.message || "Failed to save hero");
   }
+
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
 
   const fieldClass = "w-full rounded-lg border border-[#1F3D3B]/20 px-3 py-2 outline-none focus:border-[#F4A300]";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-4">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="max-w-3xl space-y-4">
       <h1 className="text-3xl font-semibold">Hero Section</h1>
       {[
         ["badge", "Badge"],

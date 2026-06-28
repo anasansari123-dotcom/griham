@@ -7,6 +7,7 @@ import { testimonialSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof testimonialSchema>;
 type TestimonialItem = FormValues & { _id: string };
@@ -23,20 +24,20 @@ export default function TestimonialsAdminPage() {
   });
 
   async function load() {
-    const json = await (await fetch("/api/testimonials")).json();
+    const json = await (await adminFetch("/api/testimonials")).json();
     if (json.success) setItems(json.data);
   }
 
   useEffect(() => { load(); }, []);
 
   async function onSubmit(values: FormValues) {
-    const res = await fetch(editingId ? `/api/testimonials/${editingId}` : "/api/testimonials", {
+    const res = await adminFetch(editingId ? `/api/testimonials/${editingId}` : "/api/testimonials", {
       method: editingId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "Testimonial saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "Testimonial saved" : json.message || "Failed to save testimonial");
     if (json.success) {
       setEditingId(null);
       reset(empty);
@@ -44,9 +45,13 @@ export default function TestimonialsAdminPage() {
     }
   }
 
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
+
   async function remove(id: string) {
     if (!confirm("Delete this testimonial?")) return;
-    const json = await (await fetch(`/api/testimonials/${id}`, { method: "DELETE" })).json();
+    const json = await (await adminFetch(`/api/testimonials/${id}`, { method: "DELETE" })).json();
     showToast(json.success ? "success" : "error", json.success ? "Deleted" : json.message);
     if (json.success) load();
   }
@@ -69,7 +74,7 @@ export default function TestimonialsAdminPage() {
           ))}
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 rounded-2xl border border-[#1F3D3B]/10 bg-white p-5">
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="space-y-3 rounded-2xl border border-[#1F3D3B]/10 bg-white p-5">
         <h2 className="text-lg font-semibold">{editingId ? "Edit Testimonial" : "Add Testimonial"}</h2>
         <input {...register("name")} placeholder="Name" className="w-full rounded-lg border px-3 py-2" />
         <input {...register("designation")} placeholder="Designation / Location" className="w-full rounded-lg border px-3 py-2" />

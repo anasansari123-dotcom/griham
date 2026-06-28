@@ -7,6 +7,7 @@ import { serviceSchema } from "@/lib/validations/cms";
 import { z } from "zod";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import { useToast } from "@/components/admin/ToastProvider";
+import { adminFetch, formatFormErrors } from "@/lib/admin/formUtils";
 
 type FormValues = z.infer<typeof serviceSchema>;
 type ServiceItem = FormValues & { _id: string };
@@ -23,7 +24,7 @@ export default function ServicesAdminPage() {
   });
 
   async function load() {
-    const json = await (await fetch("/api/services")).json();
+    const json = await (await adminFetch("/api/services")).json();
     if (json.success) setItems(json.data);
   }
 
@@ -40,22 +41,26 @@ export default function ServicesAdminPage() {
   }
 
   async function onSubmit(values: FormValues) {
-    const res = await fetch(editingId ? `/api/services/${editingId}` : "/api/services", {
+    const res = await adminFetch(editingId ? `/api/services/${editingId}` : "/api/services", {
       method: editingId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const json = await res.json();
-    showToast(json.success ? "success" : "error", json.success ? "Service saved" : json.message);
+    showToast(json.success ? "success" : "error", json.success ? "Service saved" : json.message || "Failed to save service");
     if (json.success) {
       startCreate();
       load();
     }
   }
 
+  const onInvalid = (errors: Parameters<typeof formatFormErrors>[0]) => {
+    showToast("error", formatFormErrors(errors));
+  };
+
   async function remove(id: string) {
     if (!confirm("Delete this service?")) return;
-    const json = await (await fetch(`/api/services/${id}`, { method: "DELETE" })).json();
+    const json = await (await adminFetch(`/api/services/${id}`, { method: "DELETE" })).json();
     showToast(json.success ? "success" : "error", json.success ? "Deleted" : json.message);
     if (json.success) load();
   }
@@ -84,7 +89,7 @@ export default function ServicesAdminPage() {
           ))}
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-2xl border border-[#1F3D3B]/10 bg-white p-5 space-y-3">
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="rounded-2xl border border-[#1F3D3B]/10 bg-white p-5 space-y-3">
         <h2 className="text-lg font-semibold">{editingId ? "Edit Service" : "Create Service"}</h2>
         <input {...register("name")} placeholder="Service Name" className="w-full rounded-lg border px-3 py-2" />
         <textarea {...register("description")} placeholder="Description" rows={3} className="w-full rounded-lg border px-3 py-2" />
